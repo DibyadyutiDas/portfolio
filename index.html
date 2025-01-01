@@ -222,7 +222,7 @@
             .project-card {
                 width: 250px; /* Adjust card width on smaller screens */
             }
-}
+        }
 
         @media (max-width: 480px) {
             .project-card {
@@ -360,6 +360,12 @@
             color: #ff6347;
         }
 
+        
+        .theme-toggle {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         /* Media Queries for responsiveness */
         @media (max-width: 1200px) {
             .nav-right {
@@ -461,35 +467,33 @@
                 <p>Share your thoughts and ideas with the world.</p>
             </div>
             <div class="option-card" data-aos="flip-right">
-                <h3>Coading Website</h3>
+                <h3>Code Website</h3>
                 <p>Share your thoughts and ideas with the world.</p>
             </div>
         </div>
     </section>
 
     <!-- Projects Section --><!-- Projects Section -->
-<section id="projects" class="projects" data-aos="fade-up">
-    <h2>Projects</h2>
-    <div class="card-container">
-        <div class="project-card" data-aos="zoom-in">
-            <img src="https://via.placeholder.com/300" alt="Project 1">
-            <h3>Project 1</h3>
-            <p>A brief description of Project 1.</p>
+    <section id="projects" class="projects" data-aos="fade-up">
+        <h2>Projects</h2>
+        <div class="card-container">
+            <div class="project-card" data-aos="zoom-in">
+                <img src="https://via.placeholder.com/300" alt="Project 1">
+                <h3>Project 1</h3>
+                <p>A brief description of Project 1.</p>
+            </div>
+            <div class="project-card" data-aos="zoom-in">
+                <img src="https://via.placeholder.com/300" alt="Project 2">
+                <h3>Project 2</h3>
+                <p>A brief description of Project 2.</p>
+            </div>
+            <div class="project-card" data-aos="zoom-in">
+                <img src="https://via.placeholder.com/300" alt="Project 3">
+                <h3>Project 3</h3>
+                <p>A brief description of Project 3.</p>
+            </div>
         </div>
-        <div class="project-card" data-aos="zoom-in">
-            <img src="https://via.placeholder.com/300" alt="Project 2">
-            <h3>Project 2</h3>
-            <p>A brief description of Project 2.</p>
-        </div>
-        <div class="project-card" data-aos="zoom-in">
-            <img src="https://via.placeholder.com/300" alt="Project 3">
-            <h3>Project 3</h3>
-            <p>A brief description of Project 3.</p>
-        </div>
-    </div>
-</section>
-
-
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" data-aos="fade-up">
@@ -504,13 +508,18 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Portfolio. Made with ❤️ by <a href="#">Dibyadyuti</a>.</p>
+        <p>&copy; 2025 Portfolio. Made with by <a href="#">Dibyadyuti</a>.</p>
         <div class="social-icons">
             <a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="https://www.linkedin.com/in/dibyadyuti-das-7b28932b9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://github.com/DibyadyutiDas" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" target="_blank"><i class="fab fa-instagram"></i></a>
+        
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </div>
+
         </div>
     </footer>
 
@@ -520,6 +529,19 @@
 
         function toggleMenu() {
             document.querySelector('.nav-right').classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.querySelector('nav').classList.toggle('dark');
+            document.querySelector('footer').classList.toggle('dark');
+
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
         }
     </script>
 </body>
