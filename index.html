@@ -39,7 +39,7 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
-            color: #333;
+            color: #222;
             overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
@@ -88,7 +88,6 @@
             position: fixed;
             width: 100%;
             height: var(--nav-height);
-            background: rgba(10, 10, 10, 0.95);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -116,7 +115,7 @@
         }
 
         .nav-links a {
-            color: white;
+            color: black;
             text-decoration: none;
             font-size: clamp(1rem, 1.5vw, 1.2rem);
             font-weight: 500;
@@ -133,7 +132,7 @@
             .nav-links {
                 display: none;
                 flex-direction: column;
-                background-color: #333;
+                background-color: #e0e0e0;
                 position: absolute;
                 top: 60px;
                 right: 0;
@@ -153,8 +152,8 @@
         /* Menu Toggle Button */
         .menu-toggle {
             position: fixed;
-            top: 1%;
-            right: 1%;
+            top: 1.5%;
+            right: 1.5%;
             width: 50px;
             height: 50px;
             background: rgba(10, 10, 10, 0.9);
@@ -180,6 +179,10 @@
             font-size: 1.5rem;
         }
 
+        .menu-toggle:hover {
+            transform: scale(1.1); /* Adds a slight zoom effect */
+        }
+
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -199,29 +202,30 @@
         }
 
         .mobile-menu a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
-            padding: 15px 0;
+            padding: 35px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
 
         .mobile-menu a:hover {
             color: var(--primary-color);
-            padding-left: 10px;
         }
 
         .hero {
             position: relative;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.96)), url('background-image.jpg') no-repeat center center/cover;
+            /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.96)), url('background-image.jpg') no-repeat center center/cover; */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgb(215, 237, 48);
-            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.6);
+            color: black;
+            /* color: rgb(215, 237, 48); */
         }
 
         .hero-content {
@@ -240,7 +244,7 @@
             font-size: clamp(1rem, 3vw, 1.5rem);
             font-weight: 300;
             letter-spacing: clamp(5px, 2vw, 10px);
-            margin-top: 10px;
+            margin-top: 50px;
         }
 
         section {
@@ -253,12 +257,46 @@
             background-color: #f9f9f9;
         }
 
-        h2 {
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            color: #333;
-            margin-bottom: 20px;
+        
+        .arrow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px; /* Adjust as needed */
         }
 
+        .arrow {
+            position: relative;
+            width: 35px; /* Adjust the size */
+            height: 250px;
+        }
+
+        .arrow::before,
+        .arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 2px;
+            /* background-color: rgb(215, 237, 48);  */
+            background-color: black;
+            transform-origin: bottom;
+        }
+
+        .arrow::before {
+            transform: rotate(45deg);
+            left: 0;
+        }
+
+        .arrow::after {
+            transform: rotate(-45deg);
+            right: 0;
+        }
+
+
+        .about {
+            background: #f9f9f9;
+        }
 
         /* Card Container: Flexbox for Project Cards */
         .card-container {
@@ -268,6 +306,7 @@
             overflow-x: auto; /* Allows horizontal scrolling if needed */
             margin-top: 30px;
         }
+
         /* Card styles */
         .option-card {
             background: #fff;
@@ -430,12 +469,15 @@
             background-color: #e7533f;
         }
 
+        
+
         /* Footer */
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #222;
+            color: #e0e0e0;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px; 
+            font-family: 'Arial', sans-serif;
         }
 
         footer a {
@@ -451,7 +493,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 10px;
+            margin-top: 30px;
         }
 
         .social-icons a {
@@ -462,12 +504,17 @@
 
         .social-icons a:hover {
             color: #ff6347;
+            transform: scale(1.2); /* Adds a slight zoom effect */
         }
-
         
         .theme-toggle {
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        .theme-toggle :hover {
+            color: #ff6347;
+            transform: scale(1.2); /* Adds a slight zoom effect */
         }
 
         /* Media Queries for responsiveness */
@@ -561,9 +608,11 @@
     <section class="hero">
         <div class="hero-content">
             <h1 class="title">DIBYADYUTI</h1>
-            <h1><br></h1>
-                <br>
             <p class="subtitle">scroll down to see my work!</p>
+      <!-- Add the anchor link -->
+      <a href="#about" class="arrow-container">
+        <div class="arrow"></div>
+      </a>
         </div>
     </section>
 
