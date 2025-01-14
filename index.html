@@ -3,18 +3,36 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Portfolio showcasing skills, projects, and creativity.">
     <meta name="keywords" content="Portfolio, Creative, Developer, Designer">
-    <meta name="author" content="Sevnur Acar">
+    <meta name="author" content="Dibyadyuti">
     <title>Portfolio</title>
+    <link rel="icon" type="image/gif" href="animated-icon1.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* General styles */
+        :root {
+            --nav-height: 60px;
+            --primary-color: #ff6347;
+        }
+
+        @keyframes scaleEffect {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            touch-action: manipulation;
         }
 
         body {
@@ -22,74 +40,97 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
             color: #333;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            overflow-x: hidden;
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .animated-content {
+            animation: scaleEffect 1.5s ease-in-out;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: #ff6347;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            opacity: 0;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            will-change: transform;
+        }
+
+        @media (hover: none) {
+            .custom-cursor {
+                display: none;
+            }
+        }
+
+        .hover-trigger {
+            cursor: none;
+        }
+
+        .hover-trigger:hover {
+            cursor: none;
         }
 
         a {
             text-decoration: none;
             color: inherit;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Navbar styles */
         nav {
+            position: fixed;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(10, 10, 10, 0.95);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0px 10px;
-            background-color: #333;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
+            padding: 0 1%;
+            transition: all 0.3s ease;
             z-index: 1000;
-            transition: background-color 0.3s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .nav-left {
-            font-size: 2rem;
-            font-weight: bold;
+        nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #ff5031;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .nav-left span {
-            color: #ff6347;
-        }
-
-        .nav-right {
+        .nav-links {
             display: flex;
-            align-items: center;
-            gap: 20px;
+            gap: clamp(1rem, 2vw, 2rem);
         }
 
-        .nav-right a {
-            font-size: 16px;
-            font-weight: 600;
+        .nav-links a {
             color: white;
-            padding: 0px 20px;
+            text-decoration: none;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
             border-radius: 25px;
             transition: all 0.3s ease;
         }
 
-        .nav-right a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .nav-links a:hover {
             color: #ff6347;
         }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 2rem;
-        }
-
-        .user-icon {
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
         @media (max-width: 768px) {
-            .nav-right {
+            .nav-links {
                 display: none;
                 flex-direction: column;
                 background-color: #333;
@@ -100,7 +141,7 @@
                 text-align: center;
             }
 
-            .nav-right.active {
+            .nav-links.active {
                 display: flex;
             }
 
@@ -109,39 +150,101 @@
             }
         }
 
-        /* Hero section */
+        /* Menu Toggle Button */
+        .menu-toggle {
+            position: fixed;
+            top: 1%;
+            right: 1%;
+            width: 50px;
+            height: 50px;
+            background: rgba(10, 10, 10, 0.9);
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .menu-toggle.visible {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .menu-toggle i {
+            color: #ff6347;
+            font-size: 1.5rem;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 80px 40px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-color);
+            padding-left: 10px;
+        }
+
         .hero {
             position: relative;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background-image.jpg') no-repeat center center/cover;
-            height: 90vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.96)), url('background-image.jpg') no-repeat center center/cover;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             color: rgb(215, 237, 48);
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.6);
         }
 
         .hero-content {
             text-align: center;
+            padding: 0 20px;
         }
 
         .title {
-            font-size: 5rem;
+            font-size: clamp(2rem, 8vw, 5rem);
             font-weight: 900;
             margin: 0;
             letter-spacing: 5px;
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
             font-weight: 300;
-            letter-spacing: 10px;
+            letter-spacing: clamp(5px, 2vw, 10px);
             margin-top: 10px;
         }
 
-        /* Sections */
         section {
-            padding: 80px 20px;
+            padding: clamp(40px, 8vh, 80px) 20px;
             text-align: center;
             background-color: #fff;
         }
@@ -151,10 +254,11 @@
         }
 
         h2 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             color: #333;
             margin-bottom: 20px;
         }
+
 
         /* Card Container: Flexbox for Project Cards */
         .card-container {
@@ -412,13 +516,16 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav id="navbar">
-        <div class="nav-left">
-            <span>Portfolio</span>
+    
+    <!-- Add cursor elements at the start of body -->
+    <div class="custom-cursor"></div>
+
+    <!-- Main Navigation -->
+    <nav id="mainNav">
+        <div class="logo">
+            <span>portfolio</span>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-        <ul class="nav-right">
+        <div class="nav-links">
             <a href="#about">About</a>
             <a href="#websites">Websites</a>
             <a href="#projects">Projects</a>
@@ -429,15 +536,33 @@
                     <i class="fas fa-user"></i>
                 </div>
             </a>
-        </ul>
+        </div>
     </nav>
+
+    <!-- Menu Toggle Button -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about">About</a>
+        <a href="#websites">Websites</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="login.html">
+            <div class="user-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1 class="title">DIBYADYUTI</h1>
-            <h1> <br> </h1>
-                 <br>
+            <h1><br></h1>
+                <br>
             <p class="subtitle">scroll down to see my work!</p>
         </div>
     </section>
@@ -490,7 +615,7 @@
         </div>
     </section>
 
-    <!-- Projects Section --><!-- Projects Section -->
+    <!-- Projects Section -->
     <section id="projects" class="projects" data-aos="fade-up">
         <h2>Projects</h2>
         <div class="card-container">
@@ -498,7 +623,7 @@
                 <div class="project-card" data-aos="zoom-in">
                     <img src="https://via.placeholder.com/300" alt="Project 1">
                     <h3>Project 1</h3>
-                    <p>A brief description of Project 1.</p>
+                    <p>Handwriting converter.</p>
                 </div>
             </a>
             
@@ -550,6 +675,104 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+            
+        // Custom cursor animation
+        const cursor = document.querySelector('.custom-cursor');
+        // const cursorText = document.querySelector('.cursor-text');
+        let cursorVisible = false;
+
+        // Update cursor position
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursor.style.opacity = '1';
+                cursorVisible = true;
+            }
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // Add hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .option-card, .nav-links a, .social-icons a');
+        
+        interactiveElements.forEach(element => {
+            element.classList.add('hover-trigger');
+            
+            element.addEventListener('mouseenter', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px) scale(1.5)`;
+                cursorText.style.transform = `translate(${e.clientX + 15}px, ${e.clientY - 15}px)`;
+                cursorText.classList.add('visible');
+            });
+
+            element.addEventListener('mouseleave', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px) scale(1)`;
+                cursorText.classList.remove('visible');
+            });
+        });
+
+        // Navigation and Menu Toggle Logic
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const hero = document.querySelector('.hero');
+
+        // Scroll Logic
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+
+            // Hide navbar and show menu toggle after hero section
+            if (scrollPos > heroBottom - 100) {
+                nav.classList.add('hidden');
+                menuToggle.classList.add('visible');
+            } else {
+                nav.classList.remove('hidden');
+                menuToggle.classList.remove('visible');
+                mobileMenu.classList.remove('active');
+            }
+
+            // Card animations on scroll
+            document.querySelectorAll('.card').forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+
+        // Menu Toggle
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        
         AOS.init();
 
         function toggleMenu() {
