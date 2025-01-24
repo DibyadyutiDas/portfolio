@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calisthenics - Your Ultimate Calisthenics Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #B39DDB; /* Lavender */
+            --secondary-color: #FFFFFF; /* White */
+            --text-color: #333333; /* Dark Gray */
+            --highlight-color: #B39DDB; /* Lavender */
+            --font-family: 'Inter', sans-serif;
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--highlight-color);
+        }
+
+        .hero {
+            background-color: var(--secondary-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            color: var(--text-color);
+        }
+
+        .hero a {
+            background-color: var(--highlight-color);
+            color: var(--secondary-color);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            padding: 6rem 3rem;
+        }
+
+        section h2 {
+            font-size: 3rem;
+            color: var(--text-color);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--highlight-color);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+        }
+
+        .features, .programs, .pricing, .testimonials {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--secondary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 20px var(--card-shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px var(--card-hover-shadow);
+        }
+
+        .card img {
+            max-width: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 1.2rem;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>calisthenics</h1>
+        <nav>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Your Ultimate Calisthenics Guide</h2>
+        <p>Unleash your inner strength with expert-designed routines, tracking, and a vibrant community.</p>
+        <a href="#programs">Start Your Journey</a>
+    </section>
+
+    <section id="features">
+        <h2>Why calisthenics?</h2>
+        <div class="features">
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=1" alt="Icon">
+                <h3>Expert Coaches</h3>
+                <p>Work with top trainers and elevate your calisthenics journey.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=2" alt="Icon">
+                <h3>Track Your Progress</h3>
+                <p>Keep an eye on your improvement with dynamic tracking tools.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=3" alt="Icon">
+                <h3>Join the Community</h3>
+                <p>Become part of a supportive community that helps you stay motivated.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs">
+        <h2>Our Programs</h2>
+        <div class="programs">
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=B" alt="Icon">
+                <h3>Beginner</h3>
+                <p>Start with the basics and build a solid foundation for your fitness journey.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=I" alt="Icon">
+                <h3>Intermediate</h3>
+                <p>Challenge yourself with more dynamic and effective workouts.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/80/B39DDB/FFFFFF?text=E" alt="Icon">
+                <h3>Expert</h3>
+                <p>Master advanced calisthenics movements and unlock your full potential.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <h2>Pricing Plans</h2>
+        <div class="pricing">
+            <div class="card">
+                <h3>Free</h3>
+                <p>Access beginner programs and start your journey at no cost.</p>
+            </div>
+            <div class="card">
+                <h3>Pro</h3>
+                <p>$29/month for advanced routines and tracking features.</p>
+            </div>
+            <div class="card">
+                <h3>Elite</h3>
+                <p>$49/month for personalized coaching and expert advice.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials">
+            <div class="card">
+                <p>"calisthenics helped me achieve results faster than I thought possible!"</p>
+                <p>- Alex</p>
+            </div>
+            <div class="card">
+                <p>"The support from the community is unmatched. It keeps me motivated!"</p>
+                <p>- Jamie</p>
+            </div>
+            <div class="card">
+                <p>"I've learned so much from the expert coaches. Highly recommended!"</p>
+                <p>- Taylor</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 calisthenics. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

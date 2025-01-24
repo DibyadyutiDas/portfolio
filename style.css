@@ -1,0 +1,85 @@
+
+:root {
+  --nav-height: 60px;
+  --primary-color: #FF4B2B;
+  --bg-light: #ffffff;
+  --bg-dark: #1a1a1a;
+  --text-light: #333333;
+  --text-dark: #ffffff;
+}
+/* :root {
+  --nav-height: 60px;
+  --primary-color: #C19A6B;
+  --bg-light: #FAFAFA; 
+  --bg-dark: #181818; 
+  --text-light: #3C3C3C;
+  --text-dark: #F5F5F5; 
+} */
+
+*,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  scroll-behavior: smooth;
+}
+
+html {
+  touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins",sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.animated-content {
+  animation: scaleEffect 1.5s ease-in-out;
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform .2s ease,opacity .3s ease;
+  will-change: transform;
+}
+
+.hover-trigger,
+.hover-trigger:hover {
+  cursor: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  overflow-x: auto;
+  margin-top: 30px;
+}
+
+

@@ -1,0 +1,115 @@
+        // Custom cursor animation
+        const cursor = document.querySelector('.custom-cursor');
+        // const cursorText = document.querySelector('.cursor-text');
+        let cursorVisible = false;
+
+        // Update cursor position
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursor.style.opacity = '1';
+                cursorVisible = true;
+            }
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // Add hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .web-card, .nav-links a, .social-icons a');
+        
+        interactiveElements.forEach(element => {
+            element.classList.add('hover-trigger');
+            
+            element.addEventListener('mouseenter', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px) scale(1.5)`;
+                cursorText.style.transform = `translate(${e.clientX + 15}px, ${e.clientY - 15}px)`;
+                cursorText.classList.add('visible');
+            });
+
+            element.addEventListener('mouseleave', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px) scale(1)`;
+                cursorText.classList.remove('visible');
+            });
+        });
+
+        // Navigation and Menu Toggle Logic
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const hero = document.querySelector('.hero');
+
+        // Scroll Logic
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+
+            // Hide navbar and show menu toggle after hero section
+            if (scrollPos > heroBottom - 100) {
+                nav.classList.add('hidden');
+                menuToggle.classList.add('visible');
+            } else {
+                nav.classList.remove('hidden');
+                menuToggle.classList.remove('visible');
+                mobileMenu.classList.remove('active');
+            }
+
+            // Card animations on scroll
+            document.querySelectorAll('.card').forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+
+        // Menu Toggle
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        
+        AOS.init();
+
+        function toggleMenu() {
+            document.querySelector('.nav-right').classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.querySelector('nav').classList.toggle('dark');
+            document.querySelector('footer').classList.toggle('dark');
+
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }

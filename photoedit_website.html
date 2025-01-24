@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Photo Editing Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <style>
+    /* General Styles */
+    body {
+      overflow-x: hidden; /* Prevent horizontal overflow */
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.dark-mode {
+      background-color: #222226;
+      color: #d3d3d3;
+    }
+
+    body.dark-mode a {
+      color: #a8dadc;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.8rem 2rem;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 20px;
+    }
+
+    nav.dark-mode {
+      background: linear-gradient(90deg, #333, #444);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+      color: #fdfdfd;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background-color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    nav a.active {
+      color: #fff;
+    }
+
+    nav a.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: url('https://via.placeholder.com/1920x600') center/cover;
+      height: 60vh;
+      color: #fff;
+      flex-direction: column;
+    }
+
+    .hero.dark-mode {
+      background: url('https://via.placeholder.com/1920x600/333/444') center/cover;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .hero button {
+      background: #2575fc;
+      border: none;
+      padding: 0.8rem 2rem;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .hero button:hover {
+      background: #6a11cb;
+    }
+
+    /* Main Content */
+    main {
+      padding: 2rem 1rem;
+      flex-grow: 1; /* Ensures content grows to take available space */
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    section h2 {
+      color: #2575fc;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    section.dark-mode h2 {
+      color: #a8dadc;
+    }
+
+    .services, .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card.dark-mode {
+      background: #2a2a40;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      display: flex;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 0.5rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    footer.dark-mode {
+      background-color: #1e1e2e;
+    }
+
+    footer .theme-toggle {
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-left: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .services, .pricing {
+        grid-template-columns: 1fr;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      footer {
+        flex-direction: r;
+        /* align-items: flex-start; */
+        /* padding: 2rem; */
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav ul {
+        gap: 1.5rem;
+      }
+      .hero button {
+        padding: 0.5rem 1.5rem;
+      }
+      .services, .pricing {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Our Photo Editing Service</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="home" class="hero" data-aos="fade-in">
+    <h2>Professional Photo Editing</h2>
+    <p>Make your photos shine with our expert editing services.</p>
+    <button>Get Started</button>
+  </div>
+
+  <main>
+    <section id="services" data-aos="fade-up">
+      <h2>Services</h2>
+      <div class="services">
+        <div class="card">
+          <h3>Background Removal</h3>
+          <p>Clean and professional backgrounds for your photos.</p>
+        </div>
+        <div class="card">
+          <h3>Color Correction</h3>
+          <p>Enhance colors for a vibrant and natural look.</p>
+        </div>
+        <div class="card">
+          <h3>Photo Retouching</h3>
+          <p>Perfect portraits with expert retouching.</p>
+        </div>
+        <div class="card">
+          <h3>Image Restoration</h3>
+          <p>Bring old photos back to life.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" data-aos="fade-up">
+      <h2>Pricing</h2>
+      <div class="pricing">
+        <div class="card">
+          <h3>Basic Edit</h3>
+          <p>₹100 per photo</p>
+        </div>
+        <div class="card">
+          <h3>Advanced Edit</h3>
+          <p>₹200 per photo</p>
+        </div>
+        <div class="card">
+          <h3>Professional Edit</h3>
+          <p>₹500 per photo</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" data-aos="fade-up">
+      <h2>Contact</h2>
+      <p>Have questions? Email us at <a href="mailto:dibyadyutidas0@gmail.com">dibyadyutidas0@gmail.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; All rights reserved.
+    <i class="fas fa-adjust theme-toggle" onclick="toggleTheme()"></i>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      // document.querySelector('nav').classList.toggle('dark-mode');
+      document.querySelector('.hero').classList.toggle('dark-mode');
+      document.querySelectorAll('section').forEach(section => section.classList.toggle('dark-mode'));
+      document.querySelectorAll('.card').forEach(card => card.classList.toggle('dark-mode'));
+      document.querySelector('footer').classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>

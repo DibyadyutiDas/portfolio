@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login & Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    
+    .container {
+        position: relative;
+        max-width: 500px;
+        width: 100%;
+        min-height: 600px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+    
+    .forms-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .form-nav {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        background: #f8f9fa;
+        padding: 5px;
+        border-radius: 12px;
+        z-index: 10;
+    }
+    
+    .nav-button {
+        background: transparent;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: #666;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-button:hover {
+        color: #FF4B2B;
+    }
+    
+    .nav-button.active {
+        background: #FF4B2B;
+        color: white;
+    }
+    
+    .form-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 80px 40px 40px;
+        transition: all 0.5s ease;
+        opacity: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+    }
+    
+    .form-container.active {
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+    }
+    
+    .signin-container {
+        transform: translateX(-100%);
+    }
+    
+    form {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+    
+    .social-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .social {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .social:hover {
+        background: #f8f9fa;
+        color: #FF4B2B;
+        border-color: #FF4B2B;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    
+    input:focus {
+        outline: none;
+        border-color: #FF4B2B;
+        box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.1);
+    }
+    
+    .error-message {
+        color: #ff4b4b;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
+    
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background: #FF4B2B;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    button[type="submit"]:hover {
+        background: #ff3b15;
+    }
+    
+    .forgot-password {
+        display: block;
+        text-align: right;
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .forgot-password:hover {
+        color: #FF4B2B;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            min-height: 550px;
+        }
+        
+        .form-container {
+            padding: 80px 20px 20px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .form-nav {
+            width: calc(100% - 40px);
+        }
+        
+        .nav-button {
+            flex: 1;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="form-nav">
+            <button class="nav-button active" data-form="signin">Sign In</button>
+            <button class="nav-button" data-form="signup">Sign Up</button>
+        </nav>
+
+        <div class="forms-wrapper">
+            <!-- Sign In Form -->
+            <div class="form-container signin-container active">
+                <form id="signInForm">
+                    <h1>Welcome Back</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="divider">
+                        <span>or sign in with email</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Email" required />
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" required />
+                        <span class="error-message"></span>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot your password?</a>
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="form-container signup-container">
+                <form id="signUpForm">
+                    <h1>Create Account</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="divider">
+                        <span>or register with email</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Name" required />
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Email" required />
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" required />
+                        <span class="error-message"></span>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const navButtons = document.querySelectorAll('.nav-button');
+    const formContainers = document.querySelectorAll('.form-container');
+
+    // Handle form navigation
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetForm = button.dataset.form;
+            
+            // Update nav buttons
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Update form containers
+            formContainers.forEach(container => {
+                if (container.classList.contains(`${targetForm}-container`)) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+        });
+    });
+
+    // Form validation
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            validateForm(form);
+        });
+
+        // Real-time validation
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => validateInput(input));
+            input.addEventListener('input', () => clearError(input));
+        });
+    });
+});
+
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!validateInput(input)) {
+            isValid = false;
+        }
+    });
+
+    if (isValid) {
+        const button = form.querySelector('button[type="submit"]');
+        showLoading(button);
+        
+        // Simulate form submission
+        setTimeout(() => {
+            hideLoading(button);
+            form.reset();
+        }, 1500);
+    }
+}
+
+function validateInput(input) {
+    const errorElement = input.nextElementSibling;
+    let isValid = true;
+    let errorMessage = '';
+
+    if (!input.value.trim()) {
+        errorMessage = 'This field is required';
+        isValid = false;
+    } else if (input.type === 'email' && !isValidEmail(input.value)) {
+        errorMessage = 'Please enter a valid email';
+        isValid = false;
+    } else if (input.type === 'password' && input.value.length < 6) {
+        errorMessage = 'Password must be at least 6 characters';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        showError(input, errorElement, errorMessage);
+    } else {
+        clearError(input, errorElement);
+    }
+
+    return isValid;
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showError(input, errorElement, message) {
+    input.classList.add('error');
+    errorElement.style.display = 'block';
+    errorElement.textContent = message;
+}
+
+function clearError(input) {
+    const errorElement = input.nextElementSibling;
+    input.classList.remove('error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
+}
+
+function showLoading(button) {
+    button.disabled = true;
+    button._originalText = button.textContent;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+}
+
+function hideLoading(button) {
+    button.disabled = false;
+    button.textContent = button._originalText;
+}
+    </script>
+</body>
+</html>

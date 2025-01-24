@@ -1,0 +1,22 @@
+
+body.dark-mode {
+    color: var(--text-dark);
+    background-color: var(--bg-dark);
+  }
+  
+  .dark-mode nav {
+    background: rgba(26,26,26,.9);
+  }
+  
+  .dark-mode .mobile-menu {
+    background: rgba(26,26,26,.95);
+  }
+  
+  .dark-mode .mobile-menu a {
+    border-bottom-color: rgba(255,255,255,.1);
+  }
+  
+  .dark-mode .arrow {
+    border-color: var(--text-dark);
+  }
+  
