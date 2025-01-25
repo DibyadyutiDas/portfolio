@@ -9,334 +9,1059 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <style>
     /* General Styles */
-    body {
-      overflow-x: hidden; /* Prevent horizontal overflow */
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      color: #333;
-      transition: background-color 0.3s, color 0.3s;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    :root {
+  --primary-color: #2575fc;
+  --primary-rgb: 37, 117, 252;
+  --secondary-color: #6a11cb;
+  --text-color: #333;
+  --text-rgb: 51, 51, 51;
+  --bg-color: #f4f4f4;
+  --card-bg: #ffffff;
+  --gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
 
-    body.dark-mode {
-      background-color: #222226;
-      color: #d3d3d3;
-    }
+[data-theme="dark"] {
+  --primary-color: #a8dadc;
+  --text-color: #e0e0e0;
+  --bg-color: #121212;
+  --card-bg: #1e1e2e;
+}
 
-    body.dark-mode a {
-      color: #a8dadc;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    /* Navigation Bar */
-    nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.8rem 2rem;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-radius: 20px;
-    }
+/* Header Styles */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: #1e1e2e;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transition: var(--transition);
+}
 
-    nav.dark-mode {
-      background: linear-gradient(90deg, #333, #444);
-    }
+header.scrolled {
+  padding: 0.8rem 5%;
+  box-shadow: var(--shadow);
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-      margin: 0;
-      padding: 0;
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: bold;
-      position: relative;
-      transition: color 0.3s ease-in-out;
-    }
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
 
-    nav a:hover {
-      color: #fdfdfd;
-    }
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      width: 0;
-      height: 3px;
-      background-color: #fff;
-      transition: all 0.3s ease;
-    }
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  transition: var(--transition);
+}
 
-    nav a:hover::after {
-      width: 100%;
-      left: 0;
-    }
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
 
-    nav a.active {
-      color: #fff;
-    }
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
 
-    nav a.active::after {
-      width: 100%;
-      left: 0;
-    }
+/* Hero Section */
+.hero {
+  position: relative;
+  overflow: visible;
+  padding-top: 10rem;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 10rem 5% 5rem;
+}
 
-    /* Hero Section */
-    .hero {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: url('https://via.placeholder.com/1920x600') center/cover;
-      height: 60vh;
-      color: #fff;
-      flex-direction: column;
-    }
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
 
-    .hero.dark-mode {
-      background: url('https://via.placeholder.com/1920x600/333/444') center/cover;
-    }
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient);
+  filter: blur(60px);
+  opacity: 0.1;
+}
 
-    .hero h2 {
-      font-size: 2.5rem;
-      margin: 0.5rem 0;
-    }
+.shape-1 {
+  top: 10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  animation: float 20s infinite alternate;
+}
 
-    .hero p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
+.shape-2 {
+  bottom: 20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  animation: float 25s infinite alternate-reverse;
+}
 
-    .hero button {
-      background: #2575fc;
-      border: none;
-      padding: 0.8rem 2rem;
-      color: #fff;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+.shape-3 {
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  animation: pulse 15s infinite;
+}
 
-    .hero button:hover {
-      background: #6a11cb;
-    }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(var(--primary-rgb), 0.1);
+  border-radius: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
 
-    /* Main Content */
-    main {
-      padding: 2rem 1rem;
-      flex-grow: 1; /* Ensures content grows to take available space */
-    }
+.hero-badge i {
+  color: var(--primary-color);
+}
 
-    section {
-      margin-bottom: 2rem;
-    }
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
 
-    section h2 {
-      color: #2575fc;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+.hero-content h1 {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
 
-    section.dark-mode h2 {
-      color: #a8dadc;
-    }
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
 
-    .services, .pricing {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
+.cta-button {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem;
+}
 
-    .card {
-      background: #fff;
-      padding: 1.5rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+.cta-button i {
+  transition: transform 0.3s ease;
+}
 
-    .card.dark-mode {
-      background: #2a2a40;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
+.cta-button:hover i {
+  transform: translateX(5px);
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
+.secondary-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
 
-    /* Footer */
-    footer {
-      display: flex;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 0.5rem;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+.secondary-link i {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
 
-    footer.dark-mode {
-      background-color: #1e1e2e;
-    }
+.secondary-link:hover {
+  color: var(--primary-color);
+}
 
-    footer .theme-toggle {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #fff;
-      margin-left: 1rem;
-    }
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--text-rgb), 0.1);
+}
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .hero h2 {
-        font-size: 2rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-      .services, .pricing {
-        grid-template-columns: 1fr;
-      }
-      nav ul {
-        flex-direction: column;
-        gap: 2rem;
-      }
-      footer {
-        flex-direction: r;
-        /* align-items: flex-start; */
-        /* padding: 2rem; */
-      }
-    }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
 
-    @media (max-width: 480px) {
-      nav ul {
-        gap: 1.5rem;
-      }
-      .hero button {
-        padding: 0.5rem 1.5rem;
-      }
-      .services, .pricing {
-        grid-template-columns: 1fr;
-      }
-    }
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
+.before-after {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.before-after i {
+  opacity: 0.8;
+}
+
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.float-card {
+  position: absolute;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.float-card.tools {
+  top: -2rem;
+  left: -2rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-card.rating {
+  bottom: -2rem;
+  right: -2rem;
+  animation: float 6s ease-in-out infinite reverse;
+}
+
+.stars {
+  color: #ffd700;
+}
+
+/* Services Section */
+.services {
+  padding: 5rem 5%;
+  background: var(--bg-color);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+.service-card i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.service-card h3 {
+  margin-bottom: 1rem;
+}
+
+.learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  margin-top: 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.learn-more i {
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+
+.learn-more:hover i {
+  transform: translateX(5px);
+}
+
+/* Pricing Section */
+.pricing {
+  padding: 5rem 5%;
+  background: linear-gradient(to bottom, var(--bg-color), rgba(var(--primary-rgb), 0.1));
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.price-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+}
+
+.price-card.popular {
+  transform: scale(1.05);
+  border: 2px solid var(--primary-color);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.price-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.price span {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.price-card ul {
+  list-style: none;
+  margin: 2rem 0;
+}
+
+.price-card li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.price-card li i {
+  color: var(--primary-color);
+}
+
+.select-plan {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.select-plan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Contact Section */
+.contact {
+  padding: 5rem 5%;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid rgba(var(--text-rgb), 0.2);
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form-group textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Footer */
+footer {
+  background: var(--card-bg);
+  padding: 4rem 5% 2rem;
+  margin-top: 5rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-section a:hover {
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+  
+  .hero-stats {
+    gap: 2rem;
+  }
+  
+  .float-card {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+
+  nav ul {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .price-card.popular {
+    transform: scale(1);
+  }
+
+  .hero {
+    padding-top: 8rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .secondary-link {
+    justify-content: center;
+  }
+
+  .shape {
+    opacity: 0.05;
+  }
+}
+
+/* Form Alert Styles */
+.form-alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-alert.success {
+  background: rgba(0, 200, 0, 0.1);
+  color: #00a000;
+}
+
+.form-alert.error {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+}
   </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to Our Photo Editing Service</h1>
+    <div class="logo">
+      <i class="fas fa-camera-retro"></i>
+      <span>PhotoPro</span>
+    </div>
     <nav>
       <ul>
-        <li><a href="#home">Home</a></li>
+        <li><a href="#home" class="active">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <button class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </button>
   </header>
 
-  <div id="home" class="hero" data-aos="fade-in">
-    <h2>Professional Photo Editing</h2>
-    <p>Make your photos shine with our expert editing services.</p>
-    <button>Get Started</button>
-  </div>
-
-  <main>
-    <section id="services" data-aos="fade-up">
-      <h2>Services</h2>
-      <div class="services">
-        <div class="card">
-          <h3>Background Removal</h3>
-          <p>Clean and professional backgrounds for your photos.</p>
+  <section id="home" class="hero">
+    <div class="hero-background">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-star"></i>
+        <span>Premium Photo Editing Services</span>
+      </div>
+      <h1 data-aos="fade-up" data-aos-delay="200">
+        Transform Your Photos into
+        <span class="gradient-text">Masterpieces</span>
+      </h1>
+      <p data-aos="fade-up" data-aos-delay="300">
+        Professional photo editing services that bring your vision to life. From basic retouching to advanced compositing, we make every image tell a story.
+      </p>
+      <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
+        <button class="cta-button">
+          <span>Get Started</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <a href="#portfolio" class="secondary-link">
+          <i class="fas fa-play-circle"></i>
+          View Portfolio
+        </a>
+      </div>
+      <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
+        <div class="stat">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Photos Edited</span>
         </div>
-        <div class="card">
-          <h3>Color Correction</h3>
-          <p>Enhance colors for a vibrant and natural look.</p>
+        <div class="stat">
+          <span class="stat-number">1K+</span>
+          <span class="stat-label">Happy Clients</span>
         </div>
-        <div class="card">
-          <h3>Photo Retouching</h3>
-          <p>Perfect portraits with expert retouching.</p>
-        </div>
-        <div class="card">
-          <h3>Image Restoration</h3>
-          <p>Bring old photos back to life.</p>
+        <div class="stat">
+          <span class="stat-number">24h</span>
+          <span class="stat-label">Turnaround</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section id="pricing" data-aos="fade-up">
-      <h2>Pricing</h2>
-      <div class="pricing">
-        <div class="card">
-          <h3>Basic Edit</h3>
-          <p>₹100 per photo</p>
-        </div>
-        <div class="card">
-          <h3>Advanced Edit</h3>
-          <p>₹200 per photo</p>
-        </div>
-        <div class="card">
-          <h3>Professional Edit</h3>
-          <p>₹500 per photo</p>
+    <div class="hero-image">
+      <div class="image-container" data-aos="fade-left" data-aos-delay="300">
+        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=600" alt="Photo Editing">
+        <div class="image-overlay">
+          <div class="before-after">
+            <span>Before</span>
+            <i class="fas fa-exchange-alt"></i>
+            <span>After</span>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="floating-elements">
+        <div class="float-card tools">
+          <i class="fas fa-magic"></i>
+          <span>Pro Tools</span>
+        </div>
+        <div class="float-card rating">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span>5.0 Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="contact" data-aos="fade-up">
-      <h2>Contact</h2>
-      <p>Have questions? Email us at <a href="mailto:dibyadyutidas0@gmail.com">dibyadyutidas0@gmail.com</a>.</p>
-    </section>
-  </main>
+  <section id="services" class="services">
+    <h2 class="section-title" data-aos="fade-up">Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-crop"></i>
+        <h3>Background Removal</h3>
+        <p>Professional background removal and replacement services</p>
+        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fas fa-palette"></i>
+        <h3>Color Correction</h3>
+        <p>Expert color grading and enhancement</p>
+        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <i class="fas fa-magic"></i>
+        <h3>Photo Retouching</h3>
+        <p>Advanced retouching for perfect portraits</p>
+        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+        <i class="fas fa-history"></i>
+        <h3>Photo Restoration</h3>
+        <p>Restore and enhance old photographs</p>
+        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <h2 class="section-title" data-aos="fade-up">Pricing Plans</h2>
+    <div class="pricing-grid">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="price-header">
+          <h3>Basic</h3>
+          <p class="price">$10<span>/photo</span></p>
+        </div>
+        <ul>
+          <li><i class="fas fa-check"></i> Basic Color Correction</li>
+          <li><i class="fas fa-check"></i> Brightness & Contrast</li>
+          <li><i class="fas fa-check"></i> Basic Retouching</li>
+        </ul>
+        <button class="select-plan">Choose Plan</button>
+      </div>
+      <div class="price-card popular" data-aos="fade-up" data-aos-delay="200">
+        <div class="popular-badge">Most Popular</div>
+        <div class="price-header">
+          <h3>Professional</h3>
+          <p class="price">$25<span>/photo</span></p>
+        </div>
+        <ul>
+          <li><i class="fas fa-check"></i> Advanced Color Grading</li>
+          <li><i class="fas fa-check"></i> Background Removal</li>
+          <li><i class="fas fa-check"></i> Professional Retouching</li>
+          <li><i class="fas fa-check"></i> Same-day Delivery</li>
+        </ul>
+        <button class="select-plan">Choose Plan</button>
+      </div>
+      <div class="price-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="price-header">
+          <h3>Enterprise</h3>
+          <p class="price">$50<span>/photo</span></p>
+        </div>
+        <ul>
+          <li><i class="fas fa-check"></i> Complete Photo Restoration</li>
+          <li><i class="fas fa-check"></i> Complex Editing</li>
+          <li><i class="fas fa-check"></i> Multiple Revisions</li>
+          <li><i class="fas fa-check"></i> Priority Support</li>
+        </ul>
+        <button class="select-plan">Choose Plan</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
+    <div class="contact-container">
+      <form id="contact-form" data-aos="fade-up" data-aos-delay="100">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
 
   <footer>
-    &copy; All rights reserved.
-    <i class="fas fa-adjust theme-toggle" onclick="toggleTheme()"></i>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>PhotoPro</h4>
+        <p>Professional photo editing services</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>Email: contact@photopro.com</p>
+        <p>Phone: (555) 123-4567</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 PhotoPro. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
+    // Initialize AOS
+AOS.init({
+  duration: 800,
+  once: true
+});
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      // document.querySelector('nav').classList.toggle('dark-mode');
-      document.querySelector('.hero').classList.toggle('dark-mode');
-      document.querySelectorAll('section').forEach(section => section.classList.toggle('dark-mode'));
-      document.querySelectorAll('.card').forEach(card => card.classList.toggle('dark-mode'));
-      document.querySelector('footer').classList.toggle('dark-mode');
+// Theme Toggle
+const themeToggle = document.querySelector('.theme-toggle');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const header = document.querySelector('header');
+
+// Set initial theme based on system preference
+if (prefersDarkScheme.matches) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const headerOffset = 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
+  });
+});
+
+// Header Scroll Effect
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  // Header shadow and size effect
+  if (currentScroll > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+
+  // Active Navigation Link
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    const sectionHeight = section.clientHeight;
+    if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (section.getAttribute('id') === link.getAttribute('href').substring(1)) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+
+  lastScroll = currentScroll;
+});
+
+// Enhanced Form Submission
+const contactForm = document.getElementById('contact-form');
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.textContent;
+  
+  // Get form values
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  
+  // Simple validation
+  if (name.length < 2) {
+    showFormError('Please enter a valid name');
+    return;
+  }
+  
+  if (!isValidEmail(email)) {
+    showFormError('Please enter a valid email address');
+    return;
+  }
+  
+  if (message.length < 10) {
+    showFormError('Message must be at least 10 characters long');
+    return;
+  }
+  
+  // Show loading state
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  
+  try {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Success
+    showFormSuccess('Thank you for your message! We will get back to you soon.');
+    contactForm.reset();
+  } catch (error) {
+    showFormError('An error occurred. Please try again later.');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  }
+});
+
+function showFormError(message) {
+  const alert = document.createElement('div');
+  alert.className = 'form-alert error';
+  alert.textContent = message;
+  showFormAlert(alert);
+}
+
+function showFormSuccess(message) {
+  const alert = document.createElement('div');
+  alert.className = 'form-alert success';
+  alert.textContent = message;
+  showFormAlert(alert);
+}
+
+function showFormAlert(alertElement) {
+  const existingAlert = document.querySelector('.form-alert');
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+  
+  contactForm.insertBefore(alertElement, contactForm.firstChild);
+  setTimeout(() => {
+    alertElement.remove();
+  }, 5000);
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
   </script>
 </body>
 </html>
