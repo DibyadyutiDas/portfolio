@@ -1,0 +1,89 @@
+/* About Section - Creative Styling */
+#about {
+    max-width: 850px;
+    margin: 60px auto;
+    padding: 50px;
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    color: black;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Stylish Heading */
+#about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+#about h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 8px auto 0;
+    border-radius: 5px;
+}
+
+/* Animated Background Elements */
+#about::before, #about::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.831);
+    border-radius: 50%;
+    z-index: 0;
+    animation: floating 6s infinite alternate ease-in-out;
+}
+
+#about::before {
+    top: -30px;
+    left: -30px;
+}
+
+#about::after {
+    bottom: -30px;
+    right: -30px;
+}
+
+/* Floating Animation */
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+}
+
+/* Paragraph Styling */
+#about p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-top: 15px;
+    z-index: 1;
+    position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #about {
+        padding: 40px;
+    }
+    
+    #about h2 {
+        font-size: 2rem;
+    }
+
+    #about p {
+        font-size: 1.1rem;
+    }
+}
