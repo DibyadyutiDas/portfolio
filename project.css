@@ -216,11 +216,11 @@ button::before {
 }
 
 button:hover {
-  color: #e8e8e8;
+/*   color: #e8e8e8; */
 }
 
 button:hover::before {
-  width: 100%;
+/*   width: 100%; */
 }
 
 /* Media Queries */
