@@ -1,25 +1,65 @@
 /* About Section - Creative Styling */
 #about {
-    max-width: 850px;
+    max-width: 1000px;
     margin: 60px auto;
-    padding: 50px;
-    background: linear-gradient(135deg, #ffffff, #ffffff);
-    color: black;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 60px 30px;
+    background: #f9f9f9; /* Light grey background */
+    color: #303030; /* Dark text color for readability */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
 }
 
-/* Stylish Heading */
+/* About Section Container */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Image Styling */
+#about .about-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 4px solid #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+#about .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#about .about-image:hover {
+    transform: scale(1.1);
+}
+
+/* About Text Styling */
+#about .about-text {
+    max-width: 600px;
+}
+
 #about h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif; /* Smooth modern font */
 }
 
 #about h2::after {
@@ -27,18 +67,33 @@
     display: block;
     width: 80px;
     height: 4px;
-    background: var(--primary-color);
+    background: var(--primary-color); /* Primary color underline */
     margin: 8px auto 0;
     border-radius: 5px;
 }
 
-/* Animated Background Elements */
+#about h2:hover::after {
+    transform: scaleX(1);
+}
+
+/* Paragraph Styling */
+#about p {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 15px;
+    font-weight: 400;
+    font-family: 'Lora', serif; /* Elegant serif font for readability */
+}
+
+
+/* Floating Background Effect */
 #about::before, #about::after {
     content: "";
     position: absolute;
     width: 100px;
     height: 100px;
-    background: rgba(0, 0, 0, 0.831);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
     z-index: 0;
     animation: floating 6s infinite alternate ease-in-out;
@@ -64,26 +119,29 @@
     }
 }
 
-/* Paragraph Styling */
-#about p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-top: 15px;
-    z-index: 1;
-    position: relative;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     #about {
-        padding: 40px;
+        flex-direction: column;
+        padding: 40px 20px;
+        text-align: center;
     }
-    
+
+    #about .about-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #about .about-image {
+        width: 150px;
+        height: 150px;
+    }
+
     #about h2 {
-        font-size: 2rem;
+        font-size: 2.4rem;
     }
 
     #about p {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 }
