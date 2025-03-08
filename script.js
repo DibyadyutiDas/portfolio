@@ -113,3 +113,52 @@
                 themeIcon.classList.replace('fa-sun', 'fa-moon');
             }
         }
+
+// website
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cardContainer = document.querySelector('.card-container');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cards = document.querySelectorAll('.web-card');
+    
+    let currentIndex = 0;
+    const cardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1200 ? 2 : 3;
+    const maxIndex = Math.max(0, cards.length - cardsPerView);
+    
+    
+    function scrollToIndex(index) {
+        const cardWidth = cardContainer.offsetWidth / cardsPerView;
+        cardContainer.scrollTo({
+            left: index * cardWidth,
+            behavior: 'smooth'
+        });
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            scrollToIndex(currentIndex);
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            scrollToIndex(currentIndex);
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        const newCardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1200 ? 2 : 3;
+        if (newCardsPerView !== cardsPerView) {
+            currentIndex = 0;
+            scrollToIndex(0);
+            updateButtonVisibility();
+        }
+    });
+    
+    // Initial setup
+    updateButtonVisibility();
+});

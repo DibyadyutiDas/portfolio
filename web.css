@@ -1,46 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-.card-container-web {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
-  
-  .web-card {
-    background: #fff;
-    border-radius: 20px;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,.1));
-    overflow: hidden;
-    transition: transform .3s,box-shadow .3s,opacity .3s ease-in-out;
-    text-align: left;
-    margin: 20px;
-    padding: 20px;
-    max-width: 300px;
-    width: 100%;
-    position: relative;
-    backdrop-filter: blur(10px);
-    animation: fadeInUp .5s ease-out forwards;
-  }
-  
-  .web-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 40px rgba(0,0,0,.15);
-    opacity: .9;
-  }
-  
-  .web-card h3 {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-    font-weight: 700;
-    color: #FF4B2B;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .web-card p {
-    color: #444;
+body {
+    font-family: 'Inter', sans-serif;
     line-height: 1.5;
+}
+
+#websites {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h2 {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    position: relative;
+}
+
+.header h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 8px auto 0;
+    border-radius: 5px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.left-text {
+    flex: 1;
+    text-align: left;
+}
+
+.left-text h3 {
+    font-size: 2.5rem;
+    color: var(--text-light);
+}
+
+.cards-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 2;
+    padding: 0 40px;
+}
+
+.card-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(33.333% - 17px);
+    gap: 25px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.web-card {
+    background: #F8F6F4;
+    height: 340px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.web-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-number {
+    font-size: 14px;
+    color: #888;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-weight: bold;
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin: 30px 0;
+    text-align: center;
+}
+
+.web-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.web-card p {
     font-size: 1rem;
-    margin-bottom: 20px;
-  }
+    color: #555;
+}
+
+.nav-btn {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    /* background: #535bf2; */
+}
+
+#prevBtn {
+    left: 0;
+}
+
+#nextBtn {
+    right: 0;
+}
+
+@media (max-width: 1200px) {
+    .content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .left-text {
+        text-align: center;
+    }
+
+    .left-text h3 {
+        font-size: 2rem;
+    }
+
+    .cards-wrapper {
+        width: 100%;
+    }
+
+    .card-container {
+        grid-auto-columns: calc(50% - 12.5px);
+    }
+}
+
+@media (max-width: 768px) {
+    #websites {
+        padding: 30px 15px;
+    }
+
+    .header h2 {
+        font-size: 2rem;
+    }
+
+    .card-container {
+        grid-auto-columns: 100%;
+        gap: 15px;
+    }
+
+    .web-card {
+        height: 320px;
+        padding: 20px;
+    }
+
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-text h3 {
+        font-size: 1.5rem;
+    }
+
+    .web-card {
+        height: 300px;
+        padding: 15px;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+        margin: 20px 0;
+    }
+
+    .web-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .web-card p {
+        font-size: 0.9rem;
+    }
+}
