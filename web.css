@@ -74,7 +74,7 @@
     max-width: 270px;
     height: 360px;
     padding: 30px;
-    background: #F8F6F4;
+    background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -98,15 +98,27 @@
     left: 20px;
     font-weight: bold;
   }
-  
+
   .card-icon {
-    font-size: 3rem;
     margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 200px; */
   }
+  .card-icon img {
+    height: 200px;
+    width: 270px;
+    object-fit: contain;
+    border-radius: 10px;  /* Optional: rounded corners */
+    background-color: #fff; /* Optional: for consistency if images have transparency */
+    padding: 5px;
+  }  
   
   .web-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #222;
+    font-weight:initial;
   }
   
   .web-card p {
