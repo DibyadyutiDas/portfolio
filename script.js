@@ -162,3 +162,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial setup
     updateButtonVisibility();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+const images = document.querySelectorAll('.carousel img');
+        let index = 1;
+
+        function rotateImages() {
+            images.forEach(img => img.className = '');
+            images[(index - 1 + images.length) % images.length].classList.add('left');
+            images[index].classList.add('center');
+            images[(index + 1) % images.length].classList.add('right');
+            index = (index + 1) % images.length;
+        }
+
+        setInterval(rotateImages, 3000);
+
+
+
+
+
+// Drag to scroll
+
+const scrollContainer = document.querySelector('.card-container');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+scrollContainer.addEventListener('mousedown', (e) => {
+  isDown = true;
+  scrollContainer.classList.add('dragging');
+  startX = e.pageX - scrollContainer.offsetLeft;
+  scrollLeft = scrollContainer.scrollLeft;
+});
+
+scrollContainer.addEventListener('mouseleave', () => {
+  isDown = false;
+  scrollContainer.classList.remove('dragging');
+});
+
+scrollContainer.addEventListener('mouseup', () => {
+  isDown = false;
+  scrollContainer.classList.remove('dragging');
+});
+
+scrollContainer.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - scrollContainer.offsetLeft;
+  const walk = (x - startX) * 2;
+  scrollContainer.scrollLeft = scrollLeft - walk;
+});

@@ -14,8 +14,9 @@
   }
   
   .title {
+    font-family: Helvetica;
     font-size: clamp(2rem,8vw,5rem);
-    font-weight: 900;
+    font-weight: 770;
     margin: 0;
     letter-spacing: 5px;
   }
