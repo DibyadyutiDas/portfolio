@@ -16,6 +16,16 @@
     color: #333;
   }
   
+#websites h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color); /* Primary color underline */
+    margin: 8px auto 0;
+    border-radius: 5px;
+  }
+  
   .content {
     display: flex;
     align-items: center;
