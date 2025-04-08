@@ -1,78 +1,86 @@
 
 
-/* Base responsive styles */
-@media (hover: none) {
-  .custom-cursor {
-    display: none;
+@media (hover:none) {
+    .custom-cursor {
+        display: none;
+    }
   }
-}
+@media (max-width:768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #e0e0e0;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+    }
+  
+    .nav-links.active {
+        display: flex;
+    }
+  
+    .hamburger {
+        display: block;
+    }
+  }
 
-/* Breakpoint system */
-@media (max-width: 600px) {
-  /* Mobile styles */
-  .nav-links {
-    display: none;
+@media (max-width:1200px) {
+    .nav-right {
+        gap: 15px;
+    }
+  
+    .hero-content .title {
+        font-size: 3rem;
+    }
   }
   
-  .mobile-menu {
-    display: flex;
-  }
-
-  .hero-content .title {
-    font-size: var(--text-xl);
-  }
-
-  .card-container {
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-}
-
-@media (min-width: 601px) and (max-width: 900px) {
-  /* Tablet styles */
-  .nav-links {
-    gap: var(--space-sm);
-  }
-
-  .hero-content .title {
-    font-size: clamp(2.5rem, 5vw, 3rem);
-  }
-}
-
-@media (min-width: 901px) and (max-width: 1200px) {
-  /* Small desktop styles */
-  .nav-links {
-    gap: var(--space-md);
-  }
-}
-
-@media (min-width: 1201px) {
-  /* Large desktop styles */
-  .nav-links {
-    gap: var(--space-lg);
-  }
-}
-
-/* Landscape orientation */
-@media (orientation: landscape) and (max-height: 500px) {
-  .hero {
-    height: auto;
-    padding: var(--space-xl) 0;
+  @media (max-width:768px) {
+    .card-container {
+        justify-content: center;
+    }
+  
+    .hero-content .title {
+        font-size: 2.5rem;
+    }
+  
+    .nav-right a {
+        font-size: 14px;
+    }
   }
   
-  nav {
-    padding: var(--space-xs);
-  }
-}
-
-/* Touch device optimizations */
-@media (pointer: coarse) {
-  a, button {
-    padding: var(--space-xs) var(--space-sm);
-  }
   
-  .card {
-    min-width: 80vw;
+@media (max-width:768px) {
+    .card-container {
+        justify-content: center;
+        overflow-x: scroll;
+    }
+  
+    .web-card,
+    .project-card {
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+    }
   }
-}
+
+  @media (max-width:480px) {
+    .hero-content .title {
+        font-size: 2rem;
+    }
+  
+    .card-container {
+        gap: 15px;
+    }
+  
+    .contact-form input,
+    .contact-form textarea {
+        width: 90%;
+    }
+  
+    footer {
+        font-size: .9rem;
+    }
+  }
   

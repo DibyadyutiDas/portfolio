@@ -1,5 +1,6 @@
 // renderProjectCards.js
 
+// Array of project data
 const projects = [
   {
       title: "Leetcode",
@@ -51,9 +52,9 @@ const projects = [
   }
 ];
 
+// Function to render project cards
 function renderProjectCards() {
   const projectsContainer = document.getElementById('projects-container');
-  if (!projectsContainer) return;
 
   projects.forEach(project => {
       const projectCard = document.createElement('div');
@@ -87,6 +88,5 @@ function renderProjectCards() {
   });
 }
 
-// Make available globally
-window.projects = projects;
-window.renderProjectCards = renderProjectCards;
+// Call the function to render the project cards
+document.addEventListener('DOMContentLoaded', renderProjectCards);
