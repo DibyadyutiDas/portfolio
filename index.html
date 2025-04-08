@@ -3,35 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Portfolio showcasing skills, projects, and creativity.">
-    <meta name="keywords" content="Portfolio, Creative, Developer, Designer">
-    <meta name="author" content="Dibyadyuti">
-    <title>Portfolio</title>
-    <link rel="icon" type="gif" href="photo/ironman.png">
-    <meta property="og:description" content="Portfolio" />
-    <meta property="og:image" content="https://github.com/DibyadyutiDas/portfolio/blob/main/PORTFOLIO%20(2).jpg" />
-    <meta property="og:url" content="https://github.com/DibyadyutiDas/portfolio" />
-    <meta property="og:type" content="website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Professional portfolio of Dibyadyuti Das - Web Developer & Designer showcasing projects and skills in frontend development, responsive design, and creative solutions.">
+    <meta name="keywords" content="web developer, portfolio, frontend developer, responsive design, JavaScript, HTML, CSS, React, web design">
+    <meta name="author" content="Dibyadyuti Das">
+    <title>Dibyadyuti Das | Web Developer & Designer Portfolio</title>
+    <link rel="icon" type="image/gif" href="photo/ironman.png">
+    <meta property="og:title" content="Dibyadyuti Das | Web Developer & Designer Portfolio">
+    <meta property="og:description" content="Professional portfolio showcasing web development and design projects.">
+    <meta property="og:image" content="https://github.com/DibyadyutiDas/portfolio/blob/main/PORTFOLIO%20(2).jpg">
+    <meta property="og:url" content="https://github.com/DibyadyutiDas/portfolio">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dibyadyuti Das Portfolio">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://github.com/DibyadyutiDas/portfolio">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Load stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="hero.css">
-    <link rel="stylesheet" href="about.css">
-    <link rel="stylesheet" href="carousel.css">
-    <link rel="stylesheet" href="web.css">
-    <link rel="stylesheet" href="project.css">
-    <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="@media.css">
-    <link rel="stylesheet" href="@keyframe.css">
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="style.css" media="all">
+    <link rel="stylesheet" href="loading.css" media="all">
+    <link rel="stylesheet" href="nav.css" media="all">
+    <link rel="stylesheet" href="hero.css" media="all">
+    
+    <!-- Non-critical CSS -->
+    <link rel="stylesheet" href="about.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="carousel.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="web.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="project.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="contact.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="footer.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="@media.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="@keyframe.css" media="print" onload="this.media='all'">
     
 </head>
 
 <body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+    <div id="content" style="display: none;">
+        <!-- Your main portfolio content goes here -->
+    </div>
     
     <!-- Add cursor elements at the start of body -->
     <div class="custom-cursor"></div>
@@ -202,7 +225,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="script.js"></script>
     <script src="webcards.js"></script>
-    <script src="renderProjectCards.js"></script>
 
 </body>
 

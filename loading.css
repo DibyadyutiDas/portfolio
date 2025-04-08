@@ -1,0 +1,49 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background for contrast */
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it is on top of other content */
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color); /* Blue color */
+    border-radius: 50%; /* Make it circular */
+    animation: pulse 1.5s ease-in-out infinite; /* Extended duration */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2); /* Scale up */
+        opacity: 0.7; /* Fade out slightly */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#loading-message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333; /* Dark text for contrast */
+}
