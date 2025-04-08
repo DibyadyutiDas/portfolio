@@ -25,7 +25,6 @@
   height: 4px;
   background: var(--primary-color);
   margin: 8px auto 0;
-  border-radius: 5px;
 }
 
 .header p {
@@ -55,7 +54,6 @@
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   max-width: 320px; /* Keep all cards same size */
@@ -150,7 +148,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  /* margin-bottom: 1.5rem; */
 }
 
 .tag {
@@ -209,17 +206,21 @@ button::before {
   }
 }
 
+/* Media Queries */
 @media screen and (max-width: 479px) {
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Single column layout */
   }
 
   .project-card {
-    max-width: 100%;
+    min-width: 100%; /* Reduce min-width to 90% */
+    max-width: 100%; /* Increase max-width to 90% */
+    margin: 0 auto; /* Center the card */
+    padding: 0.5rem; /* Reduce padding for small screens */
   }
 
   .card-content {
-    padding: 1rem;
+    padding: 0.5rem; /* Further reduce padding for small screens */
   }
 
   .card-content h3 {
@@ -241,7 +242,7 @@ button::before {
 
   button {
     width: 100%;
-    padding: 12px 20px;
-    font-size: 15px;
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }

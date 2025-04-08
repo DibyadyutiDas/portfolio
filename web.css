@@ -1,152 +1,198 @@
-  #websites {
-    /* background: white; */
-    padding: 50px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .header h2 {
-    font-size: 2.5rem;
-    color: #333;
-  }
-  
+#websites {
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
 #websites h2::after {
-    content: "";
-    display: block;
-    width: 100px;
-    height: 4px;
-    background: var(--primary-color); /* Primary color underline */
-    margin: 8px auto 0;
-    border-radius: 5px;
-  }
-  
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: var(--primary-color); /* Primary color underline */
+  margin: 8px auto 0;
+  border-radius: 5px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.left-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.left-text h3 {
+  font-size: 2.5rem;
+  color: #333;
+  white-space: pre-line;
+}
+
+.cards-wrapper {
+  flex: 2;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+}
+
+.card-container {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+  width: 100%;
+  scrollbar-width: none; /* Firefox */
+}
+
+.card-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.web-card {
+  min-width: 270px;
+  max-width: 270px;
+  height: 360px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  transition: 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.web-card:hover {
+  transform: translateY(-6px);
+}
+
+.card-number {
+  font-size: 13px;
+  color: #888;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-weight: bold;
+}
+
+.card-icon {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-icon img {
+  height: 200px;
+  width: 270px;
+  object-fit: contain;
+  border-radius: 10px;  /* Optional: rounded corners */
+  background-color: #fff; /* Optional: for consistency if images have transparency */
+  padding: 5px;
+}
+
+.web-card h3 {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: initial;
+}
+
+.web-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
   .content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
-    max-width: 1200px;
-    width: 100%;
-  }
-  
-  .left-text {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .left-text h3 {
-    font-size: 2.5rem;
-    color: #333;
-    white-space: pre-line;
-  }
-  
-  .cards-wrapper {
-    flex: 2;
-    overflow: hidden;
-    cursor: grab;
-    position: relative;
-  }
-  
-  .card-container {
-    display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 20px 0;
-    width: 100%;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .card-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-  
-  .web-card {
-    min-width: 270px;
-    max-width: 270px;
-    height: 360px;
-    padding: 30px;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
-    transition: 0.3s ease;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .web-card:hover {
-    transform: translateY(-6px);
-  }
-  
-  .card-number {
-    font-size: 13px;
-    color: #888;
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    font-weight: bold;
-  }
-
-  .card-icon {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* height: 200px; */
-  }
-  .card-icon img {
-    height: 200px;
-    width: 270px;
-    object-fit: contain;
-    border-radius: 10px;  /* Optional: rounded corners */
-    background-color: #fff; /* Optional: for consistency if images have transparency */
-    padding: 5px;
-  }  
-  
-  .web-card h3 {
-    font-size: 1.2rem;
-    color: #222;
-    font-weight:initial;
-  }
-  
-  .web-card p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  @media (max-width: 768px) {
-    .content {
       flex-direction: column;
-    }
-  
-    .left-text {
+      align-items: center;
+  }
+
+  .left-text {
       justify-content: center;
-    }
-  
-    .left-text h3 {
+      text-align: center;
+      margin-bottom: 20px;
+  }
+
+  .left-text h3 {
+      font-size: 2rem;
+  }
+
+  .card-container {
+      flex-wrap: wrap; /* Allow cards to wrap */
+      justify-content: center; /* Center cards */
+  }
+
+  .web-card {
+      min-width: 80%; /* Allow cards to take more width on smaller screens */
+      max-width: 80%;
+      margin: 10px 0; /* Add margin for spacing */
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+      flex-direction: column;
+  }
+
+  .left-text {
+      justify-content: center;
+  }
+
+  .left-text h3 {
       text-align: center;
       font-size: 2rem;
-    }
-  
-    .card-container {
-      scroll-snap-type: x mandatory;
-    }
-  
-    .web-card {
-      min-width: 80%;
-      margin: auto;
-    }
   }
-  
+
+  .card-container {
+      scroll-snap-type: x mandatory;
+  }
+
+  .web-card {
+      min-width: 90%; /* Allow cards to take more width on smaller screens */
+      margin: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h2 {
+      font-size: 2rem; /* Smaller font size for mobile */
+  }
+
+  .web-card {
+      height: auto; /* Allow height to adjust based on content */
+      padding: 20px; /* Reduce padding */
+  }
+
+  .web-card h3 {
+      font-size: 1.5rem; /* Adjust heading size */
+  }
+
+  .web-card p {
+      font-size: 0.9rem; /* Adjust paragraph size */
+  }
+}

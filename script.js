@@ -222,3 +222,30 @@ scrollContainer.addEventListener('mousemove', (e) => {
   const walk = (x - startX) * 2;
   scrollContainer.scrollLeft = scrollLeft - walk;
 });
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("card-container");
+  
+    cardsData.forEach(card => {
+      const div = document.createElement("div");
+      div.className = "web-card";
+      div.innerHTML = `
+        <a href="${card.url}" target="_blank" class="card-link">
+            <span class="card-number">${card.number}</span>
+            <div class="card-icon">
+                <img src="${card.image}" alt="${card.title}">
+            </div>
+        <h3>${card.title}</h3>
+        </a>
+        `;
+      container.appendChild(div);
+    });
+  });
+
+
