@@ -216,7 +216,6 @@ button::before {
     min-width: 100%; /* Reduce min-width to 90% */
     max-width: 100%; /* Increase max-width to 90% */
     margin: 0 auto; /* Center the card */
-    padding: 0.5rem; /* Reduce padding for small screens */
   }
 
   .card-content {
