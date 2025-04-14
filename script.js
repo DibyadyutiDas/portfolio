@@ -1,4 +1,26 @@
-        // Custom cursor animation
+// Show fallback if site doesn't load within 5 seconds
+const TIMEOUT = 5000;
+const fallback = document.getElementById('fallback');
+const app = document.getElementById('app');
+
+setTimeout(() => {
+  if (!document.body.classList.contains('loaded')) {
+    app.style.display = 'none';
+    fallback.style.display = 'flex';
+  }
+}, TIMEOUT);
+window.addEventListener('load', function () {
+    const fallback = document.getElementById('fallback');
+    if (fallback) {
+        fallback.classList.add('hidden');
+        setTimeout(() => {
+            fallback.style.display = 'none';
+        }, 500);
+    }
+});
+
+
+       // Custom cursor animation
         const cursor = document.querySelector('.custom-cursor');
         // const cursorText = document.querySelector('.cursor-text');
         let cursorVisible = false;

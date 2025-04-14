@@ -1,0 +1,17 @@
+#fallback {
+    position: fixed;
+    z-index: 9999;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fallback img {
+    max-width: 200px;
+    /* animation: bounce 1.5s infinite; */
+}
