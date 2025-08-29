@@ -170,12 +170,12 @@ class NothingFont {
                 '      '
             ],
             'T': [
-                '##### ',
-                '  #   ',
-                '  #   ',
-                '  #   ',
-                '  #   ',
-                '  #   ',
+                '######',
+                '  ##  ',
+                '  ##  ',
+                '  ##  ',
+                '  ##  ',
+                '  ##  ',
                 '      '
             ],
             'U': [
@@ -291,94 +291,119 @@ class NothingFont {
     }
     
     init() {
-        // Find all elements with nothing-font class
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.convertElements());
+        } else {
+            this.convertElements();
+        }
+    }
+    
+    convertElements() {
         const elements = document.querySelectorAll('.nothing-font');
-        console.log('Found nothing-font elements:', elements.length);
-        console.log('Elements found:', elements);
+        console.log('Converting nothing-font elements:', elements.length);
+        
         elements.forEach((element, index) => {
-            console.log(`Converting element ${index}:`, element.textContent);
-            this.convertToMatrix(element);
+            const originalText = element.textContent.trim();
+            console.log(`Converting element ${index}: "${originalText}"`);
+            
+            if (originalText) {
+                this.convertToMatrix(element, originalText);
+            }
         });
     }
     
-    convertToMatrix(element) {
-        const text = element.textContent.toUpperCase();
-        console.log('Converting text:', text);
+    convertToMatrix(element, text) {
+        const upperText = text.toUpperCase();
+        console.log('Converting to matrix:', upperText);
         
+        // Create container for the dot matrix
         const matrixContainer = document.createElement('div');
         matrixContainer.className = 'dot-matrix';
         
-        // Create 7 rows (height of each character)
+        // Create 7 rows for the dot matrix
         for (let row = 0; row < 7; row++) {
             const rowElement = document.createElement('div');
             rowElement.className = 'dot-row';
             
-            // Process each character
-            for (let charIndex = 0; charIndex < text.length; charIndex++) {
-                const char = text[charIndex];
+            // Process each character in the text
+            for (let charIndex = 0; charIndex < upperText.length; charIndex++) {
+                const char = upperText[charIndex];
                 const pattern = this.dotPatterns[char] || this.dotPatterns[' '];
-                const rowPattern = pattern[row];
                 
-                // Create dots for this character's row
-                for (let dotIndex = 0; dotIndex < rowPattern.length; dotIndex++) {
-                    const dot = document.createElement('span');
-                    dot.className = rowPattern[dotIndex] === '#' ? 'dot' : 'dot empty';
+                if (pattern && pattern[row]) {
+                    const rowPattern = pattern[row];
                     
-                    // Add animation delay for cool effect
-                    dot.style.animationDelay = `${(charIndex * 50) + (row * 10) + (dotIndex * 2)}ms`;
+                    // Create a letter container for this character
+                    const letterElement = document.createElement('span');
+                    letterElement.className = 'letter';
                     
-                    rowElement.appendChild(dot);
-                }
-                
-                // Add space between characters (except last one)
-                if (charIndex < text.length - 1) {
-                    const spaceDot = document.createElement('span');
-                    spaceDot.className = 'dot empty';
-                    rowElement.appendChild(spaceDot);
+                    // Create dots for this character's row
+                    for (let dotIndex = 0; dotIndex < rowPattern.length; dotIndex++) {
+                        const dot = document.createElement('span');
+                        dot.className = rowPattern[dotIndex] === '#' ? 'dot' : 'dot empty';
+                        
+                        // Add staggered animation delay
+                        const delay = (charIndex * 100) + (row * 20) + (dotIndex * 5);
+                        dot.style.animationDelay = `${delay}ms`;
+                        
+                        letterElement.appendChild(dot);
+                    }
+                    
+                    rowElement.appendChild(letterElement);
                 }
             }
             
             matrixContainer.appendChild(rowElement);
         }
         
-        // Hide original text and show matrix
-        console.log('Before:', element.innerHTML);
+        // Store original text for accessibility
+        const originalTextSpan = document.createElement('span');
+        originalTextSpan.className = 'original-text';
+        originalTextSpan.textContent = text;
+        originalTextSpan.setAttribute('aria-hidden', 'true');
+        
+        // Replace element content
         element.innerHTML = '';
+        element.appendChild(originalTextSpan);
         element.appendChild(matrixContainer);
-        console.log('After:', element.innerHTML);
+        
+        // Set aria-label for accessibility
+        element.setAttribute('aria-label', text);
+        
+        console.log('Matrix conversion complete for:', text);
     }
     
     // Method to update text dynamically
     updateText(element, newText) {
-        element.textContent = newText;
-        this.convertToMatrix(element);
+        this.convertToMatrix(element, newText);
     }
 }
 
-// Initialize when DOM is loaded
+// Initialize the nothing font system
+let nothingFontInstance = null;
+
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Nothing Font script loaded');
-    
-    // Add a small delay to ensure all elements are ready
-    setTimeout(() => {
-        window.nothingFont = new NothingFont();
-        console.log('Nothing Font initialized');
-    }, 100);
+    console.log('DOM loaded, initializing Nothing Font...');
+    nothingFontInstance = new NothingFont();
 });
 
-// Also initialize on window load as a fallback
+// Fallback initialization
 window.addEventListener('load', () => {
-    if (!window.nothingFont) {
-        console.log('Fallback: Nothing Font initialization on window load');
-        window.nothingFont = new NothingFont();
+    if (!nothingFontInstance) {
+        console.log('Fallback: Initializing Nothing Font on window load');
+        nothingFontInstance = new NothingFont();
     }
 });
 
-// Export for external use
+// Export for global access
 window.NothingFont = NothingFont;
+window.nothingFont = nothingFontInstance;
 
-// Manual trigger function for testing
+// Manual initialization function
 window.initNothingFont = function() {
-    console.log('Manual nothing font initialization');
-    window.nothingFont = new NothingFont();
+    console.log('Manual Nothing Font initialization');
+    nothingFontInstance = new NothingFont();
+    return nothingFontInstance;
 };
