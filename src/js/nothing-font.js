@@ -326,11 +326,11 @@ class NothingFont {
         const originalTextSpan = document.createElement('span');
         originalTextSpan.className = 'sr-only';
         originalTextSpan.textContent = text;
-        originalTextSpan.setAttribute('aria-hidden', 'true');
         
         // Create container for the dot matrix
         const matrixContainer = document.createElement('div');
         matrixContainer.className = 'dot-matrix';
+        matrixContainer.setAttribute('aria-hidden', 'true');
         
         // Create 7 rows for the dot matrix
         for (let row = 0; row < 7; row++) {
@@ -352,10 +352,11 @@ class NothingFont {
                     // Create dots for this character's row
                     for (let dotIndex = 0; dotIndex < rowPattern.length; dotIndex++) {
                         const dot = document.createElement('span');
-                        dot.className = rowPattern[dotIndex] === '█' ? 'dot filled' : 'dot empty';
+                        const isFilled = rowPattern[dotIndex] === '█';
+                        dot.className = isFilled ? 'dot filled' : 'dot empty';
                         
                         // Add staggered animation delay
-                        const delay = (charIndex * 30) + (row * 5) + (dotIndex * 1);
+                        const delay = (charIndex * 30) + (row * 5) + (dotIndex * 2);
                         dot.style.animationDelay = `${delay}ms`;
                         
                         letterElement.appendChild(dot);
