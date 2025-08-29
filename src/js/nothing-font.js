@@ -16,6 +16,7 @@ class NothingFont {
                 '#    #',
                 '##### ',
                 '#    #',
+                '#    #',
                 '##### ',
                 '      '
             ],
@@ -42,6 +43,7 @@ class NothingFont {
                 '#     ',
                 '##### ',
                 '#     ',
+                '#     ',
                 '######',
                 '      '
             ],
@@ -49,6 +51,7 @@ class NothingFont {
                 '######',
                 '#     ',
                 '##### ',
+                '#     ',
                 '#     ',
                 '#     ',
                 '      '
@@ -66,6 +69,7 @@ class NothingFont {
                 '#    #',
                 '#    #',
                 '######',
+                '#    #',
                 '#    #',
                 '#    #',
                 '      '
@@ -209,6 +213,7 @@ class NothingFont {
                 '#    #',
                 ' #  # ',
                 '  ##  ',
+                '  ##  ',
                 ' #  # ',
                 '#    #',
                 '      '
@@ -317,6 +322,14 @@ class NothingFont {
         const upperText = text.toUpperCase();
         console.log('Converting to matrix:', upperText);
         
+        // Store original text for accessibility
+        const originalTextSpan = document.createElement('span');
+        originalTextSpan.className = 'original-text';
+        originalTextSpan.textContent = text;
+        originalTextSpan.style.position = 'absolute';
+        originalTextSpan.style.left = '-9999px';
+        originalTextSpan.setAttribute('aria-hidden', 'true');
+        
         // Create container for the dot matrix
         const matrixContainer = document.createElement('div');
         matrixContainer.className = 'dot-matrix';
@@ -344,7 +357,7 @@ class NothingFont {
                         dot.className = rowPattern[dotIndex] === '#' ? 'dot' : 'dot empty';
                         
                         // Add staggered animation delay
-                        const delay = (charIndex * 100) + (row * 20) + (dotIndex * 5);
+                        const delay = (charIndex * 50) + (row * 10) + (dotIndex * 2);
                         dot.style.animationDelay = `${delay}ms`;
                         
                         letterElement.appendChild(dot);
@@ -356,12 +369,6 @@ class NothingFont {
             
             matrixContainer.appendChild(rowElement);
         }
-        
-        // Store original text for accessibility
-        const originalTextSpan = document.createElement('span');
-        originalTextSpan.className = 'original-text';
-        originalTextSpan.textContent = text;
-        originalTextSpan.setAttribute('aria-hidden', 'true');
         
         // Replace element content
         element.innerHTML = '';
