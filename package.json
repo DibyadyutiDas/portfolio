@@ -1,0 +1,18 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website showcasing skills, projects, and creativity",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000",
+    "build": "echo 'Static site - no build needed'",
+    "preview": "npx serve . -p 4173"
+  },
+  "keywords": ["portfolio", "website", "personal", "projects"],
+  "author": "Dibyadyuti Das",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
