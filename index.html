@@ -23,12 +23,12 @@
     <link rel="stylesheet" href="src/css/about.css">
     <link rel="stylesheet" href="src/css/carousel.css">
     <link rel="stylesheet" href="src/css/web.css">
+    <link rel="stylesheet" href="src/css/dark.css">
     <link rel="stylesheet" href="src/css/project.css">
     <link rel="stylesheet" href="src/css/clock.css">
     <link rel="stylesheet" href="src/css/contact.css">
     <link rel="stylesheet" href="src/css/footer.css">
     <link rel="stylesheet" href="src/css/nothing-font.css">
-    <link rel="stylesheet" href="src/css/dark.css">
     <link rel="stylesheet" href="src/css/@media.css">
     <link rel="stylesheet" href="src/css/@keyframe.css">
 
@@ -108,7 +108,7 @@
       </div>
 
       <div class="about-text">
-          <h2>About Me</h2>
+          <h2 class="nothing-font">About Me</h2>
           <p>
             Hi, I’m Dibyadyuti Das! I’m a Computer Programmer passionate about problem-solving and building cool projects.
             Currently, I’m diving into open-source contributions and sharpening my skills with tools like Node.js and Linux to expand my horizons.
@@ -126,7 +126,7 @@
 <!--  -->
 <section id="LIKE TO DO?" data-aos="fade-up">
 <p class="subtitle">If you wanna gossip...</p>
-    <h1>WHAT I LIKE TO DO?</h1>
+    <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
     <div class="carousel-container">
         <div class="carousel" id="carousel">
             <img src="photo/running.png" class="left" alt="Image 1">
@@ -141,19 +141,19 @@
 <section id="websites"  data-aos="fade-up">
   <!-- Top Heading (Websites) -->
   <div class="header">
-      <h2>Websites</h2>
+      <h2 class="nothing-font">Websites</h2>
   </div>
 
   <div class="content">
       <!-- Left Side Text (Who This is For) -->
       <div class="left-text">
-          <h3>Explore These Websites</h3>
+          <h3 class="nothing-font">Explore These Websites</h3>
       </div>
 
       <!-- Right Side Cards (With Scrollable Feature) -->
       <div class="cards-wrapper">
         <div class="card-container" id="card-container">
-            <script script src="src/js/renderWebCards.js"></script>
+            <!-- Cards will be loaded here by JavaScript -->
         </div>
       </div>
   </div>
@@ -165,7 +165,7 @@
 <section class="projects" id="work">
 <!-- Top Heading (Projects) -->
     <div class="header">
-        <h2>Projects</h2>
+        <h2 class="nothing-font">Projects</h2>
     </div>
     <!-- <div class="hero-project"> -->
         <div class="hero-content">
@@ -235,7 +235,7 @@
 <!-- Contact Section -->
 <section id="contact" data-aos="fade-up">
     <div class="header">
-        <h2>Contact</h2>
+        <h2 class="nothing-font">Contact</h2>
     </div>
         <form class="contact-form">
             <input type="text" placeholder="Your Name" required>
@@ -267,23 +267,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="src/js/script.js"></script>
-    <script src="src/js/nothing-font.js"></script>
+    <script src="src/js/renderWebCards.js"></script>
     <script src="src/js/renderProjectCards.js"></script>
     <script src="src/js/clock.js"></script>
-
-    <script>
-        // Initialize Nothing Font
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                console.log('Manually initializing Nothing Font...');
-                if (window.NothingFont) {
-                    window.nothingFont = new window.NothingFont();
-                } else {
-                    console.error('NothingFont class not found');
-                }
-            }, 500);
-        });
-    </script>
+    <script src="src/js/nothing-font.js"></script>
 
 </body>
 

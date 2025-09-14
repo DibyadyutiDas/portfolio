@@ -509,19 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.imageCarousel = new ImageCarousel();
     window.performanceOptimizer = new PerformanceOptimizer();
     
-    // Initialize Nothing Font
-    if (window.NothingFont) {
-        window.nothingFont = new NothingFont();
-        console.log('Nothing Font initialized from main script');
-    } else {
-        console.log('Nothing Font class not found, will try manual init');
-        setTimeout(() => {
-            if (window.initNothingFont) {
-                window.initNothingFont();
-            }
-        }, 500);
-    }
-    
     // Mark as loaded
     document.body.classList.add('loaded');
     

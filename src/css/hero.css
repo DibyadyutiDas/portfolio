@@ -11,14 +11,18 @@
   .hero-content {
     text-align: center;
     padding: 0 20px;
+    max-width: 100%;
+    overflow: visible;
   }
   
   .title {
-    font-family: var(--font-sans);
+    font-family: Helvetica;
     font-size: clamp(2rem,8vw,5rem);
     font-weight: 770;
     margin: 0;
     letter-spacing: 5px;
+    max-width: 100%;
+    overflow: visible;
   }
   
   .subtitle {

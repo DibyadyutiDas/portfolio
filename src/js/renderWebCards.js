@@ -9,6 +9,9 @@ async function loadWebCards() {
       return;
     }
 
+    // Clear any existing content
+    webCardsContainer.innerHTML = '';
+
     webCardsData.forEach(card => {
       const cardDiv = document.createElement('a');
       cardDiv.className = 'web-card';
@@ -28,7 +31,7 @@ async function loadWebCards() {
     setTimeout(() => {
       webCardsContainer.scrollLeft = 0;
     }, 100);
-    
+
   } catch (error) {
     console.error("Error loading web cards:", error);
   }
@@ -36,3 +39,11 @@ async function loadWebCards() {
 
 // Call the function on DOM load
 document.addEventListener("DOMContentLoaded", loadWebCards);
+
+// Also try to call it immediately in case DOM is already loaded
+if (document.readyState === 'loading') {
+  // Document still loading, DOMContentLoaded will handle it
+} else {
+  // Document already loaded, call immediately
+  loadWebCards();
+}
