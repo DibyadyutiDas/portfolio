@@ -82,7 +82,7 @@
     color: #555;
     margin-top: 15px;
     font-weight: 400;
-    font-family: Helvetica, Arial;
+    font-family: var(--font-sans);
 }
 
 /* Remove floating background shapes */

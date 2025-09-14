@@ -429,7 +429,7 @@
 
   .left-text h3 {
     font-size: 1.6rem;
-    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 600;
     letter-spacing: 0.5px;
   }

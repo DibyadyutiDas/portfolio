@@ -14,7 +14,7 @@
   }
   
   .title {
-    font-family: Helvetica;
+    font-family: var(--font-sans);
     font-size: clamp(2rem,8vw,5rem);
     font-weight: 770;
     margin: 0;

@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="src/css/clock.css">
     <link rel="stylesheet" href="src/css/contact.css">
     <link rel="stylesheet" href="src/css/footer.css">
+    <link rel="stylesheet" href="src/css/nothing-font.css">
+    <link rel="stylesheet" href="src/css/dark.css">
     <link rel="stylesheet" href="src/css/@media.css">
     <link rel="stylesheet" href="src/css/@keyframe.css">
 
@@ -87,7 +89,7 @@
 <!-- Hero Section -->
 <section class="hero">
     <div class="hero-content">
-        <h1 class="title">DIBYADYUTI</h1>
+        <h1 class="title nothing-font">DIBYADYUTI</h1>
         <p class="subtitle">scroll down to see my work!</p>
       <!-- Add the anchor link -->
       <a href="#about" class="arrow-container">
@@ -172,7 +174,7 @@
             <span class="meta-divider">—</span>
             <span class="meta-item">2023–2024</span>
           </div>
-          <h1 class="hero-title">Building products that matter</h1>
+          <h1 class="hero-title nothing-font">Building products that matter</h1>
           <p class="hero-description">
             A collection of projects that push boundaries, solve real problems, and create meaningful experiences through thoughtful design and engineering.
           </p>
@@ -265,8 +267,23 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="src/js/script.js"></script>
+    <script src="src/js/nothing-font.js"></script>
     <script src="src/js/renderProjectCards.js"></script>
     <script src="src/js/clock.js"></script>
+
+    <script>
+        // Initialize Nothing Font
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                console.log('Manually initializing Nothing Font...');
+                if (window.NothingFont) {
+                    window.nothingFont = new window.NothingFont();
+                } else {
+                    console.error('NothingFont class not found');
+                }
+            }, 500);
+        });
+    </script>
 
 </body>
 
