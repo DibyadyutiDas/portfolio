@@ -1,391 +1,172 @@
-/* Nothing Font Style - Circle Dot Matrix Characters */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* --- Nothing Font (Dot Matrix) - Refactored --- */
 
-/* --- Nothing Font (Dot Matrix) --- */
+/* Core Principles:
+  1. CSS Custom Properties (--variable) for a single source of truth.
+  2. No `!important` needed due to a clean, component-based structure.
+  3. `calc()` for dynamic and proportional sizing (e.g., row height depends on dot size).
+  4. Modular size classes (.nothing-font--small) instead of styling h1/h2 tags directly.
+*/
+
+:root {
+  /* Define theme colors for easy dark/light mode switching */
+  --nothing-font-color: #000;
+  --nothing-focus-color: #FF4B2B;
+}
+
+body.dark-mode {
+  --nothing-font-color: #fff;
+}
+
 .nothing-font {
-  font-family: 'DotMatrix', monospace;
+  /* --- Control Panel using CSS Variables --- */
+  /* These are the default values (equivalent to a medium size) */
+  --dot-size: 4px;
+  --dot-margin: 1px;
+  --letter-spacing: 8px; /* Space between letters */
+
+  /* --- Base Component Styles --- */
+  font-family: 'DotMatrix', monospace; /* Fallback font */
   position: relative;
   display: block;
-  width: 100%;
-  max-width: 100%;
-  overflow: visible;
-  line-height: 0.2;
-  /* letter-spacing: 0.1em; */
   user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--nothing-font-color);
 }
 
-/* Hide original text for accessibility but keep it for screen readers */
+/* Hide original text but keep it for screen readers and SEO */
 .nothing-font .original-text {
   position: absolute;
-  /* left: -10000px; */
-  top: auto;
   width: 1px;
   height: 1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-/* Dot matrix container */
-.nothing-font .dot-matrix {
+/* Base styles for the building blocks */
+.dot-matrix {
   display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  max-width: 100%;
-  overflow: visible;
+  vertical-align: top;
+  contain: layout style paint; /* Performance optimization */
 }
 
-/* Dot styling with improved performance */
-.dot {
-  display: inline-block !important;
-  width: 2px !important;
-  height: 2px !important;
-  background: currentColor !important;
-  margin: 0.3px !important;
-  border-radius: 50% !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: dotFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  opacity: 0;
-  transform: scale(0.8);
-  aspect-ratio: 1 !important;
-  vertical-align: top !important;
-  position: relative !important;
-  will-change: transform, opacity;
-}
-
-.dot.empty {
-  background: transparent !important;
-  opacity: 0 !important;
-  animation: none !important;
-}
-
-/* Improved dot fade-in animation */
-@keyframes dotFadeIn {
-  0% { 
-    opacity: 0; 
-    transform: scale(0.6) translateY(2px);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1) translateY(-1px);
-  }
-  100% { 
-    opacity: 1; 
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Letter and row spacing */
 .letter {
-  display: inline-block !important;
-  margin-right: 4px !important;
-  vertical-align: top !important;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: var(--letter-spacing);
 }
-.letter:last-child { 
-  margin-right: 0 !important; 
+.letter:last-child {
+  margin-right: 0;
 }
 
 .dot-row {
-  display: block !important;
-  height: 3px !important;
-  white-space: nowrap !important;
-  line-height: 3px !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  display: block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  /* Row height is calculated dynamically based on dot size and margin */
+  height: calc(var(--dot-size) + (var(--dot-margin) * 2));
+  line-height: calc(var(--dot-size) + (var(--dot-margin) * 2));
 }
 
-/* Size variations */
-.nothing-font.large .dot { 
-  width: 4px !important; 
-  height: 4px !important; 
-  margin: 1px !important; 
-}
-.nothing-font.large .dot-row { 
-  height: 6px !important; 
-}
-.nothing-font.large .letter { 
-  margin-right: 8px !important; 
-}
-
-.nothing-font.small .dot { 
-  width: 1.5px !important; 
-  height: 1.5px !important; 
-  margin: 0.2px !important; 
-}
-.nothing-font.small .dot-row { 
-  height: 2px !important; 
-}
-.nothing-font.small .letter { 
-  margin-right: 3px !important; 
+.dot {
+  display: inline-block;
+  vertical-align: middle;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  /* Sizing is now controlled by variables */
+  width: var(--dot-size);
+  height: var(--dot-size);
+  margin: var(--dot-margin);
+  /* Animation */
+  animation: dotFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Heading-specific styles with proper sizing */
-h1.nothing-font .dot,
-.title.nothing-font .dot,
-.hero-title.nothing-font .dot {
-  width: 3px !important;
-  height: 3px !important;
-  margin: 0.6px !important;
-  background: currentColor !important;
-  border-radius: 50% !important;
-  display: inline-block !important;
+.dot.empty {
+  background: transparent;
+  animation: none;
+  opacity: 0;
 }
 
-h1.nothing-font .dot-row,
-.title.nothing-font .dot-row,
-.hero-title.nothing-font .dot-row {
-  height: 5px !important;
-  display: block !important;
-  white-space: nowrap !important;
-  line-height: 5px !important;
+/* --- Size Modifier Classes --- */
+/* To change the size, just apply one of these classes. */
+
+.nothing-font--small {
+  --dot-size: 2px;
+  --dot-margin: 0.5px;
+  --letter-spacing: 4px;
 }
 
-h1.nothing-font .letter,
-.title.nothing-font .letter,
-.hero-title.nothing-font .letter {
-  margin-right: 6px !important;
-  display: inline-block !important;
-  vertical-align: top !important;
+.nothing-font--medium { /* Default size */
+  --dot-size: 4px;
+  --dot-margin: 1px;
+  --letter-spacing: 8px;
 }
 
-h2.nothing-font .dot {
-  width: 8px !important;
-  height: 8px !important;
-  margin: 2px !important;
-  background: currentColor !important;
-  border-radius: 50% !important;
-  display: inline-block !important;
+.nothing-font--large {
+  --dot-size: 8px;
+  --dot-margin: 2px;
+  --letter-spacing: 16px;
 }
 
-h2.nothing-font .dot-row {
-  height: 12px !important;
-  display: block !important;
-  white-space: nowrap !important;
-  line-height: 12px !important;
+.nothing-font--xl { /* For hero titles */
+  --dot-size: 16px;
+  --dot-margin: 4px;
+  --letter-spacing: 32px;
 }
 
-h2.nothing-font .letter {
-  margin-right: 16px !important;
-  display: inline-block !important;
-  vertical-align: top !important;
-}
 
-h3.nothing-font .dot {
-  width: 6px !important;
-  height: 6px !important;
-  margin: 1.5px !important;
-  background: currentColor !important;
-  border-radius: 50% !important;
-  display: inline-block !important;
-}
+/* --- Responsive Sizing --- */
+/* On smaller screens, we just update the variables for larger font sizes. */
 
-h3.nothing-font .dot-row {
-  height: 9px !important;
-  display: block !important;
-  white-space: nowrap !important;
-  line-height: 9px !important;
-}
-
-h3.nothing-font .letter {
-  margin-right: 12px !important;
-  display: inline-block !important;
-  vertical-align: top !important;
-}
-
-/* Special sizing for main hero title */
-.hero .title.nothing-font .dot {
-  width: 16px !important;
-  height: 16px !important;
-  margin: 4px !important;
-}
-
-.hero .title.nothing-font .dot-row {
-  height: 24px !important;
-  line-height: 24px !important;
-}
-
-.hero .title.nothing-font .letter {
-  margin-right: 32px !important;
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .nothing-font .dot { 
-    width: 4px !important; 
-    height: 4px !important; 
-    margin: 1px !important; 
+  .nothing-font--large {
+    --dot-size: 6px;
+    --dot-margin: 1.5px;
+    --letter-spacing: 12px;
   }
-  .nothing-font .dot-row { 
-    height: 6px !important; 
-    line-height: 6px !important;
-  }
-  .nothing-font .letter { 
-    margin-right: 8px !important; 
-  }
-  
-  h1.nothing-font .dot,
-  .title.nothing-font .dot { 
-    width: 10px !important; 
-    height: 10px !important; 
-    margin: 2.5px !important; 
-  }
-  h1.nothing-font .dot-row,
-  .title.nothing-font .dot-row { 
-    height: 15px !important; 
-    line-height: 15px !important;
-  }
-  h1.nothing-font .letter,
-  .title.nothing-font .letter { 
-    margin-right: 20px !important; 
-  }
-  
-  .hero .title.nothing-font .dot {
-    width: 12px !important;
-    height: 12px !important;
-    margin: 3px !important;
-  }
-  
-  .hero .title.nothing-font .dot-row {
-    height: 18px !important;
-    line-height: 18px !important;
-  }
-  
-  .hero .title.nothing-font .letter {
-    margin-right: 24px !important;
-  }
-  
-  h2.nothing-font .dot { 
-    width: 6px !important; 
-    height: 6px !important; 
-    margin: 1.5px !important; 
-  }
-  h2.nothing-font .dot-row { 
-    height: 9px !important; 
-    line-height: 9px !important;
-  }
-  h2.nothing-font .letter { 
-    margin-right: 12px !important; 
-  }
-  
-  h3.nothing-font .dot { 
-    width: 5px !important; 
-    height: 5px !important; 
-    margin: 1.2px !important; 
-  }
-  h3.nothing-font .dot-row { 
-    height: 7.5px !important; 
-    line-height: 7.5px !important;
-  }
-  h3.nothing-font .letter { 
-    margin-right: 10px !important; 
+  .nothing-font--xl {
+    --dot-size: 12px;
+    --dot-margin: 3px;
+    --letter-spacing: 24px;
   }
 }
 
 @media (max-width: 480px) {
-  .nothing-font .dot { 
-    width: 3px !important; 
-    height: 3px !important; 
-    margin: 0.5px !important; 
+  .nothing-font--medium {
+    --dot-size: 3px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 6px;
   }
-  .nothing-font .dot-row { 
-    height: 4px !important; 
-    line-height: 4px !important;
+  .nothing-font--large {
+    --dot-size: 5px;
+    --dot-margin: 1.2px;
+    --letter-spacing: 10px;
   }
-  .nothing-font .letter { 
-    margin-right: 6px !important; 
-  }
-  
-  h1.nothing-font .dot,
-  .title.nothing-font .dot { 
-    width: 8px !important; 
-    height: 8px !important; 
-    margin: 2px !important; 
-  }
-  h1.nothing-font .dot-row,
-  .title.nothing-font .dot-row { 
-    height: 12px !important; 
-    line-height: 12px !important;
-  }
-  h1.nothing-font .letter,
-  .title.nothing-font .letter { 
-    margin-right: 16px !important; 
-  }
-  
-  .hero .title.nothing-font .dot {
-    width: 8px !important;
-    height: 8px !important;
-    margin: 2px !important;
-  }
-  
-  .hero .title.nothing-font .dot-row {
-    height: 12px !important;
-    line-height: 12px !important;
-  }
-  
-  .hero .title.nothing-font .letter {
-    margin-right: 16px !important;
-  }
-  
-  h2.nothing-font .dot { 
-    width: 5px !important; 
-    height: 5px !important; 
-    margin: 1.2px !important; 
-  }
-  h2.nothing-font .dot-row { 
-    height: 7.5px !important; 
-    line-height: 7.5px !important;
-  }
-  h2.nothing-font .letter { 
-    margin-right: 10px !important; 
-  }
-  
-  h3.nothing-font .dot { 
-    width: 4px !important; 
-    height: 4px !important; 
-    margin: 1px !important; 
-  }
-  h3.nothing-font .dot-row { 
-    height: 6px !important; 
-    line-height: 6px !important;
-  }
-  h3.nothing-font .letter { 
-    margin-right: 8px !important; 
+  .nothing-font--xl {
+    --dot-size: 8px;
+    --dot-margin: 2px;
+    --letter-spacing: 16px;
   }
 }
 
-/* Dark mode support */
-body.dark-mode .nothing-font .dot { 
-  background: #fff !important; 
-}
 
-/* Performance optimizations */
-.nothing-font .dot-matrix {
-  contain: layout style paint;
-  will-change: auto;
-}
+/* --- States & Accessibility --- */
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .dot {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+/* Animation */
+@keyframes dotFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(2px);
   }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .nothing-font .dot {
-    background: currentColor !important;
-    border: 1px solid currentColor !important;
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
-}
-
-/* Focus styles for accessibility */
-.nothing-font:focus {
-  outline: 2px solid var(--primary-color, #FF4B2B);
-  outline-offset: 4px;
-  border-radius: 4px;
 }
 
 /* Loading state */
@@ -398,30 +179,25 @@ body.dark-mode .nothing-font .dot {
   animation-play-state: running;
 }
 
-/* Responsive overflow handling */
-@media (max-width: 768px) {
-  .nothing-font {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  
-  .nothing-font .dot-matrix {
-    display: block;
-    text-align: center;
-  }
-  
-  .letter {
-    margin-right: 4px !important;
+/* Focus styles for keyboard navigation */
+.nothing-font:focus {
+  outline: 2px solid var(--nothing-focus-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
-@media (max-width: 480px) {
-  .nothing-font {
-    font-size: 0.8em;
-  }
-  
-  .letter {
-    margin-right: 2px !important;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .nothing-font .dot {
+    border: 1px solid currentColor;
   }
 }
