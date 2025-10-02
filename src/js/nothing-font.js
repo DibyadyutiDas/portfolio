@@ -503,15 +503,15 @@ class NothingFont {
         const viewportWidth = window.innerWidth;
 
         if (viewportWidth <= 360) {
-            maxCharsPerLine = 6;  // Extra small screens
+            maxCharsPerLine = 12;  // Extra small screens
         } else if (viewportWidth <= 480) {
-            maxCharsPerLine = 8; // Mobile phones
+            maxCharsPerLine = 15; // Mobile phones
         } else if (viewportWidth <= 768) {
-            maxCharsPerLine = 12; // Tablets
+            maxCharsPerLine = 18; // Tablets
         } else if (viewportWidth <= 1024) {
-            maxCharsPerLine = 16; // Small laptops
+            maxCharsPerLine = 20; // Small laptops
         } else {
-            maxCharsPerLine = 20; // Desktop and larger
+            maxCharsPerLine = 25; // Desktop and larger
         }
 
         const lines = [];

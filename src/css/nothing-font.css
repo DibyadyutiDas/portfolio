@@ -19,10 +19,11 @@ body.dark-mode {
 
 .nothing-font {
   /* --- Control Panel using CSS Variables --- */
-  /* These are the default values (equivalent to a medium size) */
-  --dot-size: 4px;
-  --dot-margin: 1px;
-  --letter-spacing: 8px; /* Space between letters */
+  /* Scale based on viewport width for responsive sizing */
+  --base-scale: 1vw;
+  --dot-size: calc(var(--base-scale) * 0.4);
+  --dot-margin: calc(var(--base-scale) * 0.1);
+  --letter-spacing: calc(var(--base-scale) * 0.8);
 
   /* --- Base Component Styles --- */
   font-family: 'DotMatrix', monospace; /* Fallback font */
@@ -104,109 +105,72 @@ body.dark-mode {
 /* To change the size, just apply one of these classes. */
 
 .nothing-font--small {
-  --dot-size: 2px;
-  --dot-margin: 0.5px;
-  --letter-spacing: 4px;
+  --base-scale: 0.5vw;
 }
 
 .nothing-font--medium { /* Default size */
-  --dot-size: 4px;
-  --dot-margin: 1px;
-  --letter-spacing: 8px;
+  --base-scale: 1vw;
 }
 
 .nothing-font--large {
-  --dot-size: 8px;
-  --dot-margin: 2px;
-  --letter-spacing: 16px;
+  --base-scale: 1.5vw;
 }
 
 .nothing-font--xl { /* For hero titles */
-  --dot-size: 16px;
-  --dot-margin: 4px;
-  --letter-spacing: 32px;
+  --base-scale: 2vw;
 }
 
 
 /* --- Responsive Sizing --- */
-/* On smaller screens, we just update the variables for larger font sizes. */
+/* Adjust base scale for different screen sizes */
 
 @media (max-width: 768px) {
-  .nothing-font--large {
-    --dot-size: 5px;
-    --dot-margin: 1.2px;
-    --letter-spacing: 10px;
-  }
-  .nothing-font--xl {
-    --dot-size: 10px;
-    --dot-margin: 2.5px;
-    --letter-spacing: 20px;
+  .nothing-font {
+    --base-scale: 1.2vw;
   }
 
-  /* Ensure proper sizing on tablets */
-  .nothing-font {
-    max-width: 100%;
-    width: 100%;
-    overflow: visible;
+  .nothing-font--large {
+    --base-scale: 1.8vw;
+  }
+
+  .nothing-font--xl {
+    --base-scale: 2.5vw;
   }
 }
 
 @media (max-width: 480px) {
-  .nothing-font--medium {
-    --dot-size: 2.5px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 5px;
-  }
-  .nothing-font--large {
-    --dot-size: 4px;
-    --dot-margin: 1px;
-    --letter-spacing: 8px;
-  }
-  .nothing-font--xl {
-    --dot-size: 6px;
-    --dot-margin: 1.5px;
-    --letter-spacing: 12px;
+  .nothing-font {
+    --base-scale: 1.5vw;
   }
 
-  /* Ensure proper display on mobile devices */
-  .nothing-font {
-    max-width: 100%;
-    width: 100%;
-    overflow: visible;
+  .nothing-font--medium {
+    --base-scale: 1.5vw;
+  }
+
+  .nothing-font--large {
+    --base-scale: 2vw;
+  }
+
+  .nothing-font--xl {
+    --base-scale: 3vw;
   }
 }
 
-/* Extra small screens */
 @media (max-width: 360px) {
   .nothing-font {
-    --dot-size: 1.5px;
-    --dot-margin: 0.3px;
-    --letter-spacing: 3px;
+    --base-scale: 2vw;
   }
 
   .nothing-font--medium {
-    --dot-size: 1.5px;
-    --dot-margin: 0.3px;
-    --letter-spacing: 3px;
+    --base-scale: 2vw;
   }
 
   .nothing-font--large {
-    --dot-size: 3px;
-    --dot-margin: 0.7px;
-    --letter-spacing: 6px;
+    --base-scale: 2.5vw;
   }
 
   .nothing-font--xl {
-    --dot-size: 5px;
-    --dot-margin: 1.2px;
-    --letter-spacing: 10px;
-  }
-
-  /* Ensure proper display on very small screens */
-  .nothing-font {
-    max-width: 100%;
-    width: 100%;
-    overflow: visible;
+    --base-scale: 3.5vw;
   }
 }
 
@@ -237,14 +201,21 @@ body.dark-mode {
 @media (max-width: 768px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    font-size: 0.8em; /* Reduce overall scale */
+    --base-scale: 2vw;
   }
 }
 
 @media (max-width: 480px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    font-size: 0.7em; /* Further reduce for mobile */
+    --base-scale: 2.5vw;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    --base-scale: 3vw;
   }
 }
 
