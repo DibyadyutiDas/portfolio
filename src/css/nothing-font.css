@@ -59,7 +59,7 @@ body.dark-mode {
   contain: layout style paint; /* Performance optimization */
   min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
   max-width: 100%;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .letter {
@@ -133,43 +133,45 @@ body.dark-mode {
 
 @media (max-width: 768px) {
   .nothing-font--large {
-    --dot-size: 6px;
-    --dot-margin: 1.5px;
-    --letter-spacing: 12px;
+    --dot-size: 5px;
+    --dot-margin: 1.2px;
+    --letter-spacing: 10px;
   }
   .nothing-font--xl {
-    --dot-size: 12px;
-    --dot-margin: 3px;
-    --letter-spacing: 24px;
+    --dot-size: 10px;
+    --dot-margin: 2.5px;
+    --letter-spacing: 20px;
   }
-  
+
   /* Ensure proper sizing on tablets */
   .nothing-font {
     max-width: 100%;
+    width: 100%;
     overflow: visible;
   }
 }
 
 @media (max-width: 480px) {
   .nothing-font--medium {
-    --dot-size: 3px;
+    --dot-size: 2.5px;
     --dot-margin: 0.5px;
-    --letter-spacing: 6px;
+    --letter-spacing: 5px;
   }
   .nothing-font--large {
-    --dot-size: 5px;
-    --dot-margin: 1.2px;
-    --letter-spacing: 10px;
+    --dot-size: 4px;
+    --dot-margin: 1px;
+    --letter-spacing: 8px;
   }
   .nothing-font--xl {
-    --dot-size: 8px;
-    --dot-margin: 2px;
-    --letter-spacing: 16px;
+    --dot-size: 6px;
+    --dot-margin: 1.5px;
+    --letter-spacing: 12px;
   }
-  
+
   /* Ensure proper display on mobile devices */
   .nothing-font {
     max-width: 100%;
+    width: 100%;
     overflow: visible;
   }
 }
@@ -177,32 +179,33 @@ body.dark-mode {
 /* Extra small screens */
 @media (max-width: 360px) {
   .nothing-font {
-    --dot-size: 2px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 4px;
+    --dot-size: 1.5px;
+    --dot-margin: 0.3px;
+    --letter-spacing: 3px;
   }
-  
+
   .nothing-font--medium {
-    --dot-size: 2px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 4px;
+    --dot-size: 1.5px;
+    --dot-margin: 0.3px;
+    --letter-spacing: 3px;
   }
-  
+
   .nothing-font--large {
-    --dot-size: 4px;
-    --dot-margin: 1px;
-    --letter-spacing: 8px;
+    --dot-size: 3px;
+    --dot-margin: 0.7px;
+    --letter-spacing: 6px;
   }
-  
+
   .nothing-font--xl {
-    --dot-size: 6px;
-    --dot-margin: 1.5px;
-    --letter-spacing: 12px;
+    --dot-size: 5px;
+    --dot-margin: 1.2px;
+    --letter-spacing: 10px;
   }
-  
+
   /* Ensure proper display on very small screens */
   .nothing-font {
     max-width: 100%;
+    width: 100%;
     overflow: visible;
   }
 }
