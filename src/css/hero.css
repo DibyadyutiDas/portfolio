@@ -13,14 +13,39 @@
     padding: 0 20px;
     max-width: 100%;
     overflow: visible;
+    width: 100%;
   }
   
-  .title {
+  @media (max-width: 480px) {
+    .hero-content {
+      padding: 0 10px;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .hero-content {
+      padding: 0 5px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .hero-content {
+      padding: 0 3px;
+    }
+  }
+  
+  .title:not(.nothing-font) {
     font-family: Helvetica;
     font-size: clamp(2rem,8vw,5rem);
     font-weight: 770;
     margin: 0;
     letter-spacing: 5px;
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  .title.nothing-font {
+    margin: 0;
     max-width: 100%;
     overflow: visible;
   }

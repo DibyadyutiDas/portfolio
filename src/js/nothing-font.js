@@ -434,16 +434,26 @@ class NothingFont {
     
     init() {
         if (this.isInitialized) return;
-        
+
         console.log('Initializing Nothing Font...');
-        
+
         // Wait for DOM to be fully ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.processElements());
         } else {
             this.processElements();
         }
-        
+
+        // Add resize listener to re-render on viewport changes
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                console.log('Viewport resized, re-rendering Nothing Font...');
+                this.reinitialize();
+            }, 300);
+        });
+
         this.isInitialized = true;
     }
     
@@ -487,7 +497,35 @@ class NothingFont {
 
         // Split text into words and handle wrapping
         const words = upperText.split(' ');
-        const maxCharsPerLine = 20; // Maximum characters per line
+
+        // Calculate maximum characters per line based on viewport width
+        let maxCharsPerLine;
+        let charSpacing; // Space dots between characters
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 320) {
+            maxCharsPerLine = 20;  // Very small screens - allow full word if possible
+            charSpacing = 1; // Reduce spacing between characters
+        } else if (viewportWidth <= 360) {
+            maxCharsPerLine = 11;  // Extra small screens
+            charSpacing = 1;
+        } else if (viewportWidth <= 414) {
+            maxCharsPerLine = 13; // iPhone 6/7/8 Plus
+            charSpacing = 2;
+        } else if (viewportWidth <= 480) {
+            maxCharsPerLine = 15; // Mobile phones
+            charSpacing = 2;
+        } else if (viewportWidth <= 768) {
+            maxCharsPerLine = 18; // Tablets
+            charSpacing = 2;
+        } else if (viewportWidth <= 1024) {
+            maxCharsPerLine = 20; // Small laptops
+            charSpacing = 2;
+        } else {
+            maxCharsPerLine = 25; // Desktop and larger
+            charSpacing = 2;
+        }
+
         const lines = [];
         let currentLine = '';
 
@@ -536,7 +574,7 @@ class NothingFont {
 
                     // Add space between characters (except last one)
                     if (charIndex < line.length - 1) {
-                        for (let i = 0; i < 2; i++) {
+                        for (let i = 0; i < charSpacing; i++) {
                             const spaceDot = document.createElement('span');
                             spaceDot.className = 'dot empty';
                             rowElement.appendChild(spaceDot);

@@ -19,10 +19,11 @@ body.dark-mode {
 
 .nothing-font {
   /* --- Control Panel using CSS Variables --- */
-  /* These are the default values (equivalent to a medium size) */
-  --dot-size: 4px;
-  --dot-margin: 1px;
-  --letter-spacing: 8px; /* Space between letters */
+  /* Scale based on viewport width for responsive sizing */
+  --base-scale: 1vw;
+  --dot-size: calc(var(--base-scale) * 0.4);
+  --dot-margin: calc(var(--base-scale) * 0.1);
+  --letter-spacing: calc(var(--base-scale) * 0.8);
 
   /* --- Base Component Styles --- */
   font-family: 'DotMatrix', monospace; /* Fallback font */
@@ -34,10 +35,11 @@ body.dark-mode {
   color: var(--nothing-font-color);
   overflow: visible !important;
   max-width: 100%;
-  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
+  width: 100%;
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 16);
   line-height: normal !important;
   height: auto !important;
-  padding: 10px 0;
+  padding: 15px 0 25px 0;
 }
 
 /* Hide original text but keep it for screen readers and SEO */
@@ -56,7 +58,10 @@ body.dark-mode {
   display: inline-block;
   vertical-align: top;
   contain: layout style paint; /* Performance optimization */
-  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 16);
+  max-width: 100%;
+  overflow: visible;
+  padding-bottom: calc(var(--dot-margin) * 2);
 }
 
 .letter {
@@ -101,106 +106,86 @@ body.dark-mode {
 /* To change the size, just apply one of these classes. */
 
 .nothing-font--small {
-  --dot-size: 2px;
-  --dot-margin: 0.5px;
-  --letter-spacing: 4px;
+  --base-scale: 0.5vw;
 }
 
 .nothing-font--medium { /* Default size */
-  --dot-size: 4px;
-  --dot-margin: 1px;
-  --letter-spacing: 8px;
+  --base-scale: 1vw;
 }
 
 .nothing-font--large {
-  --dot-size: 8px;
-  --dot-margin: 2px;
-  --letter-spacing: 16px;
+  --base-scale: 1.5vw;
 }
 
 .nothing-font--xl { /* For hero titles */
-  --dot-size: 16px;
-  --dot-margin: 4px;
-  --letter-spacing: 32px;
+  --base-scale: 2vw;
 }
 
 
 /* --- Responsive Sizing --- */
-/* On smaller screens, we just update the variables for larger font sizes. */
+/* Adjust base scale for different screen sizes */
 
 @media (max-width: 768px) {
-  .nothing-font--large {
-    --dot-size: 6px;
-    --dot-margin: 1.5px;
-    --letter-spacing: 12px;
-  }
-  .nothing-font--xl {
-    --dot-size: 12px;
-    --dot-margin: 3px;
-    --letter-spacing: 24px;
-  }
-  
-  /* Ensure proper sizing on tablets */
   .nothing-font {
-    max-width: 100%;
-    overflow: visible;
+    --base-scale: 1.2vw;
+  }
+
+  .nothing-font--large {
+    --base-scale: 1.8vw;
+  }
+
+  .nothing-font--xl {
+    --base-scale: 2.5vw;
   }
 }
 
 @media (max-width: 480px) {
+  .nothing-font {
+    --base-scale: 1.3vw;
+    padding: 30px 0 40px 0;
+  }
+
   .nothing-font--medium {
-    --dot-size: 3px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 6px;
+    --base-scale: 1.3vw;
   }
+
   .nothing-font--large {
-    --dot-size: 5px;
-    --dot-margin: 1.2px;
-    --letter-spacing: 10px;
+    --base-scale: 1.8vw;
   }
+
   .nothing-font--xl {
-    --dot-size: 8px;
-    --dot-margin: 2px;
-    --letter-spacing: 16px;
+    --base-scale: 2.5vw;
   }
   
-  /* Ensure proper display on mobile devices */
-  .nothing-font {
-    max-width: 100%;
-    overflow: visible;
+  .dot-matrix {
+    padding-bottom: calc(var(--dot-margin) * 6);
+  }
+  
+  .letter {
+    margin-right: calc(var(--letter-spacing) * 0.8);
   }
 }
 
-/* Extra small screens */
 @media (max-width: 360px) {
   .nothing-font {
-    --dot-size: 2px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 4px;
+    --base-scale: 1.6vw;
+    padding: 20px 0 30px 0;
   }
-  
+
   .nothing-font--medium {
-    --dot-size: 2px;
-    --dot-margin: 0.5px;
-    --letter-spacing: 4px;
+    --base-scale: 1.6vw;
   }
-  
+
   .nothing-font--large {
-    --dot-size: 4px;
-    --dot-margin: 1px;
-    --letter-spacing: 8px;
+    --base-scale: 2vw;
   }
-  
+
   .nothing-font--xl {
-    --dot-size: 6px;
-    --dot-margin: 1.5px;
-    --letter-spacing: 12px;
+    --base-scale: 2.8vw;
   }
   
-  /* Ensure proper display on very small screens */
-  .nothing-font {
-    max-width: 100%;
-    overflow: visible;
+  .letter {
+    margin-right: calc(var(--letter-spacing) * 0.7);
   }
 }
 
@@ -225,20 +210,91 @@ body.dark-mode {
   max-width: 100%;
   overflow: visible !important;
   height: auto !important;
+  margin: 0 auto;
+}
+
+/* Ensure proper scaling on small screens */
+@media (max-width: 480px) {
+  .hero .title.nothing-font .dot-matrix,
+  .hero-title.nothing-font .dot-matrix {
+    max-width: 95vw;
+    transform-origin: center center;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero .title.nothing-font .dot-matrix,
+  .hero-title.nothing-font .dot-matrix {
+    max-width: 92vw;
+  }
 }
 
 /* Responsive hero title adjustments */
 @media (max-width: 768px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    font-size: 0.8em; /* Reduce overall scale */
+    --base-scale: 1.6vw;
+    padding: 20px 5px;
   }
 }
 
 @media (max-width: 480px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    font-size: 0.7em; /* Further reduce for mobile */
+    --base-scale: 1.8vw;
+    padding: 20px 5px;
+  }
+}
+
+@media (max-width: 414px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    --base-scale: 2vw;
+    padding: 20px 5px;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    --base-scale: 2.2vw;
+    padding: 20px 5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    --base-scale: 2.3vw;
+    padding: 20px 5px;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    --base-scale: 1.8vw;
+    --dot-size: calc(var(--base-scale) * 0.35);
+    --dot-margin: calc(var(--base-scale) * 0.08);
+    --letter-spacing: calc(var(--base-scale) * 0.4);
+    padding: 15px 2px;
+    max-width: 98vw;
+  }
+  
+  .hero .title.nothing-font .dot-matrix,
+  .hero-title.nothing-font .dot-matrix {
+    max-width: 95vw;
+    margin: 0 auto;
+  }
+  
+  .hero .title.nothing-font .letter,
+  .hero-title.nothing-font .letter {
+    margin-right: calc(var(--letter-spacing) * 0.3);
+  }
+  
+  .hero .title.nothing-font .dot-row,
+  .hero-title.nothing-font .dot-row {
+    letter-spacing: -0.5px;
   }
 }
 
@@ -272,6 +328,81 @@ body.dark-mode {
   }
 }
 
+/* Additional fixes for dot visibility on small screens */
+@media (max-width: 768px) {
+  .nothing-font {
+    padding: 25px 0 35px 0;
+  }
+  
+  .dot-matrix {
+    padding-bottom: calc(var(--dot-margin) * 4);
+  }
+  
+  .letter {
+    margin-right: calc(var(--letter-spacing) * 0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .nothing-font {
+    padding: 30px 0 40px 0;
+  }
+  
+  .dot-matrix {
+    padding-bottom: calc(var(--dot-margin) * 6);
+  }
+}
+
+/* Ensure dots are always visible */
+.dot {
+  min-width: 2px;
+  min-height: 2px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+  .nothing-font {
+    --base-scale: 1.5vw;
+    --dot-size: calc(var(--base-scale) * 0.35);
+    --dot-margin: calc(var(--base-scale) * 0.08);
+    --letter-spacing: calc(var(--base-scale) * 0.5);
+    padding: 35px 0 45px 0;
+  }
+  
+  .dot {
+    min-width: 2px;
+    min-height: 2px;
+  }
+  
+  .letter {
+    margin-right: calc(var(--letter-spacing) * 0.5);
+  }
+}
+
+/* Ensure dots are always properly sized and visible */
+.dot:not(.empty) {
+  background-color: var(--nothing-font-color);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: none;
+}
+
+/* Fix for container overflow issues */
+.nothing-font .dot-matrix {
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
+.nothing-font .letter {
+  overflow: visible !important;
+}
+
+.nothing-font .dot-row {
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
 /* Override any parent styles that might clip the content */
 h1.nothing-font,
 h2.nothing-font,
@@ -281,7 +412,8 @@ h3.nothing-font,
   overflow: visible !important;
   height: auto !important;
   min-height: fit-content !important;
-  padding: 15px 0 !important;
+  padding: 20px 0 30px 0 !important;
+  margin-bottom: 10px !important;
 }
 
 /* Ensure left text headings display properly */
@@ -289,5 +421,6 @@ h3.nothing-font,
   line-height: normal !important;
   overflow: visible !important;
   height: auto !important;
-  padding: 15px 0 !important;
+  padding: 20px 0 30px 0 !important;
+  margin-bottom: 10px !important;
 }

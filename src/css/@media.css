@@ -31,7 +31,7 @@
         gap: 15px;
     }
   
-    .hero-content .title {
+    .hero-content .title:not(.nothing-font) {
         font-size: 3rem;
     }
   }
@@ -41,7 +41,7 @@
         justify-content: center;
     }
   
-    .hero-content .title {
+    .hero-content .title:not(.nothing-font) {
         font-size: 2.5rem;
     }
   
@@ -66,7 +66,7 @@
   }
 
   @media (max-width:480px) {
-    .hero-content .title {
+    .hero-content .title:not(.nothing-font) {
         font-size: 2rem;
     }
   
