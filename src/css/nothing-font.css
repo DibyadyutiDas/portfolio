@@ -379,6 +379,27 @@ body.dark-mode {
   .letter {
     margin-right: calc(var(--letter-spacing) * 0.5);
   }
+  
+  /* Increase size ONLY for underlined heading sections (About Me, Websites, Projects, Contact) */
+  .header h2.nothing-font,
+  .about-text h2.nothing-font {
+    --base-scale: 2.5vw;
+    --dot-size: calc(var(--base-scale) * 0.4);
+    --dot-margin: calc(var(--base-scale) * 0.1);
+    --letter-spacing: calc(var(--base-scale) * 0.7);
+    padding: 25px 0 35px 0 !important;
+  }
+  
+  .header h2.nothing-font .dot,
+  .about-text h2.nothing-font .dot {
+    min-width: 3px;
+    min-height: 3px;
+  }
+  
+  .header h2.nothing-font .letter,
+  .about-text h2.nothing-font .letter {
+    margin-right: calc(var(--letter-spacing) * 0.6);
+  }
 }
 
 /* Ensure dots are always properly sized and visible */
