@@ -32,8 +32,12 @@ body.dark-mode {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--nothing-font-color);
-  overflow: visible;
+  overflow: visible !important;
   max-width: 100%;
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
+  line-height: normal !important;
+  height: auto !important;
+  padding: 10px 0;
 }
 
 /* Hide original text but keep it for screen readers and SEO */
@@ -52,6 +56,7 @@ body.dark-mode {
   display: inline-block;
   vertical-align: top;
   contain: layout style paint; /* Performance optimization */
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
 }
 
 .letter {
@@ -71,6 +76,7 @@ body.dark-mode {
   /* Row height is calculated dynamically based on dot size and margin */
   height: calc(var(--dot-size) + (var(--dot-margin) * 2));
   line-height: calc(var(--dot-size) + (var(--dot-margin) * 2));
+  overflow: visible;
 }
 
 .dot {
@@ -207,12 +213,18 @@ body.dark-mode {
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: center;
+  line-height: normal !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: fit-content !important;
 }
 
 .hero .title.nothing-font .dot-matrix,
 .hero-title.nothing-font .dot-matrix {
   display: inline-block;
   max-width: 100%;
+  overflow: visible !important;
+  height: auto !important;
 }
 
 /* Responsive hero title adjustments */
@@ -258,4 +270,24 @@ body.dark-mode {
   .nothing-font .dot {
     border: 1px solid currentColor;
   }
+}
+
+/* Override any parent styles that might clip the content */
+h1.nothing-font,
+h2.nothing-font,
+h3.nothing-font,
+.header h2.nothing-font {
+  line-height: normal !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: fit-content !important;
+  padding: 15px 0 !important;
+}
+
+/* Ensure left text headings display properly */
+.left-text h3.nothing-font {
+  line-height: normal !important;
+  overflow: visible !important;
+  height: auto !important;
+  padding: 15px 0 !important;
 }

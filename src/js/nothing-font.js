@@ -205,11 +205,10 @@ class NothingFont {
             '█   █',
             '█   █',
             '█   █',
-            '█   █',
+            '█ █ █',
             '█ █ █',
             '██ ██',
-            '█   █',
-            '     '
+            '█   █'
             ],
             'X': [
             '█   █',
@@ -296,7 +295,7 @@ class NothingFont {
             '█████',
             '█    ',
             '█    ',
-            '████ ',
+            ' ███ ',
             '    █',
             '█   █',
             ' ███ '
@@ -326,8 +325,7 @@ class NothingFont {
             ' ███ ',
             '█   █',
             '█   █',
-            ' ███ ',
-            '     '
+            ' ███ '
             ],
             '9': [
             ' ███ ',
@@ -348,13 +346,13 @@ class NothingFont {
             '  █  '
             ],
             '!': [
+            '     ',
             '  █  ',
             '  █  ',
             '  █  ',
             '  █  ',
             '     ',
-            '  █  ',
-            '     '
+            '  █  '
             ],
             '.': [
             '     ',
@@ -362,22 +360,22 @@ class NothingFont {
             '     ',
             '     ',
             '     ',
-            '  █  ',
-            '     '
+            '     ',
+            '  █  '
             ],
             ',': [
             '     ',
             '     ',
             '     ',
             '     ',
+            '     ',
             '  █  ',
-            ' █   ',
-            '     '
+            ' █   '
             ],
             ':': [
             '     ',
-            '  █  ',
             '     ',
+            '  █  ',
             '     ',
             '  █  ',
             '     ',
@@ -474,62 +472,89 @@ class NothingFont {
     convertToMatrix(element, text) {
         const upperText = text.toUpperCase();
         console.log('Converting text to matrix:', upperText);
-        
+
         // Store original text for accessibility
         const originalTextSpan = document.createElement('span');
         originalTextSpan.className = 'original-text';
         originalTextSpan.textContent = text;
         originalTextSpan.setAttribute('aria-hidden', 'true');
-        
-        const matrixContainer = document.createElement('div');
-        matrixContainer.className = 'dot-matrix';
-        matrixContainer.setAttribute('aria-label', text);
-        
-        // Create 7 rows (height of each character)
-        for (let row = 0; row < 7; row++) {
-            const rowElement = document.createElement('div');
-            rowElement.className = 'dot-row';
-            
-            // Process each character
-            for (let charIndex = 0; charIndex < upperText.length; charIndex++) {
-                const char = upperText[charIndex];
-                const pattern = this.dotPatterns[char] || this.dotPatterns[' '];
-                const rowPattern = pattern[row];
-                
-                // Create letter container for this character
-                if (row === 0) {
-                    const letterElement = document.createElement('span');
-                    letterElement.className = 'letter';
-                    letterElement.setAttribute('data-char', char);
-                    letterElement.setAttribute('data-index', charIndex);
+
+        const mainContainer = document.createElement('div');
+        mainContainer.style.display = 'flex';
+        mainContainer.style.flexDirection = 'column';
+        mainContainer.style.gap = '10px';
+        mainContainer.style.alignItems = 'center';
+
+        // Split text into words and handle wrapping
+        const words = upperText.split(' ');
+        const maxCharsPerLine = 20; // Maximum characters per line
+        const lines = [];
+        let currentLine = '';
+
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i];
+            const testLine = currentLine ? currentLine + ' ' + word : word;
+
+            if (testLine.length <= maxCharsPerLine) {
+                currentLine = testLine;
+            } else {
+                if (currentLine) {
+                    lines.push(currentLine);
                 }
-                
-                // Create dots for this character's row
-                for (let dotIndex = 0; dotIndex < rowPattern.length; dotIndex++) {
-                    const dot = document.createElement('span');
-                    dot.className = rowPattern[dotIndex] === '█' ? 'dot' : 'dot empty';
-                    
-                    rowElement.appendChild(dot);
-                }
-                
-                // Add space between characters (except last one)
-                if (charIndex < upperText.length - 1) {
-                    for (let i = 0; i < 2; i++) {
-                        const spaceDot = document.createElement('span');
-                        spaceDot.className = 'dot empty';
-                        rowElement.appendChild(spaceDot);
+                currentLine = word;
+            }
+        }
+
+        if (currentLine) {
+            lines.push(currentLine);
+        }
+
+        // Create a matrix for each line
+        lines.forEach((line, lineIndex) => {
+            const matrixContainer = document.createElement('div');
+            matrixContainer.className = 'dot-matrix';
+            matrixContainer.setAttribute('aria-label', line);
+
+            // Create 7 rows (height of each character)
+            for (let row = 0; row < 7; row++) {
+                const rowElement = document.createElement('div');
+                rowElement.className = 'dot-row';
+
+                // Process each character
+                for (let charIndex = 0; charIndex < line.length; charIndex++) {
+                    const char = line[charIndex];
+                    const pattern = this.dotPatterns[char] || this.dotPatterns[' '];
+                    const rowPattern = pattern[row];
+
+                    // Create dots for this character's row
+                    for (let dotIndex = 0; dotIndex < rowPattern.length; dotIndex++) {
+                        const dot = document.createElement('span');
+                        dot.className = rowPattern[dotIndex] === '█' ? 'dot' : 'dot empty';
+
+                        rowElement.appendChild(dot);
+                    }
+
+                    // Add space between characters (except last one)
+                    if (charIndex < line.length - 1) {
+                        for (let i = 0; i < 2; i++) {
+                            const spaceDot = document.createElement('span');
+                            spaceDot.className = 'dot empty';
+                            rowElement.appendChild(spaceDot);
+                        }
                     }
                 }
+
+                matrixContainer.appendChild(rowElement);
             }
-            
-            matrixContainer.appendChild(rowElement);
-        }
-        
+
+            mainContainer.appendChild(matrixContainer);
+        });
+
         // Clear element and add new content
         element.innerHTML = '';
         element.appendChild(originalTextSpan);
-        element.appendChild(matrixContainer);
-        
+        element.appendChild(mainContainer);
+
         console.log('Matrix conversion completed for:', text);
     }
     
