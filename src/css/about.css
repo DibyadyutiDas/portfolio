@@ -63,8 +63,10 @@
 
 #about h2::after {
     content: "";
-    display: block;
-    width: 80px;
+    display: inline-block;
+    width: 70%;
+    max-width: 150px;
+    min-width: 50px;
     height: 4px;
     background: var(--primary-color);
     margin: 8px auto 0;
@@ -115,5 +117,18 @@
 
     #about p {
         font-size: 1.1rem;
+    }
+    
+    #about h2::after {
+        max-width: 180px;
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 320px) {
+    #about h2::after {
+        max-width: 150px;
+        min-width: 60px;
+        height: 3px;
     }
 }

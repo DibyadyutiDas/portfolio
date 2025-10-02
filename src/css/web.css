@@ -64,8 +64,10 @@
 
 #websites h2::after {
   content: "";
-  display: block;
-  width: 100px;
+  display: inline-block;
+  width: 70%;
+  max-width: 150px;
+  min-width: 50px;
   height: 4px;
   background: var(--primary-color);
   margin: 8px auto 0;
