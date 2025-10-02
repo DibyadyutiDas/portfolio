@@ -32,6 +32,8 @@ body.dark-mode {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--nothing-font-color);
+  overflow: visible;
+  max-width: 100%;
 }
 
 /* Hide original text but keep it for screen readers and SEO */
@@ -76,14 +78,11 @@ body.dark-mode {
   vertical-align: middle;
   background: currentColor;
   border-radius: 50%;
-  opacity: 0;
-  transform: scale(0.8);
+  opacity: 1;
   /* Sizing is now controlled by variables */
   width: var(--dot-size);
   height: var(--dot-size);
   margin: var(--dot-margin);
-  /* Animation */
-  animation: dotFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .dot.empty {
@@ -134,6 +133,12 @@ body.dark-mode {
     --dot-margin: 3px;
     --letter-spacing: 24px;
   }
+  
+  /* Ensure proper sizing on tablets */
+  .nothing-font {
+    max-width: 100%;
+    overflow: visible;
+  }
 }
 
 @media (max-width: 480px) {
@@ -152,31 +157,86 @@ body.dark-mode {
     --dot-margin: 2px;
     --letter-spacing: 16px;
   }
+  
+  /* Ensure proper display on mobile devices */
+  .nothing-font {
+    max-width: 100%;
+    overflow: visible;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .nothing-font {
+    --dot-size: 2px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 4px;
+  }
+  
+  .nothing-font--medium {
+    --dot-size: 2px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 4px;
+  }
+  
+  .nothing-font--large {
+    --dot-size: 4px;
+    --dot-margin: 1px;
+    --letter-spacing: 8px;
+  }
+  
+  .nothing-font--xl {
+    --dot-size: 6px;
+    --dot-margin: 1.5px;
+    --letter-spacing: 12px;
+  }
+  
+  /* Ensure proper display on very small screens */
+  .nothing-font {
+    max-width: 100%;
+    overflow: visible;
+  }
 }
 
 
-/* --- States & Accessibility --- */
+/* --- Hero Title Specific Styles --- */
+/* Ensure hero titles wrap properly on all screen sizes */
+.hero .title.nothing-font,
+.hero-title.nothing-font {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: center;
+}
 
-/* Animation */
-@keyframes dotFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.6) translateY(2px);
+.hero .title.nothing-font .dot-matrix,
+.hero-title.nothing-font .dot-matrix {
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* Responsive hero title adjustments */
+@media (max-width: 768px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    font-size: 0.8em; /* Reduce overall scale */
   }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+}
+
+@media (max-width: 480px) {
+  .hero .title.nothing-font,
+  .hero-title.nothing-font {
+    font-size: 0.7em; /* Further reduce for mobile */
   }
 }
 
 /* Loading state */
 .nothing-font.loading .dot {
-  animation-play-state: paused;
   opacity: 0.3;
 }
 
 .nothing-font.loaded .dot {
-  animation-play-state: running;
+  opacity: 1;
 }
 
 /* Focus styles for keyboard navigation */
@@ -189,9 +249,7 @@ body.dark-mode {
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .dot {
-    animation: none;
     opacity: 1;
-    transform: none;
   }
 }
 
