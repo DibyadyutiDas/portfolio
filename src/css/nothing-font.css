@@ -35,8 +35,7 @@ body.dark-mode {
   color: var(--nothing-font-color);
   overflow: visible !important;
   max-width: 100%;
-  width: 100%;
-  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 16);
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
   line-height: normal !important;
   height: auto !important;
   padding: 15px 0 25px 0;
@@ -58,10 +57,7 @@ body.dark-mode {
   display: inline-block;
   vertical-align: top;
   contain: layout style paint; /* Performance optimization */
-  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 16);
-  max-width: 100%;
-  overflow: visible;
-  padding-bottom: calc(var(--dot-margin) * 2);
+  min-height: calc(var(--dot-size) * 7 + var(--dot-margin) * 14);
 }
 
 .letter {
@@ -140,52 +136,60 @@ body.dark-mode {
 }
 
 @media (max-width: 480px) {
-  .nothing-font {
-    --base-scale: 1.3vw;
-    padding: 30px 0 40px 0;
-  }
-
   .nothing-font--medium {
-    --base-scale: 1.3vw;
+    --dot-size: 3px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 6px;
   }
 
   .nothing-font--large {
-    --base-scale: 1.8vw;
+    --dot-size: 5px;
+    --dot-margin: 1.2px;
+    --letter-spacing: 10px;
   }
 
   .nothing-font--xl {
-    --base-scale: 2.5vw;
+    --dot-size: 8px;
+    --dot-margin: 2px;
+    --letter-spacing: 16px;
   }
   
-  .dot-matrix {
-    padding-bottom: calc(var(--dot-margin) * 6);
-  }
-  
-  .letter {
-    margin-right: calc(var(--letter-spacing) * 0.8);
+  /* Ensure proper display on mobile devices */
+  .nothing-font {
+    max-width: 100%;
+    overflow: visible;
   }
 }
 
 @media (max-width: 360px) {
   .nothing-font {
-    --base-scale: 1.6vw;
-    padding: 20px 0 30px 0;
+    --dot-size: 2px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 4px;
   }
 
   .nothing-font--medium {
-    --base-scale: 1.6vw;
+    --dot-size: 2px;
+    --dot-margin: 0.5px;
+    --letter-spacing: 4px;
   }
 
   .nothing-font--large {
-    --base-scale: 2vw;
+    --dot-size: 4px;
+    --dot-margin: 1px;
+    --letter-spacing: 8px;
   }
 
   .nothing-font--xl {
-    --base-scale: 2.8vw;
+    --dot-size: 6px;
+    --dot-margin: 1.5px;
+    --letter-spacing: 12px;
   }
   
-  .letter {
-    margin-right: calc(var(--letter-spacing) * 0.7);
+  /* Ensure proper display on very small screens */
+  .nothing-font {
+    max-width: 100%;
+    overflow: visible;
   }
 }
 
@@ -233,68 +237,14 @@ body.dark-mode {
 @media (max-width: 768px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    --base-scale: 1.6vw;
-    padding: 20px 5px;
+    font-size: 0.8em; /* Reduce overall scale */
   }
 }
 
 @media (max-width: 480px) {
   .hero .title.nothing-font,
   .hero-title.nothing-font {
-    --base-scale: 1.8vw;
-    padding: 20px 5px;
-  }
-}
-
-@media (max-width: 414px) {
-  .hero .title.nothing-font,
-  .hero-title.nothing-font {
-    --base-scale: 2vw;
-    padding: 20px 5px;
-  }
-}
-
-@media (max-width: 375px) {
-  .hero .title.nothing-font,
-  .hero-title.nothing-font {
-    --base-scale: 2.2vw;
-    padding: 20px 5px;
-  }
-}
-
-@media (max-width: 360px) {
-  .hero .title.nothing-font,
-  .hero-title.nothing-font {
-    --base-scale: 2.3vw;
-    padding: 20px 5px;
-  }
-}
-
-@media (max-width: 320px) {
-  .hero .title.nothing-font,
-  .hero-title.nothing-font {
-    --base-scale: 1.8vw;
-    --dot-size: calc(var(--base-scale) * 0.35);
-    --dot-margin: calc(var(--base-scale) * 0.08);
-    --letter-spacing: calc(var(--base-scale) * 0.4);
-    padding: 15px 2px;
-    max-width: 98vw;
-  }
-  
-  .hero .title.nothing-font .dot-matrix,
-  .hero-title.nothing-font .dot-matrix {
-    max-width: 95vw;
-    margin: 0 auto;
-  }
-  
-  .hero .title.nothing-font .letter,
-  .hero-title.nothing-font .letter {
-    margin-right: calc(var(--letter-spacing) * 0.3);
-  }
-  
-  .hero .title.nothing-font .dot-row,
-  .hero-title.nothing-font .dot-row {
-    letter-spacing: -0.5px;
+    font-size: 0.7em; /* Further reduce for mobile */
   }
 }
 

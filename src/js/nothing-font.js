@@ -497,35 +497,7 @@ class NothingFont {
 
         // Split text into words and handle wrapping
         const words = upperText.split(' ');
-
-        // Calculate maximum characters per line based on viewport width
-        let maxCharsPerLine;
-        let charSpacing; // Space dots between characters
-        const viewportWidth = window.innerWidth;
-
-        if (viewportWidth <= 320) {
-            maxCharsPerLine = 20;  // Very small screens - allow full word if possible
-            charSpacing = 1; // Reduce spacing between characters
-        } else if (viewportWidth <= 360) {
-            maxCharsPerLine = 11;  // Extra small screens
-            charSpacing = 1;
-        } else if (viewportWidth <= 414) {
-            maxCharsPerLine = 13; // iPhone 6/7/8 Plus
-            charSpacing = 2;
-        } else if (viewportWidth <= 480) {
-            maxCharsPerLine = 15; // Mobile phones
-            charSpacing = 2;
-        } else if (viewportWidth <= 768) {
-            maxCharsPerLine = 18; // Tablets
-            charSpacing = 2;
-        } else if (viewportWidth <= 1024) {
-            maxCharsPerLine = 20; // Small laptops
-            charSpacing = 2;
-        } else {
-            maxCharsPerLine = 25; // Desktop and larger
-            charSpacing = 2;
-        }
-
+        const maxCharsPerLine = 20; // Maximum characters per line
         const lines = [];
         let currentLine = '';
 
