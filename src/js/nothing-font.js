@@ -434,16 +434,26 @@ class NothingFont {
     
     init() {
         if (this.isInitialized) return;
-        
+
         console.log('Initializing Nothing Font...');
-        
+
         // Wait for DOM to be fully ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.processElements());
         } else {
             this.processElements();
         }
-        
+
+        // Add resize listener to re-render on viewport changes
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                console.log('Viewport resized, re-rendering Nothing Font...');
+                this.reinitialize();
+            }, 300);
+        });
+
         this.isInitialized = true;
     }
     
@@ -487,7 +497,23 @@ class NothingFont {
 
         // Split text into words and handle wrapping
         const words = upperText.split(' ');
-        const maxCharsPerLine = 20; // Maximum characters per line
+
+        // Calculate maximum characters per line based on viewport width
+        let maxCharsPerLine;
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 360) {
+            maxCharsPerLine = 8;  // Extra small screens
+        } else if (viewportWidth <= 480) {
+            maxCharsPerLine = 10; // Mobile phones
+        } else if (viewportWidth <= 768) {
+            maxCharsPerLine = 15; // Tablets
+        } else if (viewportWidth <= 1024) {
+            maxCharsPerLine = 18; // Small laptops
+        } else {
+            maxCharsPerLine = 20; // Desktop and larger
+        }
+
         const lines = [];
         let currentLine = '';
 
