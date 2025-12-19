@@ -55,7 +55,7 @@
   .hero-name {
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(2.6rem, 11vw, 6.5rem);
-    font-weight: 600;
+    font-weight: 520;
     letter-spacing: clamp(0.08em, 1vw, 0.2em);
     text-transform: uppercase;
     margin: 0;
