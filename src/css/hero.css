@@ -6,6 +6,8 @@
     position: relative;
     height: 100vh;
     color: #000;
+  padding-top: clamp(110px, 12vh, 180px);
+  box-sizing: border-box;
   }
   
   .hero-content {
@@ -35,7 +37,7 @@
   }
   
   .title:not(.nothing-font) {
-    font-family: Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(2rem,8vw,5rem);
     font-weight: 770;
     margin: 0;
@@ -48,6 +50,16 @@
     margin: 0;
     max-width: 100%;
     overflow: visible;
+  }
+
+  .hero-name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(2.6rem, 11vw, 6.5rem);
+    font-weight: 600;
+    letter-spacing: clamp(0.08em, 1vw, 0.2em);
+    text-transform: uppercase;
+    margin: 0;
+    color: #0f0f0f;
   }
   
   .subtitle {

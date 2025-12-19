@@ -19,6 +19,7 @@
   /* Typography */
   --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --font-display: 'Space Grotesk', 'Poppins', sans-serif;
   
   /* Spacing */
   --space-xs: 0.25rem;
