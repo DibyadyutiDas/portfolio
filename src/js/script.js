@@ -288,6 +288,7 @@ class CardCarousel {
         
         this.bindEvents();
         this.setupDragScroll();
+        this.setupWheelScroll();
         this.updateButtonVisibility();
     }
     
@@ -365,6 +366,16 @@ class CardCarousel {
             const walk = (x - startX) * 2;
             this.cardContainer.scrollLeft = scrollLeft - walk;
         });
+    }
+
+    setupWheelScroll() {
+        if (!this.cardContainer) return;
+        this.cardContainer.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+                e.preventDefault();
+                this.cardContainer.scrollLeft -= e.deltaY;
+            }
+        }, { passive: false });
     }
     
     updateButtonVisibility() {

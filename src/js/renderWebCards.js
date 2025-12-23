@@ -12,7 +12,7 @@ async function loadWebCards() {
     // Clear any existing content
     webCardsContainer.innerHTML = '';
 
-    webCardsData.forEach(card => {
+    const createCard = (card) => {
       const cardDiv = document.createElement('a');
       cardDiv.className = 'web-card';
       cardDiv.href = card.url;
@@ -24,13 +24,45 @@ async function loadWebCards() {
           <h3>${card.title}</h3>
         </div>
       `;
-      webCardsContainer.appendChild(cardDiv);
-    });
+      return cardDiv;
+    };
 
-    // Reset scroll position to start from the first card
-    setTimeout(() => {
-      webCardsContainer.scrollLeft = 0;
-    }, 100);
+    // Render three sets to enable seamless looping
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < 3; i += 1) {
+      webCardsData.forEach(card => {
+        fragment.appendChild(createCard(card));
+      });
+    }
+    webCardsContainer.appendChild(fragment);
+
+    // Measure the width of a single set (first N cards)
+    const measureSingleSetWidth = () => {
+      let width = 0;
+      for (let i = 0; i < webCardsData.length; i += 1) {
+        const el = webCardsContainer.children[i];
+        if (!el) break;
+        const style = window.getComputedStyle(el);
+        width += el.offsetWidth + parseFloat(style.marginLeft || '0') + parseFloat(style.marginRight || '0');
+      }
+      return width;
+    };
+
+    const singleSetWidth = measureSingleSetWidth();
+
+    // Start in the middle set so we can scroll both directions
+    webCardsContainer.scrollLeft = singleSetWidth;
+
+    // Keep scrolling infinite by snapping back when reaching the edges
+    const handleLoop = () => {
+      if (webCardsContainer.scrollLeft >= singleSetWidth * 2) {
+        webCardsContainer.scrollLeft -= singleSetWidth;
+      } else if (webCardsContainer.scrollLeft <= 0) {
+        webCardsContainer.scrollLeft += singleSetWidth;
+      }
+    };
+
+    webCardsContainer.addEventListener('scroll', handleLoop, { passive: true });
 
   } catch (error) {
     console.error("Error loading web cards:", error);
