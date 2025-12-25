@@ -215,6 +215,7 @@
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding-left: 16px;
+  scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;

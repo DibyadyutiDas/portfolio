@@ -285,20 +285,20 @@
 .progress-text {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-light);
   display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
 .current-project {
-  color: white;
+  color: var(--text-light);
   font-weight: 600;
 }
 
 .progress-text::before {
   content: '/';
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-tertiary);
 }
 
 /* === Responsive Layout === */

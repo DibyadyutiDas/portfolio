@@ -274,11 +274,15 @@ class CardCarousel {
         this.cardContainer = document.querySelector('.card-container');
         this.prevBtn = document.getElementById('prevBtn');
         this.nextBtn = document.getElementById('nextBtn');
-        this.cards = document.querySelectorAll('.web-card');
+        this.cards = Array.from(document.querySelectorAll('.web-card'));
         
         this.currentIndex = 0;
         this.cardsPerView = this.getCardsPerView();
-        this.maxIndex = Math.max(0, this.cards.length - this.cardsPerView);
+        this.baseSetCount = this.cards.length % 3 === 0 ? this.cards.length / 3 : this.cards.length;
+        this.maxIndex = Math.max(0, this.baseSetCount - this.cardsPerView);
+        this.cardStride = 0;
+        this.baseWidth = 0;
+        this.loopable = this.cards.length >= this.baseSetCount * 3 && this.baseSetCount > 0;
         
         this.init();
     }
@@ -286,10 +290,33 @@ class CardCarousel {
     init() {
         if (!this.cardContainer || this.cards.length === 0) return;
         
+        this.computeMetrics();
+        if (this.loopable && this.baseWidth > 0) {
+            this.cardContainer.scrollLeft = this.baseWidth;
+        }
+
+        this.attachLoopGuard();
         this.bindEvents();
         this.setupDragScroll();
         this.setupWheelScroll();
         this.updateButtonVisibility();
+    }
+
+    computeMetrics() {
+        const firstCard = this.cards[0];
+        if (!firstCard) return;
+        const style = window.getComputedStyle(firstCard);
+        const marginX = parseFloat(style.marginLeft || '0') + parseFloat(style.marginRight || '0');
+        this.cardStride = firstCard.getBoundingClientRect().width + marginX;
+
+        // measure width of one logical set (first baseSetCount cards)
+        this.baseWidth = 0;
+        for (let i = 0; i < this.baseSetCount && i < this.cards.length; i += 1) {
+            const card = this.cards[i];
+            const cs = window.getComputedStyle(card);
+            const gap = parseFloat(cs.marginLeft || '0') + parseFloat(cs.marginRight || '0');
+            this.baseWidth += card.getBoundingClientRect().width + gap;
+        }
     }
     
     getCardsPerView() {
@@ -313,8 +340,12 @@ class CardCarousel {
             const newCardsPerView = this.getCardsPerView();
             if (newCardsPerView !== this.cardsPerView) {
                 this.cardsPerView = newCardsPerView;
-                this.maxIndex = Math.max(0, this.cards.length - this.cardsPerView);
+                this.maxIndex = Math.max(0, this.baseSetCount - this.cardsPerView);
                 this.currentIndex = 0;
+                this.computeMetrics();
+                if (this.loopable && this.baseWidth > 0) {
+                    this.cardContainer.scrollLeft = this.baseWidth;
+                }
                 this.scrollToIndex(0);
                 this.updateButtonVisibility();
             }
@@ -330,9 +361,10 @@ class CardCarousel {
     }
     
     scrollToIndex(index) {
-        const cardWidth = this.cardContainer.offsetWidth / this.cardsPerView;
+        const baseOffset = this.loopable ? this.baseWidth : 0;
+        const target = baseOffset + index * this.cardStride;
         this.cardContainer.scrollTo({
-            left: index * cardWidth,
+            left: target,
             behavior: 'smooth'
         });
     }
@@ -373,9 +405,23 @@ class CardCarousel {
         this.cardContainer.addEventListener('wheel', (e) => {
             if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
                 e.preventDefault();
-                this.cardContainer.scrollLeft -= e.deltaY;
+                this.cardContainer.scrollBy({
+                    left: e.deltaY,
+                    behavior: 'smooth'
+                });
             }
         }, { passive: false });
+    }
+
+    attachLoopGuard() {
+        if (!this.loopable || !this.cardContainer || this.baseWidth === 0) return;
+        this.cardContainer.addEventListener('scroll', () => {
+            if (this.cardContainer.scrollLeft >= this.baseWidth * 2) {
+                this.cardContainer.scrollLeft -= this.baseWidth;
+            } else if (this.cardContainer.scrollLeft <= 0) {
+                this.cardContainer.scrollLeft += this.baseWidth;
+            }
+        });
     }
     
     updateButtonVisibility() {
