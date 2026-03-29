@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Portfolio</title>
+  <link rel="icon" type="gif" href="photo/ironman.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2qqeWNsq4CPrlGHBXQnu9u0PkNO7dZDEIoGgyp7Yl/8cvp9eA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/css/login.css" />
+</head>
+<body class="login-body">
+  <main class="auth-shell">
+    <div class="auth-card">
+      <div class="tab-switch">
+        <button class="tab active" type="button">Sign In</button>
+        <button class="tab" type="button" disabled>Sign Up</button>
+      </div>
+
+      <header class="hero">
+        <h1>Welcome Back</h1>
+      </header>
+
+      <div class="social-row">
+        <a id="google-btn" class="social-btn" href="#" aria-label="Continue with Google"><i class="fa-brands fa-google"></i></a>
+        <button class="social-btn disabled" type="button" aria-label="Continue with Facebook" title="Facebook not configured"><i class="fa-brands fa-facebook-f"></i></button>
+        <button class="social-btn disabled" type="button" aria-label="Continue with LinkedIn" title="LinkedIn not configured"><i class="fa-brands fa-linkedin-in"></i></button>
+        <a id="github-btn" class="social-btn" href="#" aria-label="Continue with GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+
+      <div class="divider">
+        <span></span>
+        <p>or sign in with email</p>
+        <span></span>
+      </div>
+
+      <form class="auth-form" action="#" method="post">
+        <label class="input-field">
+          <span>Email</span>
+          <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+        </label>
+        <label class="input-field">
+          <span>Password</span>
+          <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+        </label>
+        <div class="form-meta">
+          <a class="forgot" href="#">Forgot your password?</a>
+        </div>
+        <button class="primary-btn" type="button" id="email-submit">Sign In</button>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="src/js/login.js"></script>
+</body>
+</html>
