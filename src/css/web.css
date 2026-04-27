@@ -396,7 +396,7 @@
   /* --- Switch to portrait iPhone-style frame --- */
   .phone-frame {
     width: min(320px, 82vw);
-    height: min(900px, 115vh);
+    height: min(720px, 90vh);
     border: 10px solid #1c1c1e;
     border-radius: 46px;
     background: linear-gradient(160deg, #3a3a3c 0%, #2c2c2e 30%, #1c1c1e 100%);
@@ -424,32 +424,32 @@
   .phone-btn-silent { display: none; }
 
   .phone-btn-vol-up {
-    left: -4px;
+    left: -14px;
     top: 130px;
     width: 4px;
     height: 40px;
     border-radius: 3px 0 0 3px;
-    background: linear-gradient(180deg, #58585a, #3a3a3c);
+    background: #cccccc;
     box-shadow: -1px 0 3px rgba(0, 0, 0, 0.4);
   }
 
   .phone-btn-vol-down {
-    left: -4px;
+    left: -14px;
     top: 182px;
     width: 4px;
     height: 40px;
     border-radius: 3px 0 0 3px;
-    background: linear-gradient(180deg, #58585a, #3a3a3c);
+    background: #cccccc;
     box-shadow: -1px 0 3px rgba(0, 0, 0, 0.4);
   }
 
   .phone-btn-power {
-    right: -4px;
+    right: -14px;
     top: 150px;
     width: 4px;
     height: 54px;
     border-radius: 0 3px 3px 0;
-    background: linear-gradient(180deg, #58585a, #3a3a3c);
+    background: #cccccc;
     box-shadow: 1px 0 3px rgba(0, 0, 0, 0.4);
   }
 
@@ -507,14 +507,14 @@
     flex-direction: row;
     align-items: center;
     gap: 14px;
-    padding: 20px 14px;
+    padding: 0px 14px 20px 14px; /* Removed top padding */
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 14px;
     flex: 1;
     height: auto;
-    margin-top: 10px;
+    margin-top: 5px; /* Reduced margin top */
     margin-bottom: 40px; /* space for dots */
   }
 
@@ -567,7 +567,7 @@
     color: #1f242d;
     letter-spacing: 0.04em;
     line-height: 1.2;
-    padding: 60px 12px 0;
+    padding: 85px 12px 0; /* Positioned a little lower */
     margin-bottom: 0;
     z-index: 5;
     position: relative;
@@ -606,14 +606,14 @@
 
   .phone-frame {
     width: min(300px, 80vw);
-    height: min(840px, 110vh);
+    height: min(680px, 85vh);
     border-width: 9px;
     border-radius: 42px;
   }
 
   .phone-heading {
     font-size: 1.2rem;
-    padding-top: 50px;
+    padding-top: 70px;
   }
 
   .phone-screen { border-radius: 33px; }
@@ -621,16 +621,16 @@
   .phone-notch { width: 78px; height: 22px; top: 12px; }
   .phone-home-bar { width: 88px; }
 
-  .phone-btn-vol-up { top: 118px; height: 36px; }
-  .phone-btn-vol-down { top: 164px; height: 36px; }
-  .phone-btn-power { top: 136px; height: 48px; }
+  .phone-btn-vol-up { top: 118px; height: 36px; left: -13px; }
+  .phone-btn-vol-down { top: 164px; height: 36px; left: -13px; }
+  .phone-btn-power { top: 136px; height: 48px; right: -13px; }
 
   .card-container {
-    padding: 16px 14px;
+    padding: 0px 14px 16px 14px;
     gap: 12px;
     flex: 1;
     height: auto;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 30px;
   }
 
@@ -660,14 +660,14 @@
 @media (max-width: 360px) {
   .phone-frame {
     width: min(270px, 78vw);
-    height: min(760px, 110vh);
+    height: min(600px, 85vh);
     border-width: 8px;
     border-radius: 38px;
   }
 
   .phone-heading {
     font-size: 1.1rem;
-    padding-top: 45px;
+    padding-top: 60px;
   }
 
   .phone-screen { border-radius: 30px; }
@@ -675,16 +675,16 @@
   .phone-notch { width: 70px; height: 20px; top: 10px; }
   .phone-home-bar { width: 76px; bottom: 6px; }
 
-  .phone-btn-vol-up { top: 108px; height: 32px; }
-  .phone-btn-vol-down { top: 148px; height: 32px; }
-  .phone-btn-power { top: 124px; height: 42px; }
+  .phone-btn-vol-up { top: 108px; height: 32px; left: -12px; }
+  .phone-btn-vol-down { top: 148px; height: 32px; left: -12px; }
+  .phone-btn-power { top: 124px; height: 42px; right: -12px; }
 
   .card-container {
-    padding: 12px 12px;
+    padding: 0px 12px 12px 12px;
     gap: 10px;
     flex: 1;
     height: auto;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 24px;
   }
 
