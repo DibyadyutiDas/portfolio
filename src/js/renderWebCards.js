@@ -3,20 +3,22 @@ async function loadWebCards() {
     const response = await fetch('src/data/webCards.json');
     const webCardsData = await response.json();
 
-    const webCardsContainer = document.getElementById('card-container');
-    if (!webCardsContainer) {
+    const container = document.getElementById('card-container');
+    if (!container) {
       console.error("Container with ID 'card-container' not found.");
       return;
     }
 
     // Clear any existing content
-    webCardsContainer.innerHTML = '';
+    container.innerHTML = '';
 
-    const createCard = (card) => {
+    // Create cards — single set, manually scrollable
+    webCardsData.forEach((card) => {
       const cardDiv = document.createElement('a');
       cardDiv.className = 'web-card';
       cardDiv.href = card.url;
       cardDiv.target = '_blank';
+      cardDiv.rel = 'noopener noreferrer';
       cardDiv.innerHTML = `
         <img class="card-image" src="${card.image}" alt="${card.title}" />
         <div class="card-content">
@@ -24,47 +26,51 @@ async function loadWebCards() {
           <h3>${card.title}</h3>
         </div>
       `;
-      return cardDiv;
-    };
+      container.appendChild(cardDiv);
+    });
 
-    // Render three sets to enable seamless looping
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < 3; i += 1) {
-      webCardsData.forEach(card => {
-        fragment.appendChild(createCard(card));
+    // Setup dots if container exists
+    const dotsContainer = document.getElementById('card-dots');
+    if (dotsContainer && webCardsData.length > 0) {
+      dotsContainer.innerHTML = '';
+      webCardsData.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = `dot ${index === 0 ? 'active' : ''}`;
+        
+        // Make dots clickable
+        dot.addEventListener('click', () => {
+          const cards = Array.from(container.children);
+          if (cards[index]) {
+            cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+        dotsContainer.appendChild(dot);
       });
-    }
-    webCardsContainer.appendChild(fragment);
 
-    // Measure the width of a single set (first N cards)
-    const measureSingleSetWidth = () => {
-      let width = 0;
-      for (let i = 0; i < webCardsData.length; i += 1) {
-        const el = webCardsContainer.children[i];
-        if (!el) break;
-        const style = window.getComputedStyle(el);
-        width += el.offsetWidth + parseFloat(style.marginLeft || '0') + parseFloat(style.marginRight || '0');
-      }
-      return width;
-    };
+      // Update active dot on scroll
+      container.addEventListener('scroll', () => {
+        const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+        let activeIndex = 0;
+        let minDistance = Infinity;
 
-    const singleSetWidth = measureSingleSetWidth();
+        Array.from(container.children).forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(containerCenter - cardCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+          }
+        });
 
-    // Start in the middle set so we can scroll both directions
-    webCardsContainer.scrollLeft = singleSetWidth;
-
-    // Keep scrolling infinite by snapping back when reaching the edges
-    const handleLoop = () => {
-      if (webCardsContainer.scrollLeft >= singleSetWidth * 2) {
-        webCardsContainer.scrollLeft -= singleSetWidth;
-      } else if (webCardsContainer.scrollLeft <= 0) {
-        webCardsContainer.scrollLeft += singleSetWidth;
-      }
-    };
-
-    webCardsContainer.addEventListener('scroll', handleLoop, { passive: true });
-
-  } catch (error) {
+        Array.from(dotsContainer.children).forEach((dot, index) => {
+          if (index === activeIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      });
+    }  } catch (error) {
     console.error("Error loading web cards:", error);
   }
 }

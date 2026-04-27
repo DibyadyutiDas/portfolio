@@ -566,9 +566,84 @@ document.addEventListener('DOMContentLoaded', () => {
     window.imageCarousel = new ImageCarousel();
     window.performanceOptimizer = new PerformanceOptimizer();
     
+    // Backend Integrations: Load User Session
+    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || localStorage.getItem('apiBase') || 'http://localhost:4000';
+    const authToken = localStorage.getItem('authToken');
+    const userProfileLink = document.getElementById('user-profile-link');
+    const userAvatarContainer = document.getElementById('user-avatar-container');
+    
+    if (authToken && userAvatarContainer) {
+        fetch(`${apiBase}/api/user/me`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.user) {
+                // Update Nav Icon
+                if (data.user.avatar) {
+                    userAvatarContainer.innerHTML = `<img src="${data.user.avatar}" alt="${data.user.displayName}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                }
+                userProfileLink.href = '#'; // Optional: Redirect to a profile modal/page later
+                userProfileLink.title = `Logged in as ${data.user.displayName}`;
+            }
+        })
+        .catch(err => {
+            console.error('Session expired or error fetching profile:', err);
+            localStorage.removeItem('authToken');
+        });
+    }
+
+    // Backend Integrations: Contact Form
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            const name = contactForm.querySelector('input[type="text"]').value;
+            const email = contactForm.querySelector('input[type="email"]').value;
+            const message = contactForm.querySelector('textarea').value;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch(`${apiBase}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message })
+                });
+
+                const data = await res.json();
+                
+                if (res.ok && data.success) {
+                    submitBtn.textContent = 'Sent Successfully!';
+                    submitBtn.style.backgroundColor = '#4CAF50';
+                    contactForm.reset();
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.backgroundColor = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error(data.error || 'Failed to send message');
+                }
+            } catch (error) {
+                console.error('Contact Form Error:', error);
+                submitBtn.textContent = 'Failed to Send';
+                submitBtn.style.backgroundColor = '#f44336';
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+
     // Mark as loaded
     document.body.classList.add('loaded');
-    
     console.log('Portfolio initialized successfully');
 });
 

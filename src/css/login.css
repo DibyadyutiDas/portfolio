@@ -1,200 +1,239 @@
-:root {
-  --bg: #f4f4f4;
-  --card: #ffffff;
-  --surface: #fafafa;
-  --border: #e1e1e1;
-  --text: #1f1f1f;
-  --muted: #6f6f6f;
-  --accent: #ff4b2b;
-  --shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+/* ─── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body.login-body {
-  font-family: 'Poppins', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+/* ─── Body ───────────────────────────────────────────────────── */
+.login-body {
   min-height: 100vh;
-  margin: 0;
-  display: grid;
-  place-items: center;
-  padding: 48px 16px 64px;
-}
-
-.auth-shell {
-  width: min(420px, 94vw);
-}
-
-.auth-card {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 32px 36px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-
-.tab-switch {
-  display: inline-flex;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 40px;
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-.tab {
-  padding: 12px 28px;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.tab.active {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(255, 75, 43, 0.25);
-}
-
-.tab:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.hero {
-  margin-bottom: 18px;
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.social-row {
   display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin: 20px 0 18px;
-}
-
-.social-btn {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: #fff;
-  display: grid;
-  place-items: center;
-  color: #5c5c5c;
-  font-size: 20px;
-  cursor: pointer;
-  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
-}
-
-.social-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  border-color: #d7d7d7;
-}
-
-.social-btn.disabled,
-.social-btn.disabled:hover {
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-  color: #c0c0c0;
-}
-
-.divider {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 8px;
-  color: #a0a0a0;
-  font-weight: 600;
-  font-size: 13px;
-  margin: 18px 0;
+  justify-content: center;
+  background-color: #1a1a1a;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.divider span {
-  height: 1px;
-  background: var(--border);
+/* ─── Shell / centering wrapper ──────────────────────────────── */
+.auth-shell {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.auth-form {
+/* ─── Card ───────────────────────────────────────────────────── */
+.auth-card {
+  background: #2c2c2c;
+  border-radius: 20px;
+  padding: 2.5rem 2rem 2rem;
+  width: 100%;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
 }
 
-.input-field {
-  text-align: left;
-  font-weight: 600;
-  color: #8b8b8b;
-}
-
-.input-field span {
-  display: inline-block;
-  margin-bottom: 6px;
-}
-
-.input-field input {
-  width: 100%;
-  border-radius: 18px;
-  border: 1px solid #dadada;
-  padding: 14px 16px;
-  font-size: 15px;
-  background: #fcfcfc;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
-}
-
-.input-field input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(255, 75, 43, 0.15);
-}
-
-.form-meta {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -6px;
-}
-
-.forgot {
-  color: var(--muted);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.primary-btn {
-  margin-top: 6px;
-  border: none;
-  border-radius: 24px;
-  padding: 16px;
-  font-size: 16px;
+/* ─── Title ──────────────────────────────────────────────────── */
+.signin-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.6rem;
   font-weight: 700;
-  color: #fff;
-  background: var(--accent);
+  color: #f0f0f0;
+  letter-spacing: -0.5px;
+  margin-bottom: 2.2rem;
+  line-height: 1.1;
+}
+
+/* ─── Input groups ───────────────────────────────────────────── */
+.input-group {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.auth-input {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid #555;
+  border-radius: 100px;
+  padding: 0.9rem 1.25rem;
+  color: #d0d0d0;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.auth-input::placeholder {
+  color: #888;
+}
+
+.auth-input:focus {
+  border-color: #888;
+}
+
+/* Password group with eye */
+.password-group .auth-input {
+  padding-right: 3rem;
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: transform 140ms ease, box-shadow 140ms ease;
-  box-shadow: 0 12px 20px rgba(255, 75, 43, 0.2);
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s;
 }
 
-.primary-btn:hover {
-  transform: translateY(-1px);
+.eye-toggle:hover {
+  color: #aaa;
 }
 
-/* Removed session status UI for minimal layout */
+/* ─── Forgot password ────────────────────────────────────────── */
+.forgot-row {
+  text-align: center;
+  margin-top: 0.3rem;
+  margin-bottom: 2rem;
+}
 
-@media (max-width: 520px) {
+.forgot-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #c0c0c0;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: #fff;
+}
+
+/* ─── Action row: sign in btn + social circles ───────────────── */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+/* Sign in button */
+.signin-btn {
+  flex: 1;
+  background: #4a4a4a;
+  border: none;
+  border-radius: 100px;
+  padding: 0.85rem 1.5rem;
+  color: #c0c0c0;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.signin-btn:hover {
+  background: #5a5a5a;
+  color: #fff;
+}
+
+/* Social circle buttons */
+.social-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.social-circle:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+/* GitHub icon color */
+#github-btn svg {
+  fill: #111;
+}
+
+/* ─── Legal text ─────────────────────────────────────────────── */
+.legal-text {
+  font-size: 0.78rem;
+  color: #888;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.legal-link {
+  color: #c8c8c8;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.legal-link:hover {
+  color: #fff;
+}
+
+/* ─── Bottom divider ─────────────────────────────────────────── */
+.bottom-divider {
+  height: 1px;
+  background: #444;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Create account button ──────────────────────────────────── */
+.create-btn {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 100px;
+  padding: 0.9rem;
+  color: #111;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.create-btn:hover {
+  background: #fff;
+  transform: scale(1.01);
+}
+
+/* ─── Focus visible for accessibility ────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #888;
+  outline-offset: 3px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 420px) {
   .auth-card {
-    padding: 26px 24px 30px;
+    padding: 2rem 1.4rem 1.6rem;
   }
 
-  .form-meta {
-    justify-content: flex-start;
+  .signin-title {
+    font-size: 2.1rem;
   }
 }

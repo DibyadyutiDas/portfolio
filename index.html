@@ -14,9 +14,11 @@
     <meta property="og:url" content="https://github.com/DibyadyutiDas/portfolio" />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/nav.css">
     <link rel="stylesheet" href="src/css/hero.css">
@@ -35,29 +37,29 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PS6J1ZC4N"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-1PS6J1ZC4N');
+        gtag('config', 'G-1PS6J1ZC4N');
     </script>
 
     <!-- Microsoft Clarity tracking code -->
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w3bt5k3nsz");
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "w3bt5k3nsz");
     </script>
 </head>
 
 <body>
-    
+
     <!-- Add cursor elements at the start of body -->
     <div class="custom-cursor"></div>
-    
-    
+
+
     <!-- Main Navigation -->
     <nav id="mainNav" class="converting">
         <div class="logo">
@@ -69,9 +71,9 @@
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
             <!-- User Icon -->
-            <a href="login.html">
-                <div class="user-icon">
-                    <i class="fas fa-user"></i>
+            <a href="login.html" id="user-profile-link">
+                <div class="user-icon" id="user-avatar-container">
+                    <i class="fas fa-user" id="user-avatar-icon"></i>
                 </div>
             </a>
         </div>
@@ -91,167 +93,177 @@
         <a href="login.html">Be a Friend</a>
     </div>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <h1 class="hero-name">DIBYADYUTI</h1>
-        <p class="subtitle">scroll down to see my work!</p>
-      <!-- Add the anchor link -->
-      <a href="#about" class="arrow-container">
-        <div class="arrow"></div>
-      </a>
-    </div>
-</section>
-
-    
-<!-- About Section -->
-<section id="about" data-aos="fade-up">
-  <div class="about-container">
-      <!-- Image for the about section -->
-      <div class="about-image">
-          <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
-      </div>
-
-      <div class="about-text">
-          <h2 class="nothing-font">About Me</h2>
-          <p>
-            Hi, I’m Dibyadyuti Das. I’m a Computer Programmer passionate about problem-solving and building cool projects.
-            Currently, I’m diving into open-source contributions and sharpening my skills with tools like Node.js and Linux to expand my horizons.
-            I’m exploring photo editing and creative design to nurture my artistic side.
-            Off the keyboard, you’ll find me playing cricket, football, or watching UFC matches for some adrenaline-filled action.
-          </p>
-          <p>
-            Let’s team up to build something extraordinary!
-          </p>
-      </div>
-  </div>
-</section>
-
-
-<!--  -->
-<section id="like" data-aos="fade-up">
-<p class="subtitle">If you wanna gossip...</p>
-    <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
-    <div class="carousel-container">
-        <div class="carousel" id="carousel">
-            <img src="photo/art.png" class="left" alt="Image 1">
-            <img src="photo/hicking.png" class="center" alt="Image 2">
-            <img src="photo/music.png" class="right" alt="Image 3">
-        </div>
-    </div>
-</section>
-
-      
- 
-<section id="websites"  data-aos="fade-up">
-  <!-- Top Heading (Websites) -->
-  <div class="header">
-      <h2 class="nothing-font">Websites</h2>
-  </div>
-
-  <div class="content">
-      <!-- Left Side Text (Who This is For) -->
-      <div class="left-text">
-          <h3><span class="line-one">Explore These</span><br>Websites</h3>
-      </div>
-
-      <!-- Right Side Cards (With Scrollable Feature) -->
-            <div class="cards-wrapper">
-                <div class="phone-frame">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
-                        <div class="card-container" id="card-container">
-                                <!-- Cards will be loaded here by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="phone-home-bar"></div>
-                </div>
-            </div>
-  </div>
-</section>
-
-
-
-
-<section class="projects" id="projects">
-<!-- Top Heading (Projects) -->
-    <div class="header">
-        <h2 class="nothing-font">Projects</h2>
-    </div>
-    <!-- <div class="hero-project"> -->
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="hero-content">
-          <div class="hero-meta">
-            <span class="meta-item">Selected Work</span>
-            <span class="meta-divider">—</span>
-            <span class="meta-item">2023–2024</span>
-          </div>
-          <h1 class="hero-title">Building products that matter</h1>
-          <p class="hero-description">
-            A collection of projects that push boundaries, solve real problems, and create meaningful experiences through thoughtful design and engineering.
-          </p>
+            <h1 class="hero-name">DIBYADYUTI</h1>
+            <p class="subtitle">scroll down to see my work!</p>
+            <!-- Add the anchor link -->
+            <a href="#about" class="arrow-container">
+                <div class="arrow"></div>
+            </a>
         </div>
-    <!-- </div> -->
+    </section>
 
-      <div class="projects-container">
-        <div class="project-list" id="project-list"></div>
-        <div class="project-preview">
-          <div class="preview-container" id="preview-container"></div>
-                    <div class="progress-text">
-                        <span class="current-project" id="current-project">01</span>
-                        <span class="total-projects" id="total-projects">06</span>
-          </div>
+
+    <!-- About Section -->
+    <section id="about" data-aos="fade-up">
+        <div class="about-container">
+            <!-- Image for the about section -->
+            <div class="about-image">
+                <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
+            </div>
+
+            <div class="about-text">
+                <h2 class="nothing-font">About Me</h2>
+                <p>
+                    Hi, I’m Dibyadyuti Das. I’m a Computer Programmer passionate about problem-solving and building cool
+                    projects.
+                    Currently, I’m diving into open-source contributions and sharpening my skills with tools like
+                    Node.js and Linux to expand my horizons.
+                    I’m exploring photo editing and creative design to nurture my artistic side.
+                    Off the keyboard, you’ll find me playing cricket, football, or watching UFC matches for some
+                    adrenaline-filled action.
+                </p>
+                <p>
+                    Let’s team up to build something extraordinary!
+                </p>
+            </div>
         </div>
-      </div>
+    </section>
+
+
+    <!--  -->
+    <section id="like" data-aos="fade-up">
+        <p class="subtitle">If you wanna gossip...</p>
+        <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <img src="photo/art.png" class="left" alt="Image 1">
+                <img src="photo/hicking.png" class="center" alt="Image 2">
+                <img src="photo/music.png" class="right" alt="Image 3">
+            </div>
+        </div>
     </section>
 
 
 
-<section id="time" data-aos="fade-up">
-    <div class="analog-container">
-        <div class="digital-display">
-            <div class="nothing-font">
-            <h1 id="digital-time" class="digital-time">12:00:00 AM</h1>
-            </div>
-            <p id="digital-date" class="digital-date">Loading...</p>
+    <section id="websites" data-aos="fade-up">
+        <!-- Top Heading (Websites) -->
+        <div class="header">
+            <h2 class="nothing-font">Websites</h2>
         </div>
 
-        <div class="clock-container">
-            <div class="clock-face">
-                <!-- Clock numbers will be generated by JavaScript -->
-                <div id="clock-numbers"></div>
-                
-                <!-- Clock hands -->
-                <div id="hour-hand" class="hand hour-hand"></div>
-                <div id="minute-hand" class="hand minute-hand"></div>
-                <div id="second-hand" class="hand second-hand"></div>
-                
-                <!-- Center dot -->
-                <div class="center-dot">
-                    <div class="center-dot-inner"></div>
+        <div class="content">
+            <!-- Left Side Text (Who This is For) -->
+            <div class="left-text">
+                <h3><span class="line-one">Explore These</span><br>Websites</h3>
+            </div>
+
+            <!-- Right Side Cards (With Scrollable Feature) -->
+            <div class="cards-wrapper">
+                <div class="phone-frame">
+                    <div class="phone-btn phone-btn-silent"></div>
+                    <div class="phone-btn phone-btn-vol-up"></div>
+                    <div class="phone-btn phone-btn-vol-down"></div>
+                    <div class="phone-btn phone-btn-power"></div>
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="phone-heading">Explore These<br>Websites</div>
+                        <div class="card-container" id="card-container">
+                            <!-- Cards will be loaded here by JavaScript -->
+                        </div>
+                        <div class="card-dots" id="card-dots"></div>
+                    </div>
+                    <div class="phone-home-bar"></div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="footer">
-            <p class="brand">Here’s what time it is for me</p>
+
+
+
+    <section class="projects" id="projects">
+        <!-- Top Heading (Projects) -->
+        <div class="header">
+            <h2 class="nothing-font">Projects</h2>
         </div>
-    </div>
-</section>
+        <!-- <div class="hero-project"> -->
+        <div class="hero-content">
+            <div class="hero-meta">
+                <span class="meta-item">Selected Work</span>
+                <span class="meta-divider">—</span>
+                <span class="meta-item">2023–2024</span>
+            </div>
+            <h1 class="hero-title">Building products that matter</h1>
+            <p class="hero-description">
+                A collection of projects that push boundaries, solve real problems, and create meaningful experiences
+                through thoughtful design and engineering.
+            </p>
+        </div>
+        <!-- </div> -->
+
+        <div class="projects-container">
+            <div class="project-list" id="project-list"></div>
+            <div class="project-preview">
+                <div class="preview-container" id="preview-container"></div>
+                <div class="progress-text">
+                    <span class="current-project" id="current-project">01</span>
+                    <span class="total-projects" id="total-projects">06</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
-<!-- Contact Section -->
-<section id="contact" data-aos="fade-up">
-    <div class="header">
-        <h2 class="nothing-font">Contact</h2>
-    </div>
+    <section id="time" data-aos="fade-up">
+        <div class="analog-container">
+            <div class="digital-display">
+                <div class="nothing-font">
+                    <h1 id="digital-time" class="digital-time">12:00:00 AM</h1>
+                </div>
+                <p id="digital-date" class="digital-date">Loading...</p>
+            </div>
+
+            <div class="clock-container">
+                <div class="clock-face">
+                    <!-- Clock numbers will be generated by JavaScript -->
+                    <div id="clock-numbers"></div>
+
+                    <!-- Clock hands -->
+                    <div id="hour-hand" class="hand hour-hand"></div>
+                    <div id="minute-hand" class="hand minute-hand"></div>
+                    <div id="second-hand" class="hand second-hand"></div>
+
+                    <!-- Center dot -->
+                    <div class="center-dot">
+                        <div class="center-dot-inner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p class="brand">Here’s what time it is for me</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" data-aos="fade-up">
+        <div class="header">
+            <h2 class="nothing-font">Contact</h2>
+        </div>
         <form class="contact-form">
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Your Email" required>
             <textarea placeholder="Your Message" rows="5" required></textarea>
             <button type="submit">Send</button>
         </form>
-</section>
+    </section>
 
 
 
@@ -260,7 +272,8 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <p class="eyebrow">Let's build together</p>
-                <p class="brand-copy">Developer crafting intentional digital experiences across web, design, and engineering.</p>
+                <p class="brand-copy">Developer crafting intentional digital experiences across web, design, and
+                    engineering.</p>
                 <a class="footer-cta" href="#contact">Start a project</a>
             </div>
 
@@ -279,7 +292,7 @@
                 <div class="footer-contact">
                     <a href="mailto:dibyadyutidas0@gmail.com">dibyadyutidas0@gmail.com</a>
                     <span>Based in India | Open to collaborations</span>
-                <p class="brand-copy">© 2025 Portfolio. Made with by Dibyadyuti.</p>
+                    <p class="brand-copy">© 2025 Portfolio. Made with by Dibyadyuti.</p>
                 </div>
             </div>
         </div>
@@ -287,16 +300,22 @@
         <div class="footer-bottom">
             <span class="footer-logo">portfolio</span>
             <div class="social-container">
-                <a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" class="social" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://github.com/DibyadyutiDas" class="social" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/dibyadyutidas" class="social" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank" class="social" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" class="social" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" class="social" aria-label="YouTube"><i
+                        class="fab fa-youtube"></i></a>
+                <a href="https://github.com/DibyadyutiDas" class="social" aria-label="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/dibyadyutidas" class="social" aria-label="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank" class="social"
+                    aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" class="social"
+                    aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <!-- <a href="#" class="social theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><i class="fas fa-moon"></i></a> -->
             </div>
             <div class="footer-actions">
                 <a class="footer-link-inline" href="mailto:dibyadyutidas0@gmail.com">Email me</a>
-                <a class="back-to-top" href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+                <a class="back-to-top" href="#"
+                    onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
             </div>
         </div>
     </footer>
@@ -307,6 +326,7 @@
     <script src="src/js/renderProjectCards.js"></script>
     <script src="src/js/clock.js"></script>
     <script src="src/js/nothing-font.js"></script>
+    <script src="src/js/analytics.js"></script>
 
 </body>
 
