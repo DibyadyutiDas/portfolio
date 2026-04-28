@@ -12,6 +12,12 @@ function setMessage(text, type) {
   resetMessage.className = `auth-message${type ? ` is-${type}` : ''}`;
 }
 
+const savedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if ((savedTheme && savedTheme === 'dark') || (!savedTheme && prefersDark)) {
+  document.body.classList.add('dark');
+}
+
 function setLoading(button, isLoading, loadingText) {
   if (!button) return;
   const originalText = button.dataset.originalText || button.textContent;
@@ -52,7 +58,13 @@ if (resetForm) {
       setMessage('Reset link sent. Check your inbox.', 'success');
     } catch (error) {
       console.error('Password reset failed:', error);
-      setMessage('Unable to send reset link. Try again later.', 'error');
+      let errMsg = 'Unable to send reset link. Try again later.';
+      if (error && error.code === 'auth/user-not-found') {
+        errMsg = 'No account found with this email address.';
+      } else if (error && error.message) {
+        errMsg = error.message;
+      }
+      setMessage(errMsg, 'error');
     } finally {
       setLoading(resetBtn, false);
     }

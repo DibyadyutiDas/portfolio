@@ -6,6 +6,7 @@
 
 // Show fallback if site doesn't load within 8 seconds
 const TIMEOUT = 8000;
+const shouldSkipSplash = sessionStorage.getItem('skipSplash') === 'true';
 
 // Safely get elements with null checks
 const getFallbackElement = () => document.getElementById('fallback');
@@ -23,13 +24,31 @@ const handleFallback = () => {
     }
 };
 
+// Skip splash when redirected from auth
+if (shouldSkipSplash) {
+    sessionStorage.removeItem('skipSplash');
+    const fallback = getFallbackElement();
+    const app = getAppElement();
+    if (fallback) {
+        fallback.classList.add('hidden');
+        fallback.style.display = 'none';
+    }
+    if (app) app.style.display = '';
+    document.body.classList.add('loaded');
+}
+
 // Set timeout for fallback
 setTimeout(handleFallback, TIMEOUT);
 
 // Enhanced window load handler
 window.addEventListener('load', function () {
     const fallback = getFallbackElement();
+    const app = getAppElement();
     
+    if (app) {
+        app.style.display = '';
+    }
+
     if (fallback) {
         fallback.classList.add('hidden');
         setTimeout(() => {
@@ -131,13 +150,14 @@ class NavigationManager {
         this.bindScrollEvents();
         this.bindMenuEvents();
         this.bindSmoothScroll();
+        this.handleScroll();
         return true;
     }
 
     bindScrollEvents() {
         let ticking = false;
-        
-        window.addEventListener('scroll', () => {
+
+        const onScrollOrResize = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
                     this.handleScroll();
@@ -146,20 +166,39 @@ class NavigationManager {
                 });
                 ticking = true;
             }
-        });
+        };
+
+        window.addEventListener('scroll', onScrollOrResize);
+        window.addEventListener('resize', onScrollOrResize);
     }
     
     handleScroll() {
-        const scrollPos = window.scrollY;
-        const heroBottom = this.hero ? this.hero.offsetTop + this.hero.offsetHeight : 0;
+        const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
 
-        // Hide navbar and show menu toggle after hero section
-        if (scrollPos > heroBottom - 100) {
-            this.nav.classList.add('hidden');
-            this.menuToggle.classList.add('visible');
-        } else {
+        const navHeight = this.nav ? this.nav.offsetHeight : 0;
+        const heroHeight = this.hero ? this.hero.offsetHeight : 0;
+        const scrolledPastHero = heroHeight ? window.scrollY > (heroHeight - navHeight) : window.scrollY > 100;
+
+        // While hero is in view, blend the navbar into it (no separate bar)
+        this.nav.classList.toggle('on-hero', !scrolledPastHero);
+
+        if (isMobile) {
             this.nav.classList.remove('hidden');
-            this.menuToggle.classList.remove('visible');
+            this.nav.classList.add('collapsed');
+            this.menuToggle.classList.toggle('visible', scrolledPastHero);
+
+            if (!scrolledPastHero) {
+                this.mobileMenu.classList.remove('active');
+            }
+            return;
+        }
+
+        this.nav.classList.remove('hidden');
+        this.nav.classList.toggle('collapsed', scrolledPastHero);
+        this.menuToggle.classList.toggle('visible', scrolledPastHero);
+
+        // If the toggle isn't meant to be used yet, ensure the menu is closed.
+        if (!scrolledPastHero) {
             this.mobileMenu.classList.remove('active');
         }
     }
@@ -210,10 +249,10 @@ class NavigationManager {
 }
 
 // =============================================================================
-// THEME MANAGEMENT
+// PERSONALIZATION MANAGEMENT (Theme & Layout)
 // =============================================================================
 
-class ThemeManager {
+class PersonalizationManager {
     constructor() {
         this.init();
     }
@@ -533,8 +572,8 @@ class PerformanceOptimizer {
 
 // Global theme toggle function (for backward compatibility)
 function toggleTheme() {
-    if (window.themeManager) {
-        window.themeManager.toggleTheme();
+    if (window.personalizationManager) {
+        window.personalizationManager.toggleTheme();
     }
 }
 
@@ -561,39 +600,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
     window.customCursor = new CustomCursor();
     window.navigationManager = new NavigationManager();
-    window.themeManager = new ThemeManager();
+    window.personalizationManager = new PersonalizationManager();
     window.cardCarousel = new CardCarousel();
     window.imageCarousel = new ImageCarousel();
     window.performanceOptimizer = new PerformanceOptimizer();
     
-    // Backend Integrations: Load User Session
-    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || localStorage.getItem('apiBase') || 'http://localhost:4000';
-    const authToken = localStorage.getItem('authToken');
-    const userProfileLink = document.getElementById('user-profile-link');
-    const userAvatarContainer = document.getElementById('user-avatar-container');
-    
-    if (authToken && userAvatarContainer) {
-        fetch(`${apiBase}/api/user/me`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success && data.user) {
-                // Update Nav Icon
-                if (data.user.avatar) {
-                    userAvatarContainer.innerHTML = `<img src="${data.user.avatar}" alt="${data.user.displayName}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
-                }
-                userProfileLink.href = '#'; // Optional: Redirect to a profile modal/page later
-                userProfileLink.title = `Logged in as ${data.user.displayName}`;
-            }
-        })
-        .catch(err => {
-            console.error('Session expired or error fetching profile:', err);
-            localStorage.removeItem('authToken');
-        });
-    }
-
-    // Backend Integrations: Contact Form
+    // Contact Form
+    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || localStorage.getItem('apiBase');
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -609,6 +622,18 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             try {
+                if (!apiBase) {
+                    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+                    window.location.href = `mailto:dibyadyutidas0@gmail.com?subject=${subject}&body=${body}`;
+                    submitBtn.textContent = 'Opening email...';
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 1800);
+                    return;
+                }
+
                 const res = await fetch(`${apiBase}/api/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -641,11 +666,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Mark as loaded
-    document.body.classList.add('loaded');
     console.log('Portfolio initialized successfully');
 });
+
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, err => {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
 
 // Handle errors gracefully
 window.addEventListener('error', (e) => {
@@ -657,7 +690,7 @@ window.addEventListener('error', (e) => {
 window.PortfolioComponents = {
     CustomCursor,
     NavigationManager,
-    ThemeManager,
+    PersonalizationManager,
     CardCarousel,
     ImageCarousel,
     PerformanceOptimizer

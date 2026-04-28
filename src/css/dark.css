@@ -1,0 +1,295 @@
+body.dark {
+  --text-light: #f5f5f5;
+  --text-secondary: #b6b6b6;
+  --text-tertiary: #8c8c8c;
+  --border-light: #262626;
+  --surface-light: #141414;
+  background-color: #0b0b0b;
+  color: #f5f5f5;
+}
+
+body.dark section {
+  background-color: #0b0b0b;
+  color: #f5f5f5;
+}
+
+body.dark section:nth-child(even) {
+  background-color: #101010;
+}
+
+body.dark .subtitle {
+  color: #b8b8b8;
+}
+
+body.dark .hero-name {
+  color: #f5f5f5;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4 {
+  color: #f5f5f5;
+}
+
+body.dark #like h1,
+body.dark #time .digital-time,
+body.dark #time .digital-date,
+body.dark #contact h2 {
+  color: #f5f5f5;
+}
+
+body.dark #time .brand {
+  color: #b6b6b6;
+}
+
+body.dark #time .clock-face {
+  background-color: #141414;
+  border-color: #242424;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+}
+
+body.dark #time .clock-number {
+  color: #f5f5f5;
+}
+
+body.dark #time .hand.hour-hand {
+  background-color: #f5f5f5;
+}
+
+body.dark #time .hand.minute-hand {
+  background-color: #b6b6b6;
+}
+
+body.dark #time .center-dot {
+  background-color: #f5f5f5;
+  border-color: #0b0b0b;
+}
+
+body.dark .arrow::after,
+body.dark .arrow::before {
+  background-color: #f5f5f5;
+}
+
+body.dark nav,
+nav.dark {
+  background: rgba(12, 12, 12, 0.7);
+  border-bottom: 1px solid #1f1f1f;
+}
+
+body.dark nav.on-hero {
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.dark nav.collapsed {
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.dark nav .nav-links a,
+nav.dark .nav-links a {
+  color: #f0f0f0;
+}
+
+body.dark nav .nav-links a:hover,
+nav.dark .nav-links a:hover {
+  color: var(--primary-color);
+}
+
+body.dark nav .logo,
+nav.dark .logo {
+  color: var(--primary-color);
+}
+
+body.dark .user-icon {
+  background: transparent;
+}
+
+body.dark .user-dropdown {
+  background: #141414;
+  border-color: #242424;
+}
+
+body.dark .user-name {
+  color: #f2f2f2;
+}
+
+body.dark .logout-btn {
+  color: #f2f2f2;
+  border-color: #333333;
+}
+
+body.dark #about {
+  border-color: #262626;
+}
+
+body.dark #about .about-text {
+  border-left-color: #262626;
+}
+
+body.dark #about p {
+  color: #c7c7c7;
+}
+
+body.dark .resume-btn {
+  color: #ffffff;
+}
+
+body.dark .resume-btn:hover {
+  color: #0b0b0b;
+}
+
+body.dark #about h2 {
+  color: #f5f5f5;
+}
+
+body.dark .header h2,
+body.dark #websites .left-text h3 {
+  color: #f5f5f5;
+}
+
+body.dark #websites .phone-screen {
+  background: #141414;
+}
+
+body.dark #websites .phone-frame {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+body.dark .skills-kicker {
+  color: #9d9d9d;
+}
+
+body.dark .skills-intro h3 {
+  color: #f0f0f0;
+}
+
+body.dark .skills-copy {
+  color: #b6b6b6;
+}
+
+body.dark .skills-tags span {
+  background: #141414;
+  border-color: #2a2a2a;
+  color: #cfcfcf;
+}
+
+body.dark .skill-card {
+  background: #141414;
+  border-color: #242424;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .skill-card h4 {
+  color: #f5f5f5;
+}
+
+body.dark .skill-card p {
+  color: #b6b6b6;
+}
+
+body.dark .web-card {
+  background: linear-gradient(150deg, #1a1a1a 0%, #111111 100%);
+  border-color: #242424;
+  color: #f5f5f5;
+}
+
+body.dark .project-item {
+  border-color: #262626;
+}
+
+body.dark .project-title,
+body.dark .projects .hero-title {
+  color: #f5f5f5;
+}
+
+body.dark .project-description,
+body.dark .projects .hero-description {
+  color: #b6b6b6;
+}
+
+body.dark .stack-item {
+  background: #161616;
+  border-color: #2b2b2b;
+  color: #bdbdbd;
+}
+
+body.dark .preview-container {
+  background: #141414;
+  border-color: #222222;
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  color: #f4f4f4;
+  border-bottom-color: #333333;
+}
+
+body.dark .contact-form input::placeholder,
+body.dark .contact-form textarea::placeholder {
+  color: #777777;
+}
+
+body.dark .contact-form button {
+  color: #ffffff;
+}
+
+body.dark #contact {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+footer.dark {
+  background: #0b0b0b;
+  border-top-color: #222222;
+}
+
+footer.dark .footer-links a,
+footer.dark .footer-contact a,
+footer.dark .footer-link-inline,
+footer.dark .back-to-top {
+  color: #f5f5f5;
+}
+
+.login-body.dark {
+  background-color: #0b0b0b;
+  color: #f5f5f5;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+body.dark .auth-card {
+  color: #f5f5f5;
+}
+
+body.dark .auth-eyebrow,
+body.dark .auth-subtitle,
+body.dark .legal-text {
+  color: #b6b6b6;
+}
+
+body.dark .signin-title {
+  color: #f5f5f5;
+}
+
+body.dark .auth-input {
+  color: #f5f5f5;
+  border-bottom-color: #333333;
+}
+
+body.dark .auth-input::placeholder {
+  color: #777777;
+}
+
+body.dark .legal-link,
+body.dark .back-link {
+  color: #f5f5f5;
+}

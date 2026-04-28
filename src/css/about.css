@@ -91,6 +91,56 @@
     font-family: Helvetica, Arial;
 }
 
+.resume-inline-url {
+    display: block;
+    margin-top: 6px;
+    color: var(--primary-color);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.resume-inline-url:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 1024px) {
+    .resume-inline-url {
+        display: inline;
+        margin-top: 0;
+        margin-left: 10px;
+        white-space: nowrap;
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+}
+
+.about-actions {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.resume-btn:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
 /* Remove floating background shapes */
 #about::before,
 #about::after {
@@ -135,6 +185,10 @@
     #about .about-text {
         border-left: none;
         padding-left: 0;
+    }
+
+    .about-actions {
+        justify-content: center;
     }
 }
 

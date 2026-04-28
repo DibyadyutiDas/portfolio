@@ -13,8 +13,9 @@
   --nothing-focus-color: #FF4B2B;
 }
 
+body.dark,
 body.dark-mode {
-  --nothing-font-color: #fff;
+  --nothing-font-color: var(--text-light, #f5f5f5);
 }
 
 .nothing-font {

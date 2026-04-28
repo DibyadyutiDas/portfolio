@@ -149,7 +149,7 @@
     animation: slide-in-elliptic-bottom-fwd 1.7s cubic-bezier(.25,.46,.45,.94) both;
   }
   
-  .menu-toggle {
+  .menu-toggle.visible {
     -webkit-animation: roll-in-bottom .8s ease-out both;
     animation: roll-in-bottom .8s ease-out both;
   }

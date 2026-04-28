@@ -20,9 +20,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/splash.css">
     <link rel="stylesheet" href="src/css/nav.css">
     <link rel="stylesheet" href="src/css/hero.css">
     <link rel="stylesheet" href="src/css/about.css">
+    <link rel="stylesheet" href="src/css/skills.css">
     <link rel="stylesheet" href="src/css/carousel.css">
     <link rel="stylesheet" href="src/css/web.css">
     <link rel="stylesheet" href="src/css/dark.css">
@@ -56,6 +58,15 @@
 
 <body>
 
+    <div id="fallback" class="splash" role="status" aria-live="polite">
+        <div class="splash-inner">
+            <span class="splash-logo">portfolio</span>
+            <span class="splash-tagline">crafting intentional digital experiences</span>
+            <div class="splash-bar"></div>
+        </div>
+    </div>
+    <div id="app">
+        
     <!-- Add cursor elements at the start of body -->
     <div class="custom-cursor"></div>
 
@@ -181,6 +192,55 @@
         </div>
     </section>
 
+
+    <section id="skills" data-aos="fade-up">
+        <div class="header">
+            <h2 class="nothing-font">Skills</h2>
+        </div>
+        <div class="skills-shell">
+            <div class="skills-intro">
+                <p class="skills-kicker">Tech Stack</p>
+                <h3>Languages and tools I build with</h3>
+                <p class="skills-copy">Front-end craft, clean UI systems, and Firebase-powered auth to ship fast and reliable experiences.</p>
+                <div class="skills-tags">
+                    <span>Fullstack</span>
+                    <span>UI Design</span>
+                </div>
+            </div>
+            <div class="skills-grid">
+                <article class="skill-card">
+                    <i class="fab fa-js" aria-hidden="true"></i>
+                    <h4>JavaScript</h4>
+                    <p>Interactive UI and smooth UX logic.</p>
+                </article>
+                <article class="skill-card">
+                    <i class="fas fa-fire" aria-hidden="true"></i>
+                    <h4>Firebase</h4>
+                    <p>Auth flows and client-first data.</p>
+                </article>
+                <article class="skill-card">
+                    <i class="fab fa-node-js" aria-hidden="true"></i>
+                    <h4>Node.js</h4>
+                    <p>Automation and tooling when needed.</p>
+                </article>
+                <article class="skill-card">
+                    <i class="fab fa-git-alt" aria-hidden="true"></i>
+                    <h4>Git</h4>
+                    <p>Clean history and tight collaboration.</p>
+                </article>
+                <article class="skill-card">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <h4>GitHub</h4>
+                    <p>Projects, reviews, and open source.</p>
+                </article>
+                <article class="skill-card">
+                    <i class="fab fa-figma" aria-hidden="true"></i>
+                    <h4>Figma</h4>
+                    <p>Prototyping and crisp layout planning.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -311,7 +371,7 @@
                     aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" class="social"
                     aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <!-- <a href="#" class="social theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><i class="fas fa-moon"></i></a> -->
+                <a href="#" class="social theme-toggle" onclick="toggleTheme(); return false;" aria-label="Toggle theme"><i class="fas fa-moon"></i></a>
             </div>
             <div class="footer-actions">
                 <a class="footer-link-inline" href="mailto:dibyadyutidas0@gmail.com">Email me</a>

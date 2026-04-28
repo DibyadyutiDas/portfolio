@@ -6,13 +6,10 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  signInWithPopup,
   signInWithRedirect,
   GoogleAuthProvider,
   GithubAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-
-const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || localStorage.getItem('apiBase') || 'http://localhost:4000';
 
 const googleBtn = document.getElementById('google-btn');
 const githubBtn = document.getElementById('github-btn');
@@ -33,16 +30,16 @@ if (toggleSignupBtn) {
     isSignupMode = !isSignupMode;
     if (isSignupMode) {
       formTitle.textContent = 'Sign up';
-      formEyebrow.textContent = 'Be a friend';
+      formEyebrow.textContent = '← Be a friend';
       signinBtn.textContent = 'Sign up';
       signinBtn.dataset.originalText = 'Sign up';
       toggleSignupBtn.textContent = 'Already have an account? Sign in';
     } else {
       formTitle.textContent = 'Sign in';
-      formEyebrow.textContent = 'Welcome back';
+      formEyebrow.textContent = '← Welcome back';
       signinBtn.textContent = 'Sign in';
       signinBtn.dataset.originalText = 'Sign in';
-      toggleSignupBtn.textContent = 'Be a friend (Sign up if first time we meet)';
+      toggleSignupBtn.textContent = '← Be a friend (Sign up if first time we meet)';
     }
     setMessage('');
   });
@@ -54,47 +51,12 @@ function setMessage(text, type) {
   authMessage.className = `auth-message${type ? ` is-${type}` : ''}`;
 }
 
-function getDeviceId() {
-  const existing = localStorage.getItem('deviceId');
-  if (existing) return existing;
-
-  const newId = typeof crypto !== 'undefined' && crypto.randomUUID
-    ? crypto.randomUUID()
-    : `device_${Math.random().toString(36).slice(2, 10)}`;
-
-  localStorage.setItem('deviceId', newId);
-  return newId;
+const savedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if ((savedTheme && savedTheme === 'dark') || (!savedTheme && prefersDark)) {
+  document.body.classList.add('dark');
 }
 
-function getDeviceInfo() {
-  const ua = navigator.userAgent || '';
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-
-  return {
-    userAgent: ua,
-    platform: navigator.platform || '',
-    language: navigator.language || '',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-    vendor: navigator.vendor || '',
-    memory: navigator.deviceMemory || null,
-    cores: navigator.hardwareConcurrency || null,
-    mobile: /Mobi|Android/i.test(ua),
-    screen: {
-      width: window.screen.width,
-      height: window.screen.height,
-      ratio: window.devicePixelRatio || 1
-    },
-    connection: connection
-      ? {
-          effectiveType: connection.effectiveType,
-          downlink: connection.downlink,
-          rtt: connection.rtt,
-          saveData: connection.saveData
-        }
-      : null,
-    touchPoints: navigator.maxTouchPoints || 0
-  };
-}
 
 function formatAuthError(error) {
   if (!error) return 'Sign in failed. Please try again.';
@@ -131,37 +93,16 @@ function setLoading(button, isLoading, loadingText) {
   button.textContent = isLoading ? loadingText : button.dataset.originalText;
 }
 
-async function syncUser(token, user) {
-  const deviceId = getDeviceId();
-  const device = getDeviceInfo();
-
-  const response = await fetch(`${apiBase}/api/user/sync`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      displayName: user.displayName,
-      avatar: user.photoURL,
-      deviceId,
-      device
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error('Backend sync failed');
-  }
-}
-
 async function handleLoginSuccess(result) {
   const token = await result.user.getIdToken();
-  try {
-    await syncUser(token, result.user);
-  } catch (err) {
-    console.warn('Backend sync unavailable, but Firebase login succeeded:', err);
-  }
+  const profile = {
+    displayName: result.user.displayName || result.user.email || 'Friend',
+    email: result.user.email || '',
+    avatar: result.user.photoURL || ''
+  };
   localStorage.setItem('authToken', token);
+  localStorage.setItem('userProfile', JSON.stringify(profile));
+  sessionStorage.setItem('skipSplash', 'true');
   window.location.href = 'index.html';
 }
 
@@ -243,10 +184,17 @@ if (auth) {
     if (user) {
       const token = await user.getIdToken();
       localStorage.setItem('authToken', token);
+      const profile = {
+        displayName: user.displayName || user.email || 'Friend',
+        email: user.email || '',
+        avatar: user.photoURL || ''
+      };
+      localStorage.setItem('userProfile', JSON.stringify(profile));
       
       // Only auto-redirect if they just came back from a social login redirect
       if (sessionStorage.getItem('isRedirecting') === 'true') {
         sessionStorage.removeItem('isRedirecting');
+        sessionStorage.setItem('skipSplash', 'true');
         setTimeout(() => {
           window.location.href = 'index.html';
         }, 500);

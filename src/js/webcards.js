@@ -18,7 +18,7 @@ const cardsData = [
     image: "photo/photoediting.png",
     title: "PhotoEdit",
     // description: "Make your photos shine with our expert editing services.",
-    url: "https://"
+    url: "https://github.com/DibyadyutiDas?tab=repositories"
   },
   {
     number: "004",
@@ -32,7 +32,7 @@ const cardsData = [
     image: "photo/Game analytics-bro.png",
     title: "Game",
     // description: "Play and build fun games to enhance your logic and creativity.",
-    url: "https://"
+    url: "https://github.com/DibyadyutiDas?tab=repositories"
   },
   {
     number: "006",

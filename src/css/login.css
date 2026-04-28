@@ -226,6 +226,7 @@
   border-radius: 50%;
   background: transparent;
   border: 2px solid var(--border-color);
+  color: inherit;
   display: inline-flex;
   align-items: center;
   justify-content: center;

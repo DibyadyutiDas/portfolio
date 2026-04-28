@@ -9,6 +9,12 @@
   padding-top: clamp(110px, 12vh, 180px);
   box-sizing: border-box;
   }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: 0;
+    }
+  }
   
   .hero-content {
     text-align: center;

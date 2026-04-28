@@ -1,0 +1,93 @@
+#fallback {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #111111;
+  z-index: 2000;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#fallback.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-inner {
+  text-align: center;
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.splash-logo {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+}
+
+.splash-tagline {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.splash-bar {
+  width: 180px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  position: relative;
+  margin: 6px auto 0;
+}
+
+.splash-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: var(--primary-color);
+  animation: splashSlide 1.2s ease-in-out infinite;
+}
+
+body:not(.loaded) #app {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.loaded #app {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+body.dark #fallback {
+  background: #0b0b0b;
+  color: #ffffff;
+}
+
+body.dark .splash-tagline {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark .splash-bar {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+@keyframes splashSlide {
+  0% {
+    left: -40%;
+  }
+  50% {
+    left: 35%;
+  }
+  100% {
+    left: 100%;
+  }
+}

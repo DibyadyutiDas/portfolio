@@ -55,6 +55,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent fixed navbar from covering anchor targets (e.g. #about) */
+section[id] {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
 html {
   touch-action: manipulation;
 }

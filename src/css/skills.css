@@ -1,0 +1,149 @@
+#skills {
+  padding: clamp(60px, 10vh, 110px) 20px;
+}
+
+#skills .header {
+  margin-bottom: 18px;
+}
+
+#skills .header h2::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 4px;
+  background: var(--primary-color);
+  margin: 12px auto 0;
+  border-radius: 4px;
+}
+
+.skills-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(320px, 2fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.skills-intro {
+  text-align: left;
+  padding: 8px 4px;
+}
+
+.skills-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.32rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 14px;
+}
+
+.skills-intro h3 {
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: #1b1b1b;
+  font-family: var(--font-display);
+}
+
+.skills-copy {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skills-tags span {
+  border: 1px solid #e1e1e1;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #444;
+  background: #ffffff;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 18px;
+}
+
+.skill-card {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  padding: 18px 18px 20px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-height: 150px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card i {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+}
+
+.skill-card h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.skill-card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 900px) {
+  .skills-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-intro {
+    text-align: center;
+  }
+
+  .skills-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .skill-card {
+    min-height: 0;
+    padding: 16px;
+    gap: 0;
+    justify-items: center;
+    align-content: center;
+  }
+
+  .skill-card i {
+    font-size: 1.8rem;
+  }
+
+  .skill-card h4,
+  .skill-card p {
+    display: none;
+  }
+}
