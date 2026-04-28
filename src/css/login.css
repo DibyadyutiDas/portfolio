@@ -1,5 +1,21 @@
+/* ─── Theme Tokens ──────────────────────────────────────────── */
+:root {
+  --primary-color: #ff4b2b;
+  --bg-color: #f4f4f4;
+  --card-color: transparent;
+  --text-color: #222;
+  --muted-color: #999;
+  --border-color: #ddd;
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --font-display: 'Space Grotesk', 'Poppins', sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
 /* ─── Reset & Base ───────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -11,9 +27,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a1a1a;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
 /* ─── Shell / centering wrapper ──────────────────────────────── */
@@ -27,52 +48,90 @@
 
 /* ─── Card ───────────────────────────────────────────────────── */
 .auth-card {
-  background: #2c2c2c;
-  border-radius: 20px;
-  padding: 2.5rem 2rem 2rem;
+  background: var(--card-color);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 0;
   width: 100%;
-  max-width: 380px;
+  max-width: 440px;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
-/* ─── Title ──────────────────────────────────────────────────── */
+/* ─── Header ─────────────────────────────────────────────────── */
+.auth-header {
+  margin-bottom: 2.5rem;
+}
+
+.auth-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted-color);
+}
+
 .signin-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.6rem;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #f0f0f0;
-  letter-spacing: -0.5px;
-  margin-bottom: 2.2rem;
-  line-height: 1.1;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.signin-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--primary-color);
+  margin: 16px 0 0;
+  border-radius: 2px;
 }
 
-/* ─── Input groups ───────────────────────────────────────────── */
+.auth-subtitle {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--muted-color);
+  line-height: 1.5;
+}
+
+/* ─── Form ───────────────────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .input-group {
-  margin-bottom: 0.75rem;
   position: relative;
+}
+
+.auth-label {
+  display: none; /* Make it minimal, just rely on placeholder like contact form */
 }
 
 .auth-input {
   width: 100%;
   background: transparent;
-  border: 1.5px solid #555;
-  border-radius: 100px;
-  padding: 0.9rem 1.25rem;
-  color: #d0d0d0;
-  font-size: 0.95rem;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 0;
+  padding: 12px 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.3s ease;
 }
 
 .auth-input::placeholder {
-  color: #888;
+  color: #999;
+  font-weight: 300;
 }
 
 .auth-input:focus {
-  border-color: #888;
+  border-bottom-color: var(--primary-color);
 }
 
 /* Password group with eye */
@@ -82,13 +141,14 @@
 
 .eye-toggle {
   position: absolute;
-  right: 1rem;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
   background: none;
   border: none;
   cursor: pointer;
-  color: #777;
+  color: #7a7a7a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,143 +157,157 @@
 }
 
 .eye-toggle:hover {
-  color: #aaa;
+  color: var(--primary-color);
 }
 
 /* ─── Forgot password ────────────────────────────────────────── */
 .forgot-row {
-  text-align: center;
-  margin-top: 0.3rem;
-  margin-bottom: 2rem;
+  text-align: right;
+  margin-top: -0.5rem;
 }
 
 .forgot-link {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #c0c0c0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-color);
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 .forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Primary action ─────────────────────────────────────────── */
+.signin-btn {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  padding: 16px 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.signin-btn:hover {
+  background-color: #e43f22;
+  color: #fff;
+  border-color: #e43f22;
+}
+
+.signin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
-/* ─── Action row: sign in btn + social circles ───────────────── */
+/* ─── Action row with social icons ───────────────────────────── */
 .action-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.2rem;
+  margin-top: 0.4rem;
 }
 
-/* Sign in button */
-.signin-btn {
+.action-row .signin-btn {
+  width: auto;
   flex: 1;
-  background: #4a4a4a;
-  border: none;
-  border-radius: 100px;
-  padding: 0.85rem 1.5rem;
-  color: #c0c0c0;
-  font-size: 1rem;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.signin-btn:hover {
-  background: #5a5a5a;
-  color: #fff;
-}
-
-/* Social circle buttons */
 .social-circle {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: #f5f5f5;
-  border: none;
-  display: flex;
+  background: transparent;
+  border: 2px solid var(--border-color);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: all 0.3s ease;
 }
 
 .social-circle:hover {
-  background: #e0e0e0;
-  transform: scale(1.05);
-}
-
-/* GitHub icon color */
-#github-btn svg {
-  fill: #111;
+  border-color: var(--primary-color);
 }
 
 /* ─── Legal text ─────────────────────────────────────────────── */
 .legal-text {
   font-size: 0.78rem;
-  color: #888;
+  color: var(--muted-color);
   text-align: center;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .legal-link {
-  color: #c8c8c8;
+  color: var(--text-color);
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 .legal-link:hover {
-  color: #fff;
+  text-decoration: underline;
 }
 
-/* ─── Bottom divider ─────────────────────────────────────────── */
-.bottom-divider {
-  height: 1px;
-  background: #444;
-  margin-bottom: 1.5rem;
+/* ─── Signup toggle ─────────────────────────────────────────── */
+.signup-toggle {
+  text-align: center;
+  margin-top: 0.2rem;
 }
 
-/* ─── Create account button ──────────────────────────────────── */
-.create-btn {
-  width: 100%;
-  background: #f0f0f0;
-  border: none;
-  border-radius: 100px;
-  padding: 0.9rem;
-  color: #111;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+/* ─── Message ────────────────────────────────────────────────── */
+.auth-message {
+  min-height: 1.2rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted-color);
 }
 
-.create-btn:hover {
-  background: #fff;
-  transform: scale(1.01);
+.auth-message.is-error {
+  color: #b42318;
+}
+
+.auth-message.is-success {
+  color: #15803d;
+}
+
+/* ─── Back link (forgot password page) ───────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  text-decoration: none;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
 }
 
 /* ─── Focus visible for accessibility ────────────────────────── */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 2px solid #888;
-  outline-offset: 3px;
+  outline: none;
+  border-bottom-color: var(--primary-color);
 }
 
 /* ─── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 420px) {
-  .auth-card {
-    padding: 2rem 1.4rem 1.6rem;
-  }
-
+@media (max-width: 480px) {
   .signin-title {
-    font-size: 2.1rem;
+    font-size: 2rem;
   }
 }
