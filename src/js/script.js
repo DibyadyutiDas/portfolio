@@ -258,22 +258,14 @@ class PersonalizationManager {
     }
     
     init() {
-        // Initialize theme based on system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const savedTheme = localStorage.getItem('theme');
         
         if (savedTheme) {
             this.setTheme(savedTheme);
-        } else if (prefersDark) {
-            this.setTheme('dark');
+        } else {
+            // Default to light theme for new users
+            this.setTheme('light');
         }
-        
-        // Listen for system theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                this.setTheme(e.matches ? 'dark' : 'light');
-            }
-        });
     }
     
     toggleTheme() {
