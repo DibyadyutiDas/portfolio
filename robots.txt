@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /server/
+Disallow: /login.html
+Disallow: /forgot-password.html
+
+Sitemap: https://dibyadyuti.me/sitemap.xml
