@@ -14,7 +14,7 @@
     "express": "^4.19.2",
     "firebase-admin": "^13.7.0",
     "mongoose": "^8.7.0",
-    "nodemailer": "^8.0.4"
+    "nodemailer": "^8.0.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
