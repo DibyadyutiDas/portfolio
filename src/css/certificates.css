@@ -1,0 +1,341 @@
+/* Brand Emblem Grid Wall (Left) + Sticky Spinner (Right) on Website Original Background */
+
+#certificates {
+  padding: 100px 24px 120px;
+  position: relative;
+  background: var(--bg-color);
+  overflow: visible;
+}
+
+/* Side-by-Side Layout Container (Height Centered) */
+.certificates-layout-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Vertically centered in height */
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 80px;
+}
+
+/* Left Side: Brand Emblem Matrix Grid Wall */
+.certificates-left {
+  flex: 0 1 700px;
+  width: 100%;
+  min-width: 0;
+}
+
+.emblem-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px dotted rgba(255, 255, 255, 0.15);
+  border-left: 1px dotted rgba(255, 255, 255, 0.15);
+}
+
+/* Individual Emblem Tile Item */
+.emblem-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px 36px 20px;
+  border-right: 1px dotted rgba(255, 255, 255, 0.15);
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.015);
+  overflow: hidden;
+  transition: background 0.3s ease;
+  min-height: 190px;
+}
+
+.emblem-default-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.emblem-icon-wrapper {
+  width: 80px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.emblem-icon-wrapper svg {
+  width: 100%;
+  height: 100%;
+  max-height: 60px;
+  object-fit: contain;
+  fill: currentColor;
+}
+
+.emblem-label {
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted, #888);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* Actual Certificate Image Hover Overlay */
+.cert-hover-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.cert-hover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.emblem-tile:hover .cert-hover-layer {
+  opacity: 1;
+}
+
+.emblem-tile:hover .emblem-default-layer {
+  opacity: 0;
+}
+
+/* Right Side: Sticky Spinner Heading */
+.certificates-right {
+  position: sticky;
+  top: calc(50vh - 170px);
+  flex-shrink: 0;
+  width: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinning-heading-wrapper {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinning-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: spin-circle 24s linear infinite;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.spinning-circle span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: 50% 170px;
+}
+
+@keyframes spin-circle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning-star {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  color: var(--text-color);
+}
+
+/* Responsive Side-by-Side Layout */
+@media (max-width: 968px) {
+  .certificates-layout-container {
+    flex-direction: column-reverse;
+    gap: 40px;
+    align-items: center;
+  }
+  .certificates-right {
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+  .emblem-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .emblem-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Premium CRED Holographic Sheen */
+.cert-cred-sheen {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  right: -100%;
+  bottom: -100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: var(--shine-opacity, 0);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+  transform: translate(var(--shine-x, 0px), var(--shine-y, 0px));
+}
+
+.cert-cred-card:hover .cert-cred-frame {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35), 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Modern Minimal Modal */
+.cert-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.cert-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.cert-modal-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-height: 94vh;
+}
+
+.cert-modal-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.cert-modal-close:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* 3D Certificate Viewer inside Modal */
+.cert-3d-stage {
+  perspective: 1500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cert-3d-plaque {
+  width: 100%;
+  max-width: 820px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  cursor: grab;
+  background: #ffffff;
+}
+
+.cert-3d-plaque:active {
+  cursor: grabbing;
+}
+
+.plaque-media-wrapper {
+  width: 100%;
+}
+
+.plaque-media-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .certificates-grid {
+    padding-top: 10vh;
+  }
+  .cert-cred-card {
+    top: 15vh;
+    margin-bottom: 80vh;
+  }
+}
+

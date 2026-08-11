@@ -6,43 +6,43 @@
     position: relative;
     height: 100vh;
     color: #000;
-  padding-top: clamp(110px, 12vh, 180px);
-  box-sizing: border-box;
-  }
+    padding-top: clamp(150px, 18vh, 240px);
+    box-sizing: border-box;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .hero {
-      padding-top: 0;
+        padding-top: 100px;
     }
-  }
-  
-  .hero-content {
+}
+
+.hero-content {
     text-align: center;
     padding: 0 20px;
     max-width: 100%;
     overflow: visible;
     width: 100%;
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     .hero-content {
-      padding: 0 10px;
+        padding: 0 10px;
     }
-  }
-  
-  @media (max-width: 360px) {
+}
+
+@media (max-width: 360px) {
     .hero-content {
-      padding: 0 5px;
+        padding: 0 5px;
     }
-  }
-  
-  @media (max-width: 320px) {
+}
+
+@media (max-width: 320px) {
     .hero-content {
-      padding: 0 3px;
+        padding: 0 3px;
     }
-  }
-  
-  .title:not(.nothing-font) {
+}
+
+.title:not(.nothing-font) {
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(2rem,8vw,5rem);
     font-weight: 770;
@@ -50,47 +50,49 @@
     letter-spacing: 5px;
     max-width: 100%;
     overflow: visible;
-  }
-  
-  .title.nothing-font {
+}
+
+.title.nothing-font {
     margin: 0;
     max-width: 100%;
     overflow: visible;
-  }
+}
 
-  .hero-name {
+.hero-name {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: clamp(2.6rem, 11vw, 6.5rem);
+    font-size: var(--fs-fluid-2xl);
     font-weight: 520;
     letter-spacing: clamp(0.08em, 1vw, 0.2em);
     text-transform: uppercase;
-    margin: 0;
+    margin: clamp(20px, 4vh, 50px) 0 0 0;
     color: #0f0f0f;
-  }
-  
-  .subtitle {
-    font-size: clamp(1rem,3vw,1.5rem);
+}
+
+.subtitle {
+    font-size: var(--fs-fluid-md);
     font-weight: 318;
     letter-spacing: clamp(5px,2vw,10px);
-    margin-top: 50px;
-  }
-  
-  section {
-    padding: clamp(40px,8vh,80px) 20px;
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+section {
+    padding: clamp(80px,15vh,140px) 20px;
     text-align: center;
     background-color: #fff;
-  }
-  
-  section:nth-child(even) {
+}
+
+section:nth-child(even) {
     background-color: #f9f9f9;
-  }
-  
-  .arrow-container {
+}
+
+.arrow-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
-  }
+    height: 45px;
+    margin-top: 5px;
+}
   
   .arrow {
     position: relative;

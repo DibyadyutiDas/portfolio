@@ -1,6 +1,6 @@
 /* === Projects Section === */
 .projects {
-  padding: var(--space-3xl) var(--space-xl);
+  padding: calc(var(--space-3xl) * 2) var(--space-xl);
   min-height: 100vh;
   text-align: left;
 }
@@ -11,7 +11,7 @@
 }
 
 .projects .header h2 {
-  font-size: 2.5rem;
+  font-size: var(--fs-fluid-lg);
   color: #333;
 }
 
@@ -29,41 +29,43 @@
 
 /* === Hero Section === */
 .projects .hero-content {
-  max-width: 600px;
-  margin-left: 20px;
+  max-width: 1200px;
+  margin: 0 auto var(--space-2xl);
+  padding: 0 24px;
   text-align: left;
-  margin-bottom: var(--space-2xl);
 }
 
 .projects .hero-meta {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  margin-bottom: var(--space-xl);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-family: var(--font-mono, 'Space Grotesk', monospace);
+  font-size: var(--fs-sm, 0.85rem);
+  color: var(--text-secondary, #888);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .projects .meta-divider {
-  color: var(--text-tertiary);
+  color: var(--text-tertiary, #555);
 }
 
 .projects .hero-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1.1;
-  margin-bottom: var(--space-lg);
-  color: var(--text-light);
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  color: var(--text-light, #ffffff);
 }
 
 .projects .hero-description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 500px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #a4a4b0);
+  max-width: 580px;
 }
 
 /* === Projects Grid Layout === */
@@ -85,11 +87,12 @@
 }
 
 .project-item {
+  position: relative;
   padding: var(--space-2xl) 0;
   min-height: 180px;
   border-bottom: 1px solid var(--border-light);
-  opacity: 0.4;
-  transition: opacity 0.5s ease;
+  opacity: 0.45;
+  transition: opacity 0.4s ease;
   cursor: pointer;
   scroll-margin-top: calc(var(--nav-height) + 20px);
   text-align: left;
@@ -149,22 +152,36 @@
 }
 
 .project-content {
-  max-width: 480px;
+  max-width: min(100%, 560px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
 }
 
 .project-title {
   font-size: 1.75rem;
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
   color: var(--text-light);
 }
 
 .project-description {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
+  margin-bottom: 0;
+  transition: color 0.35s ease;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.project-item.active .project-description {
+  color: var(--text-light);
 }
 
 .project-stack {
@@ -315,7 +332,7 @@
 
 @media (max-width: 768px) {
   .projects {
-    padding: var(--space-2xl) var(--space-md);
+    padding: calc(var(--space-2xl) * 1.5) var(--space-md);
   }
 
   .projects .hero-content {

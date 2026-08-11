@@ -16,6 +16,24 @@
   --accent-blue: #0070f3;
   --accent-purple: #7c3aed;
   
+  /* Golden Ratio Typography Scale (Scale factor φ ≈ 1.618) */
+  --golden-ratio: 1.618;
+  --fs-xs: 0.618rem;       /* ~10px   (Step -2: 1.0rem / 1.618) */
+  --fs-sm: 0.786rem;       /* ~12.6px (Step -1: 1.0rem / 1.618^0.5) */
+  --fs-base: 1rem;         /* 16px    (Step 0:  1.0rem) */
+  --fs-md: 1.618rem;       /* ~25.9px (Step 1:  1.0rem * 1.618) */
+  --fs-lg: 2.618rem;       /* ~41.9px (Step 2:  1.0rem * 1.618^2) */
+  --fs-xl: 4.236rem;       /* ~67.8px (Step 3:  1.0rem * 1.618^3) */
+  --fs-2xl: 6.854rem;      /* ~109.7px(Step 4:  1.0rem * 1.618^4) */
+
+  /* Fluid Responsive Golden Ratio Headings */
+  --fs-fluid-sm: clamp(0.786rem, 0.7rem + 0.4vw, 0.85rem);
+  --fs-fluid-base: clamp(1rem, 0.95rem + 0.25vw, 1.05rem);
+  --fs-fluid-md: clamp(1.25rem, 1.1rem + 1.2vw, 1.618rem);
+  --fs-fluid-lg: clamp(1.8rem, 1.4rem + 2.5vw, 2.618rem);
+  --fs-fluid-xl: clamp(2.618rem, 2rem + 4vw, 4.236rem);
+  --fs-fluid-2xl: clamp(3.2rem, 2.5rem + 7vw, 6.854rem);
+  
   /* Typography */
   --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
@@ -67,6 +85,8 @@ html {
 body {
   margin: 0;
   font-family: "Poppins",sans-serif;
+  font-size: var(--fs-base);
+  line-height: var(--golden-ratio);
   background-color: #f4f4f4;
   color: #222;
   overflow-x: hidden;
@@ -83,23 +103,29 @@ body::-webkit-scrollbar {
   animation: scaleEffect 1.5s ease-in-out;
 }
 
-.custom-cursor {
-  width: 20px;
-  height: 20px;
-  background: var(--primary-color);
-  border-radius: 50%;
+#spiderman-cursor-canvas {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 9999;
-  opacity: 0;
-  transition: transform .2s ease,opacity .3s ease;
-  will-change: transform;
+  z-index: 99999;
 }
 
-.hover-trigger,
-.hover-trigger:hover {
-  cursor: none;
+body.has-spiderman-cursor,
+body.has-spiderman-cursor *,
+body.has-spiderman-cursor a,
+body.has-spiderman-cursor button,
+body.has-spiderman-cursor input,
+body.has-spiderman-cursor select,
+body.has-spiderman-cursor textarea,
+body.has-spiderman-cursor [role="button"] {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  display: none;
 }
 
 a {
@@ -108,13 +134,75 @@ a {
 }
 
 .header h2 {
-  font-size: 2.5rem;
+  font-size: var(--fs-fluid-lg);
   margin-bottom: 20px;
   font-weight: 530;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+
+/* =============================================================================
+   SAVE MJ FOOTER RESCUE SCENE STYLES
+   ============================================================================= */
+
+footer {
   position: relative;
-  color: var(--text-light);
-  margin-bottom: 20px;
-  font-family: 'Poppins', sans-serif; /* Smooth modern font */
+  overflow: hidden;
+}
+
+.footer-rescue-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+#footer-rescue-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.trigger-save-mj-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #f8fafc;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', 'Poppins', sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.trigger-save-mj-btn .btn-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.25s ease;
+  color: #eb1e25;
+}
+
+.trigger-save-mj-btn:hover {
+  background: transparent !important;
+  color: #eb1e25;
+  box-shadow: none !important;
+  border: none !important;
+  transform: none;
+}
+
+.trigger-save-mj-btn:hover .btn-arrow {
+  transform: translateX(6px);
 }

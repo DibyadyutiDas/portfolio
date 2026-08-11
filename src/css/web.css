@@ -1,5 +1,5 @@
 #websites {
-  padding: 48px 24px 64px;
+  padding: 100px 24px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,22 +77,23 @@
 }
 
 /* ============================================
-   DESKTOP: LANDSCAPE PHONE FRAME (original)
+   DESKTOP: LANDSCAPE PHONE FRAME (Hyper-Realistic Flagship Smartphone)
    ============================================ */
 
 .phone-frame {
-  width: clamp(600px, 78vw, 860px);
+  width: clamp(620px, 78vw, 860px);
   height: clamp(360px, 55vh, 520px);
-  border: 12px solid #0f141c;
-  border-radius: 44px;
-  background: #0f141c;
+  border: 12px solid #181a20;
+  border-radius: 46px;
+  background: linear-gradient(135deg, #363a43 0%, #1f2127 35%, #121316 70%, #262931 100%);
   box-sizing: border-box;
   box-shadow:
-    0 24px 64px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 12px 26px rgba(0, 0, 0, 0.08),
-    inset 0 -12px 24px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(0, 0, 0, 0.85);
+    0 35px 90px -15px rgba(0, 0, 0, 0.65),
+    0 12px 30px -5px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 2px 4px rgba(255, 255, 255, 0.22),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.9);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -103,90 +104,155 @@
   isolation: isolate;
   transform: translateX(clamp(16px, 6vw, 96px));
   transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.phone-frame:hover {
+  box-shadow:
+    0 45px 105px -15px rgba(0, 0, 0, 0.75),
+    0 15px 35px -5px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 0 2px 5px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 0, 0, 0.95);
 }
 
 .phone-frame::selection {
   background: transparent;
 }
 
-/* Desktop bottom buttons */
-.phone-frame::before,
-.phone-frame::after {
-  content: "";
+/* Antenna band cuts on frame chassis */
+.phone-antenna {
   position: absolute;
-  background: #d4d5d6;
-  border-radius: 10px;
-  height: 14px;
-  clip-path: inset(8px 0 0 0);
-  z-index: 3;
+  background: #090a0c;
+  z-index: 4;
+  pointer-events: none;
 }
 
-.phone-frame::before {
-  width: 60px;
-  left: 35%;
-  bottom: -19px;
+.phone-antenna-1 {
+  top: -12px;
+  left: 120px;
+  width: 3px;
+  height: 12px;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.15), inset -1px 0 0 rgba(0, 0, 0, 0.5);
 }
 
-.phone-frame::after {
-  width: 64px;
-  right: 35%;
-  bottom: -19px;
+.phone-antenna-2 {
+  bottom: -12px;
+  right: 140px;
+  width: 3px;
+  height: 12px;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.15), inset -1px 0 0 rgba(0, 0, 0, 0.5);
 }
 
-/* Desktop notch (left side, landscape) */
+/* Side buttons (protruding outer metallic hardware caps) */
+.phone-btn {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  background: linear-gradient(180deg, #525660 0%, #22242a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 -1px 2px rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.phone-btn-silent {
+  top: -15px;
+  left: 80px;
+  width: 30px;
+  height: 4px;
+  border-radius: 3px 3px 0 0;
+}
+
+.phone-btn-vol-up {
+  top: -15px;
+  left: 126px;
+  width: 44px;
+  height: 4px;
+  border-radius: 3px 3px 0 0;
+}
+
+.phone-btn-vol-down {
+  top: -15px;
+  left: 180px;
+  width: 44px;
+  height: 4px;
+  border-radius: 3px 3px 0 0;
+}
+
+.phone-btn-power {
+  bottom: -15px;
+  right: 120px;
+  width: 58px;
+  height: 4px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(0deg, #525660 0%, #22242a 100%);
+}
+
+/* Desktop Dynamic Island / Notch Cutout (Left Side, Landscape Phone) */
 .phone-notch {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 11px;
   transform: translateY(-50%);
-  width: 30px;
-  height: 130px;
-  background: #0f141c;
+  width: 26px;
+  height: 115px;
+  background: #000000;
   border-radius: 18px;
-  box-shadow: inset 0 -2px 6px rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 4px rgba(0, 0, 0, 0.9);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 12px 0;
-  z-index: 3;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  z-index: 10;
   overflow: hidden;
 }
 
-.phone-notch::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 58px;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 42px;
-  background: #2a2f38;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12);
-}
-
-.phone-notch::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 20px;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.2) 70%);
+.phone-camera {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+  background: radial-gradient(circle at 35% 35%, #2c4784 0%, #0d1730 60%, #000000 85%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 0 3px rgba(0, 0, 0, 0.9);
+  position: relative;
 }
 
+.phone-camera::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.phone-speaker {
+  display: block;
+  width: 4px;
+  height: 36px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(0deg, #22252c, #22252c 1px, #0a0b0d 1px, #0a0b0d 3px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Display Screen Panel */
 .phone-screen {
   width: 100%;
   height: 100%;
-  background: #fff;
-  border-radius: 32px;
+  background: #f8f9fc;
+  border-radius: 34px;
   overflow: hidden;
   padding: 0;
-  border: none;
-  box-shadow: none;
+  border: 3px solid #08090c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -194,16 +260,67 @@
   z-index: 2;
 }
 
-.phone-screen::before,
-.phone-screen::after {
+/* Glass Glare Overlay */
+.phone-glass-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 8;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.03) 28%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+/* Status Bar - Hidden on Big Screens */
+.phone-status-bar {
   display: none;
 }
 
-/* Hide side buttons, home bar, dots, phone-heading on desktop */
-.phone-btn { display: none; }
-.phone-home-bar { display: none; }
-.card-dots { display: none; }
+.phone-time {
+  position: static;
+  transform: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: inherit;
+  pointer-events: none;
+}
+
+.phone-status-icons {
+  position: static;
+  transform: none;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 10px;
+  color: inherit;
+  pointer-events: none;
+}
+
+/* Home Bar */
+.phone-home-bar {
+  display: block;
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 125px;
+  height: 4.5px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+  z-index: 7;
+  backdrop-filter: blur(4px);
+}
+
 .phone-heading { display: none; }
+.card-dots { display: none; }
 
 /* === Desktop: horizontal scroll cards === */
 .card-container {
@@ -213,7 +330,7 @@
   flex-direction: row;
   align-items: center;
   gap: 16px;
-  padding: 18px 16px 22px 16px;
+  padding: 18px;
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -231,93 +348,170 @@
 
 .web-card {
   position: relative;
-  display: grid;
-  gap: 12px;
-  align-content: center;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-decoration: none;
   color: inherit;
-  background: linear-gradient(150deg, #ffffff 0%, #f5f6fa 100%);
-  border-radius: 0px;
-  padding: 18px 16px 16px 16px;
-  border: 1px solid #e8e9ed;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+  background: linear-gradient(150deg, #ffffff 0%, #f7f8fa 100%);
+  border-radius: 6px;
+  padding: 12px 12px 10px 12px;
+  border: 1px solid #e2e4e9;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   scroll-snap-align: start;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   width: clamp(200px, 60vw, 220px);
   min-width: clamp(200px, 60vw, 220px);
   max-width: clamp(200px, 60vw, 220px);
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 4.2;
   height: auto;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .web-card:hover {
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
-  border-color: #dfe2e8;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+  border-color: #cbd0d9;
+}
+
+.card-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
 }
 
 .card-number {
-  font-size: 13px;
-  color: #747a88;
-  position: absolute;
-  top: 14px;
-  left: 16px;
+  position: static;
+  font-size: 11px;
+  color: #64748b;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  font-family: monospace, sans-serif;
+}
+
+.card-qr-box {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  background: #ffffff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.web-card:hover .card-qr-box {
+  transform: scale(1.1);
+}
+
+.card-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 1px;
+}
+
+.card-qr-fallback {
+  width: 28px;
+  height: 28px;
+  color: #1e293b;
+}
+
+.card-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  flex: 1;
+  justify-content: center;
+  width: 100%;
 }
 
 .card-icon,
 .card-image {
   width: 100%;
-  max-height: 180px;
+  max-height: 110px;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 6px;
   background: transparent;
-  padding: 8px;
+  padding: 4px;
   box-shadow: none;
+  transition: transform 0.25s ease;
 }
 
-.card-icon {
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card-icon img {
-  max-width: 100%;
-  max-height: 100%;
+.web-card:hover .card-image {
+  transform: scale(1.04);
 }
 
 .card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   text-align: center;
 }
 
 .web-card h3 {
-  font-size: 1.1rem;
-  color: #1f242d;
-  font-weight: 500;
+  font-size: 1.05rem;
+  color: #0f172a;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.2px;
 }
 
-.web-card p {
-  font-size: 0.95rem;
-  color: #555;
+.card-barcode-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 4px 0 0 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.barcode-lines-wrapper {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-barcode-lines {
+  width: 100%;
+  height: 32px;
+  color: #000000;
+}
+
+.barcode-url-text {
+  font-size: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #64748b;
+  text-align: center;
+  letter-spacing: 0.2px;
+  font-weight: 500;
+  word-break: break-all;
+  line-height: 1.1;
 }
 
 /* ============================================
-   RESPONSIVE - tablet
+   RESPONSIVE - tablet & mobile
    ============================================ */
 
 @media (max-width: 1200px) {
   .content {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
   }
 
   .left-text {
@@ -329,21 +523,12 @@
     font-size: 2.1rem;
     line-height: 1.1;
   }
-
-  .phone-frame {
-    width: clamp(560px, 90vw, 820px);
-    height: clamp(340px, 52vh, 480px);
-    transform: none;
-  }
-
-  .card-container {
-    padding: 16px 14px 20px 14px;
-  }
 }
 
 @media (max-width: 768px) {
   .content {
     flex-direction: column;
+    gap: 16px;
   }
 
   .left-text {
@@ -355,24 +540,6 @@
     font-size: 2rem;
     line-height: 1.1;
   }
-
-  .phone-frame {
-    width: clamp(480px, 90vw, 720px);
-    height: clamp(320px, 50vh, 440px);
-    transform: none;
-  }
-
-  .card-container {
-    gap: 14px;
-    padding: 14px 14px 16px 14px;
-    scroll-padding-left: 14px;
-  }
-
-  .web-card {
-    width: clamp(180px, 70vw, 210px);
-    min-width: clamp(180px, 70vw, 210px);
-    max-width: clamp(180px, 70vw, 210px);
-  }
 }
 
 /* ============================================
@@ -380,7 +547,7 @@
    ============================================ */
 @media (max-width: 600px) {
   #websites {
-    padding: 36px 12px 48px;
+    padding: 80px 12px 100px;
   }
 
   .content {
@@ -395,109 +562,146 @@
 
   /* --- Switch to portrait iPhone-style frame --- */
   .phone-frame {
-    width: min(320px, 82vw);
-    height: min(720px, 90vh);
-    border: 10px solid #1c1c1e;
-    border-radius: 46px;
-    background: linear-gradient(160deg, #3a3a3c 0%, #2c2c2e 30%, #1c1c1e 100%);
+    width: min(325px, 84vw);
+    height: min(680px, 86vh);
+    border: 10px solid #181a20;
+    border-radius: 48px;
+    background: linear-gradient(160deg, #363a43 0%, #1f2127 35%, #121316 100%);
     padding: 0;
     transform: none;
     box-shadow:
-      0 30px 60px -10px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 30px 70px -10px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
-  /* Hide desktop bottom buttons */
-  .phone-frame::before,
-  .phone-frame::after {
-    display: none;
+  .phone-antenna-1 {
+    top: 70px;
+    left: -10px;
+    width: 10px;
+    height: 3px;
   }
 
-  /* Show side buttons: 2 left (vol) + 1 right (power) */
+  .phone-antenna-2 {
+    bottom: 80px;
+    right: -10px;
+    width: 10px;
+    height: 3px;
+  }
+
+  /* Show side buttons: Left (Action, Vol Up, Vol Down), Right (Power) */
   .phone-btn {
     display: block;
     position: absolute;
     z-index: 5;
+    background: linear-gradient(90deg, #525660 0%, #202228 100%);
   }
 
-  .phone-btn-silent { display: none; }
+  .phone-btn-silent {
+    display: block;
+    left: -13px;
+    top: 90px;
+    width: 3px;
+    height: 26px;
+    border-radius: 2px 0 0 2px;
+    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.5);
+  }
 
   .phone-btn-vol-up {
-    left: -14px;
-    top: 130px;
-    width: 4px;
-    height: 40px;
-    border-radius: 3px 0 0 3px;
-    background: #cccccc;
-    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.4);
+    left: -13px;
+    top: 128px;
+    width: 3px;
+    height: 42px;
+    border-radius: 2px 0 0 2px;
+    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.5);
   }
 
   .phone-btn-vol-down {
-    left: -14px;
-    top: 182px;
-    width: 4px;
-    height: 40px;
-    border-radius: 3px 0 0 3px;
-    background: #cccccc;
-    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.4);
+    left: -13px;
+    top: 180px;
+    width: 3px;
+    height: 42px;
+    border-radius: 2px 0 0 2px;
+    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.5);
   }
 
   .phone-btn-power {
-    right: -14px;
-    top: 150px;
-    width: 4px;
-    height: 54px;
-    border-radius: 0 3px 3px 0;
-    background: #cccccc;
-    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.4);
+    right: -13px;
+    top: 140px;
+    width: 3px;
+    height: 56px;
+    border-radius: 0 2px 2px 0;
+    background: linear-gradient(270deg, #525660 0%, #202228 100%);
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.5);
   }
 
   /* Dynamic Island at top center */
   .phone-notch {
-    top: 14px;
+    top: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 86px;
-    height: 24px;
+    width: 90px;
+    height: 25px;
     border-radius: 20px;
-    background: #000;
-    box-shadow: none;
-    padding: 0;
+    background: #000000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    padding: 0 10px;
     z-index: 10;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
   }
 
-  .phone-notch::before {
-    left: auto;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(40, 60, 130, 0.6), #0a0a1a 65%);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  .phone-camera {
+    width: 10px;
+    height: 10px;
   }
 
-  .phone-notch::after {
+  .phone-speaker {
     display: none;
   }
 
   .phone-screen {
-    border-radius: 36px;
+    border-radius: 38px;
     background: #f8f9ff;
+    border-width: 2px;
+  }
+
+  .phone-status-bar {
+    position: absolute;
+    top: 15px;
+    left: 18px;
+    right: 18px;
+    z-index: 9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  .phone-time {
+    position: static;
+    transform: none;
+    font-size: 11px;
+  }
+
+  .phone-status-icons {
+    position: static;
+    transform: none;
+    font-size: 10px;
   }
 
   /* Show home bar */
   .phone-home-bar {
     display: block;
     position: absolute;
-    bottom: 7px;
+    bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 105px;
     height: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     z-index: 10;
   }

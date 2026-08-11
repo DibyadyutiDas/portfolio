@@ -13,15 +13,16 @@
 }
 
 .digital-time {
-    font-size: 2.5rem;
-    font-weight: 300;
+    font-family: 'Outfit', 'Space Grotesk', sans-serif;
+    font-size: var(--fs-fluid-xl);
+    font-weight: 700;
     color: #1f2937;
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
 }
 
 .digital-date {
-    font-size: 1.125rem;
+    font-size: var(--fs-md);
     color: #6b7280;
     font-weight: 300;
 }
@@ -38,10 +39,10 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: transparent;
     border-radius: 50%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 8px solid #f3f4f6;
+    box-shadow: none;
+    border: none;
 }
 
 /* Clock Numbers */

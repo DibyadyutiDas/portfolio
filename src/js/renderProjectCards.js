@@ -59,14 +59,9 @@ function createPreviewImage(project, index) {
 function updateActiveProject(index, total) {
   const items = document.querySelectorAll('.project-item');
   const previews = document.querySelectorAll('.preview-image');
-  const progressFill = document.getElementById('progress-fill');
-  const currentText = document.getElementById('current-project');
 
   items.forEach((el, i) => el.classList.toggle('active', i === index));
   previews.forEach((el, i) => el.classList.toggle('active', i === index));
-
-  if (progressFill) progressFill.style.width = `${((index + 1) / total) * 100}%`;
-  if (currentText) currentText.textContent = String(index + 1).padStart(2, '0');
 }
 
 function addProjectEventListeners(total) {
@@ -91,7 +86,7 @@ function addScrollSync(total) {
   const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5
+    threshold: 0.4
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -110,7 +105,6 @@ async function renderProjects() {
   const projects = await fetchProjects();
   const list = document.getElementById('project-list');
   const preview = document.getElementById('preview-container');
-  const totalSpan = document.getElementById('total-projects');
 
   if (!list || !preview) return;
 
@@ -121,8 +115,6 @@ async function renderProjects() {
     list.appendChild(createProjectItem(project, i, projects.length));
     preview.appendChild(createPreviewImage(project, i));
   });
-
-  if (totalSpan) totalSpan.textContent = String(projects.length).padStart(2, '0');
 
   addProjectEventListeners(projects.length);
   addScrollSync(projects.length);

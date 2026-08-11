@@ -21,15 +21,16 @@ class PrecisionClock {
 
     getClockDimensions() {
         const clockContainer = document.querySelector('.clock-container');
-        const containerWidth = clockContainer?.offsetWidth || 320;
+        const containerWidth = clockContainer ? (clockContainer.offsetWidth || 300) : 300;
+        const radius = containerWidth / 2;
 
-        if (containerWidth >= 448) {
-            return { radius: 224, numberRadius: 180, hourHandLength: 112, minuteHandLength: 154, secondHandLength: 168 };
-        } else if (containerWidth >= 384) {
-            return { radius: 192, numberRadius: 156, hourHandLength: 96, minuteHandLength: 132, secondHandLength: 144 };
-        } else {
-            return { radius: 160, numberRadius: 130, hourHandLength: 80, minuteHandLength: 110, secondHandLength: 120 };
-        }
+        return {
+            radius: radius,
+            numberRadius: radius * 0.78,
+            hourHandLength: radius * 0.48,
+            minuteHandLength: radius * 0.68,
+            secondHandLength: radius * 0.78
+        };
     }
 
     createClockNumbers() {

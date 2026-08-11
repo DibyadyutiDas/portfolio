@@ -6,7 +6,7 @@
       "year": "2024",
       "status": "Live",
       "title": "GitHub Profile README",
-      "description": "A custom README that highlights key repositories, languages used, and achievements on GitHub.",
+      "description": "A customized GitHub profile showcase featuring dynamic repository metrics, real-time activity stats, and structured developer documentation.",
       "stack": ["Markdown", "GitHub Stats", "Shields.io"],
       "links": {
         "primary": {
@@ -28,9 +28,9 @@
       "number": "02",
       "year": "2024",
       "status": "Live",
-      "title": "Open Source",
-      "description": "Contributions to open-source projects on GitHub. Includes bug fixes, new features, and more.",
-      "stack": ["Git", "GitHub", "Collaboration"],
+      "title": "Open Source Contributions",
+      "description": "Active contributions to open-source software, encompassing feature developments, performance optimizations, bug fixes, and community pull requests.",
+      "stack": ["Git", "GitHub", "Open Source"],
       "links": {
         "primary": {
           "text": "View Contributions →",
@@ -38,7 +38,7 @@
         },
         "secondary": {
           "text": "Source Code",
-          "url": "https://github.com/username?tab=repositories"
+          "url": "https://github.com/DibyadyutiDas?tab=repositories"
         }
       },
       "image": {
@@ -52,7 +52,7 @@
       "year": "2025",
       "status": "Live",
       "title": "Bulk-Buying Platform",
-      "description": "A platform where users collaborate to buy in bulk and collectively save more together.",
+      "description": "A full-stack e-commerce application enabling buyers to pool orders together, unlock bulk wholesale pricing, and save on group logistics.",
       "stack": ["Node.js", "Express", "MongoDB", "React"],
       "links": {
         "primary": {
@@ -74,8 +74,8 @@
       "number": "04",
       "year": "2025",
       "status": "Prototype",
-      "title": "Custom Handwriting",
-      "description": "Users can select from different handwriting or even match your unique handwriting.",
+      "title": "Custom Handwriting Converter",
+      "description": "An interactive web application that transforms digital text into realistic handwritten documents with customizable styles and fonts.",
       "stack": ["Python", "OpenCV", "ML", "Flask"],
       "links": {
         "primary": {
@@ -97,8 +97,8 @@
       "number": "05",
       "year": "2025",
       "status": "Prototype",
-      "title": "Food Finder",
-      "description": "A web app that helps users discover pure vegetarian food options in different locations.",
+      "title": "Food Finder App",
+      "description": "A location-aware web application helping users discover, filter, and locate pure vegetarian dining options with Google Maps API integration.",
       "stack": ["React", "Tailwind CSS", "Node.js", "MongoDB", "Google Maps API"],
       "links": {
         "primary": {

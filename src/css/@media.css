@@ -7,21 +7,6 @@
 @media (max-width:768px) {
     .nav-links {
         display: none;
-        flex-direction: column;
-        background-color: #e0e0e0;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .hamburger {
-        display: block;
     }
 }
 

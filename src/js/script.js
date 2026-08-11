@@ -32,6 +32,9 @@ if (shouldSkipSplash) {
     if (fallback) {
         fallback.classList.add('hidden');
         fallback.style.display = 'none';
+        if (window.__splashAnimFrame) {
+            cancelAnimationFrame(window.__splashAnimFrame);
+        }
     }
     if (app) app.style.display = '';
     document.body.classList.add('loaded');
@@ -42,22 +45,23 @@ setTimeout(handleFallback, TIMEOUT);
 
 // Enhanced window load handler
 window.addEventListener('load', function () {
-    const fallback = getFallbackElement();
-    const app = getAppElement();
-    
-    if (app) {
-        app.style.display = '';
+    if (typeof window.__markSplashComplete === 'function') {
+        window.__markSplashComplete();
+    } else {
+        const fallback = getFallbackElement();
+        const app = getAppElement();
+        if (app) app.style.display = '';
+        if (fallback) {
+            fallback.classList.add('hidden');
+            if (window.__splashAnimFrame) {
+                cancelAnimationFrame(window.__splashAnimFrame);
+            }
+            setTimeout(() => {
+                fallback.style.display = 'none';
+            }, 500);
+        }
+        document.body.classList.add('loaded');
     }
-
-    if (fallback) {
-        fallback.classList.add('hidden');
-        setTimeout(() => {
-            fallback.style.display = 'none';
-        }, 500);
-    }
-    
-    // Mark body as loaded
-    document.body.classList.add('loaded');
 });
 
 // Function to handle 404 errors
@@ -81,7 +85,7 @@ class CustomCursor {
     }
     
     init() {
-        if (!this.cursor) return;
+        if (!this.cursor || window.spidermanCursor) return;
         
         this.bindEvents();
         this.setupHoverEffects();
@@ -133,6 +137,8 @@ class NavigationManager {
         this.menuToggle = document.getElementById('menuToggle');
         this.mobileMenu = document.getElementById('mobileMenu');
         this.hero = document.querySelector('.hero');
+        this.lastScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop);
+        this.accumulatedDelta = 0;
         
         this.init();
     }
@@ -168,39 +174,85 @@ class NavigationManager {
             }
         };
 
-        window.addEventListener('scroll', onScrollOrResize);
-        window.addEventListener('resize', onScrollOrResize);
+        window.addEventListener('scroll', onScrollOrResize, { passive: true });
+        window.addEventListener('resize', onScrollOrResize, { passive: true });
     }
     
     handleScroll() {
-        const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+        const isMobile = window.innerWidth <= 768;
+        const currentScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop);
+        
+        const heroEl = this.hero || document.querySelector('.hero');
+        const heroBottom = heroEl ? (heroEl.offsetTop + heroEl.offsetHeight) : 500;
+        const navHeight = this.nav ? this.nav.offsetHeight : 60;
+        
+        // After hero section condition (past hero bottom minus navbar height)
+        const isPastHero = currentScrollY > (heroBottom - navHeight - 10);
 
-        const navHeight = this.nav ? this.nav.offsetHeight : 0;
-        const heroHeight = this.hero ? this.hero.offsetHeight : 0;
-        const scrolledPastHero = heroHeight ? window.scrollY > (heroHeight - navHeight) : window.scrollY > 100;
+        if (!isPastHero) {
+            // Inside hero section: transparent overlay navbar, never hide
+            this.nav.classList.add('on-hero');
+            this.nav.classList.remove('scrolled', 'hidden');
+            this.accumulatedDelta = 0;
+        } else {
+            // Past hero section: apply glassmorphism styling
+            this.nav.classList.remove('on-hero');
+            this.nav.classList.add('scrolled');
 
-        // While hero is in view, blend the navbar into it (no separate bar)
-        this.nav.classList.toggle('on-hero', !scrolledPastHero);
+            const diff = currentScrollY - this.lastScrollY;
+
+            // Reset accumulated delta if scroll direction flipped
+            if ((diff > 0 && this.accumulatedDelta < 0) || (diff < 0 && this.accumulatedDelta > 0)) {
+                this.accumulatedDelta = 0;
+            }
+            this.accumulatedDelta += diff;
+
+            // Scroll DOWN past hero section -> hide navbar to top
+            if (this.accumulatedDelta > 15) {
+                if (!this.mobileMenu || !this.mobileMenu.classList.contains('active')) {
+                    this.nav.classList.add('hidden');
+                }
+            } 
+            // Scroll UP -> reveal navbar
+            else if (this.accumulatedDelta < -15) {
+                this.nav.classList.remove('hidden');
+            }
+        }
+
+        this.lastScrollY = currentScrollY;
 
         if (isMobile) {
-            this.nav.classList.remove('hidden');
-            this.nav.classList.add('collapsed');
-            this.menuToggle.classList.toggle('visible', scrolledPastHero);
+            this.menuToggle.classList.add('visible');
+        } else {
+            this.menuToggle.classList.remove('visible');
+            if (this.mobileMenu) this.mobileMenu.classList.remove('active');
+        }
 
-            if (!scrolledPastHero) {
-                this.mobileMenu.classList.remove('active');
+        this.updateActiveNavLink();
+    }
+    
+    updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        let currentSectionId = '';
+        const scrollPos = window.scrollY + 120;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                currentSectionId = section.getAttribute('id');
             }
-            return;
-        }
+        });
 
-        this.nav.classList.remove('hidden');
-        this.nav.classList.toggle('collapsed', scrolledPastHero);
-        this.menuToggle.classList.toggle('visible', scrolledPastHero);
-
-        // If the toggle isn't meant to be used yet, ensure the menu is closed.
-        if (!scrolledPastHero) {
-            this.mobileMenu.classList.remove('active');
-        }
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href').substring(1);
+            if (href === currentSectionId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
     }
     
     animateCards() {
@@ -217,9 +269,19 @@ class NavigationManager {
     }
     
     bindMenuEvents() {
-        // Menu Toggle
+        // Menu Toggle Click
         this.menuToggle.addEventListener('click', () => {
-            this.mobileMenu.classList.toggle('active');
+            const isActive = this.mobileMenu.classList.toggle('active');
+            this.menuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        });
+
+        // Keydown for accessibility
+        this.menuToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isActive = this.mobileMenu.classList.toggle('active');
+                this.menuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            }
         });
 
         // Close menu when clicking a link
@@ -227,6 +289,7 @@ class NavigationManager {
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 this.mobileMenu.classList.remove('active');
+                this.menuToggle.setAttribute('aria-expanded', 'false');
             });
         });
     }
@@ -236,7 +299,9 @@ class NavigationManager {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -597,30 +662,72 @@ document.addEventListener('DOMContentLoaded', () => {
     window.imageCarousel = new ImageCarousel();
     window.performanceOptimizer = new PerformanceOptimizer();
     
-    // Contact Form
+    // Contact Form & Interactive Features
     const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || localStorage.getItem('apiBase');
+    
+    // Project Type Chips selection
+    const projectChips = document.querySelectorAll('#projectChips .chip-btn');
+    const selectedProjectTypeInput = document.getElementById('selectedProjectType');
+    
+    if (projectChips.length > 0 && selectedProjectTypeInput) {
+        projectChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                projectChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                selectedProjectTypeInput.value = chip.getAttribute('data-value') || chip.textContent.trim();
+            });
+        });
+    }
+
+    // Quick Copy Email Button
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copyTooltip = document.getElementById('copyTooltip');
+    if (copyEmailBtn && copyTooltip) {
+        copyEmailBtn.addEventListener('click', async () => {
+            const emailToCopy = 'dibyadyutidas0@gmail.com';
+            try {
+                await navigator.clipboard.writeText(emailToCopy);
+                copyTooltip.textContent = 'Copied! ✓';
+                copyTooltip.style.color = '#10b981';
+                setTimeout(() => {
+                    copyTooltip.textContent = 'Copy';
+                    copyTooltip.style.color = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy email:', err);
+            }
+        });
+    }
+
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
+            const btnTextSpan = submitBtn.querySelector('span:first-child');
+            const originalText = btnTextSpan ? btnTextSpan.textContent : 'SEND MESSAGE';
             
-            const name = contactForm.querySelector('input[type="text"]').value;
-            const email = contactForm.querySelector('input[type="email"]').value;
-            const message = contactForm.querySelector('textarea').value;
+            const nameInput = contactForm.querySelector('#contactName') || contactForm.querySelector('input[type="text"]');
+            const emailInput = contactForm.querySelector('#contactEmail') || contactForm.querySelector('input[type="email"]');
+            const messageInput = contactForm.querySelector('#contactMessage') || contactForm.querySelector('textarea');
+            const projectTypeInput = contactForm.querySelector('#selectedProjectType');
             
-            submitBtn.textContent = 'Sending...';
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const message = messageInput ? messageInput.value.trim() : '';
+            const projectType = projectTypeInput ? projectTypeInput.value : 'General Inquiry';
+
+            if (btnTextSpan) btnTextSpan.textContent = 'SENDING...';
             submitBtn.disabled = true;
 
             try {
                 if (!apiBase) {
-                    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+                    const subject = encodeURIComponent(`[${projectType}] Portfolio message from ${name}`);
+                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nProject Type: ${projectType}\n\nMessage:\n${message}`);
                     window.location.href = `mailto:dibyadyutidas0@gmail.com?subject=${subject}&body=${body}`;
-                    submitBtn.textContent = 'Opening email...';
+                    if (btnTextSpan) btnTextSpan.textContent = 'OPENING EMAIL...';
                     setTimeout(() => {
-                        submitBtn.textContent = originalText;
+                        if (btnTextSpan) btnTextSpan.textContent = originalText;
                         submitBtn.disabled = false;
                     }, 1800);
                     return;
@@ -629,18 +736,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch(`${apiBase}/api/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, message })
+                    body: JSON.stringify({ name, email, projectType, message })
                 });
 
                 const data = await res.json();
                 
                 if (res.ok && data.success) {
-                    submitBtn.textContent = 'Sent Successfully!';
-                    submitBtn.style.backgroundColor = '#4CAF50';
+                    if (btnTextSpan) btnTextSpan.textContent = 'SENT SUCCESSFULLY!';
+                    submitBtn.style.backgroundColor = '#10b981';
+                    submitBtn.style.borderColor = '#10b981';
                     contactForm.reset();
+                    
+                    // Reset active chip
+                    if (projectChips.length > 0) {
+                        projectChips.forEach(c => c.classList.remove('active'));
+                        projectChips[0].classList.add('active');
+                        if (selectedProjectTypeInput) selectedProjectTypeInput.value = projectChips[0].getAttribute('data-value');
+                    }
+
                     setTimeout(() => {
-                        submitBtn.textContent = originalText;
+                        if (btnTextSpan) btnTextSpan.textContent = originalText;
                         submitBtn.style.backgroundColor = '';
+                        submitBtn.style.borderColor = '';
                         submitBtn.disabled = false;
                     }, 3000);
                 } else {
@@ -648,11 +765,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Contact Form Error:', error);
-                submitBtn.textContent = 'Failed to Send';
-                submitBtn.style.backgroundColor = '#f44336';
+                if (btnTextSpan) btnTextSpan.textContent = 'FAILED TO SEND';
+                submitBtn.style.backgroundColor = '#ef4444';
+                submitBtn.style.borderColor = '#ef4444';
                 setTimeout(() => {
-                    submitBtn.textContent = originalText;
+                    if (btnTextSpan) btnTextSpan.textContent = originalText;
                     submitBtn.style.backgroundColor = '';
+                    submitBtn.style.borderColor = '';
                     submitBtn.disabled = false;
                 }, 3000);
             }

@@ -33,7 +33,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@800;900&family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=Unbounded:wght@700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -42,7 +42,8 @@
     <link rel="stylesheet" href="src/css/nav.css">
     <link rel="stylesheet" href="src/css/hero.css">
     <link rel="stylesheet" href="src/css/about.css">
-    <link rel="stylesheet" href="src/css/skills.css">
+    <link rel="stylesheet" href="src/css/idCard.css">
+    <link rel="stylesheet" href="src/css/certificates.css">
     <link rel="stylesheet" href="src/css/carousel.css">
     <link rel="stylesheet" href="src/css/web.css">
     <link rel="stylesheet" href="src/css/dark.css">
@@ -78,38 +79,193 @@
 
     <div id="fallback" class="splash" role="status" aria-live="polite">
         <div class="splash-inner">
-            <span class="splash-logo">portfolio</span>
-            <span class="splash-tagline">crafting intentional digital experiences</span>
-            <div class="splash-bar"></div>
+            <span class="splash-logo">PORTFOLIO</span>
+            <div class="splash-loader" id="splash-loader">
+                <div class="splash-loader-line" data-text="CRAFTING INTENTIONAL DIGITAL EXPERIENCES">CRAFTING INTENTIONAL DIGITAL EXPERIENCES</div>
+            </div>
         </div>
     </div>
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+            }
+
+            var loaderEl = document.getElementById('splash-loader');
+            if (!loaderEl) return;
+
+            var lines = Array.from(loaderEl.querySelectorAll('.splash-loader-line'));
+            var glyphs = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            var lineData = lines.map(function(line) {
+                var text = line.getAttribute('data-text') || line.textContent.trim();
+                line.innerHTML = '';
+                var charElements = [];
+                for (var i = 0; i < text.length; i++) {
+                    var span = document.createElement('span');
+                    if (text[i] === ' ') {
+                        span.className = 'splash-char space';
+                        span.innerHTML = '&nbsp;';
+                        line.appendChild(span);
+                        charElements.push({
+                            el: span,
+                            target: ' ',
+                            isSpace: true,
+                            resolved: true
+                        });
+                    } else {
+                        span.className = 'splash-char spinning';
+                        span.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+                        line.appendChild(span);
+                        charElements.push({
+                            el: span,
+                            target: text[i],
+                            isSpace: false,
+                            resolved: false
+                        });
+                    }
+                }
+                return charElements;
+            });
+
+            var allChars = lineData.flat ? lineData.flat() : Array.prototype.concat.apply([], lineData);
+            var scramblableChars = allChars.filter(function(c) { return !c.isSpace; });
+            var totalLetters = scramblableChars.length;
+
+            var currentProgress = 0;
+            var targetProgress = 0.05;
+            var isLoaded = document.readyState === 'complete';
+            var frame = 0;
+            var isDismissed = false;
+
+            function calculateRealProgress() {
+                if (isLoaded || document.readyState === 'complete') return 1.0;
+
+                var stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+                var scripts = document.querySelectorAll('script[src]');
+                var images = document.images;
+                var totalExpected = Math.max(stylesheets.length + scripts.length + images.length, 5);
+
+                var loadedCount = 0;
+                if (window.performance && typeof window.performance.getEntriesByType === 'function') {
+                    var resources = window.performance.getEntriesByType('resource');
+                    loadedCount = resources ? resources.length : 0;
+                }
+
+                var p = Math.min(1.0, loadedCount / totalExpected);
+                if (document.readyState === 'interactive') {
+                    p = Math.max(p, 0.5);
+                }
+                return Math.max(p, 0.05);
+            }
+
+            function triggerComplete() {
+                isLoaded = true;
+                targetProgress = 1.0;
+            }
+
+            window.__markSplashComplete = triggerComplete;
+
+            if (document.readyState === 'complete') {
+                triggerComplete();
+            } else {
+                window.addEventListener('load', triggerComplete);
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (targetProgress < 0.5) targetProgress = 0.5;
+                });
+            }
+
+            function dismiss() {
+                if (isDismissed) return;
+                isDismissed = true;
+                var fallback = document.getElementById('fallback');
+                var app = document.getElementById('app');
+                if (app) app.style.display = '';
+                if (fallback) {
+                    fallback.classList.add('hidden');
+                    setTimeout(function() { fallback.style.display = 'none'; }, 500);
+                }
+                document.body.classList.add('loaded');
+            }
+
+            function animate() {
+                if (isDismissed) return;
+                frame++;
+
+                var realP = calculateRealProgress();
+                if (realP > targetProgress) targetProgress = realP;
+
+                currentProgress += (targetProgress - currentProgress) * 0.1;
+                if (targetProgress >= 1.0 && (1.0 - currentProgress) < 0.01) {
+                    currentProgress = 1.0;
+                }
+
+                var numResolved = Math.min(totalLetters, Math.round(currentProgress * totalLetters));
+
+                if (frame % 2 === 0 || currentProgress >= 1.0) {
+                    for (var i = 0; i < totalLetters; i++) {
+                        var item = scramblableChars[i];
+                        if (i < numResolved) {
+                            item.resolved = true;
+                            item.el.textContent = item.target;
+                            item.el.classList.remove('spinning');
+                            item.el.classList.add('resolved');
+                        } else {
+                            item.resolved = false;
+                            item.el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+                            item.el.classList.add('spinning');
+                            item.el.classList.remove('resolved');
+                        }
+                    }
+                }
+
+                if (currentProgress >= 1.0 && numResolved >= totalLetters) {
+                    setTimeout(dismiss, 300);
+                    return;
+                }
+
+                window.__splashAnimFrame = requestAnimationFrame(animate);
+            }
+
+            window.__splashAnimFrame = requestAnimationFrame(animate);
+        })();
+    </script>
     <div id="app">
         
-    <!-- Add cursor elements at the start of body -->
-    <div class="custom-cursor"></div>
+    <!-- Spider-Man Web-Slinging Canvas Cursor -->
+    <canvas id="spiderman-cursor-canvas"></canvas>
 
 
     <!-- Main Navigation -->
-    <nav id="mainNav" class="converting">
-        <div class="logo">
-            <span>portfolio</span>
-        </div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#websites">Websites</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-            <!-- User Icon -->
-            <a href="login.html" id="user-profile-link">
-                <div class="user-icon" id="user-avatar-container">
-                    <i class="fas fa-user" id="user-avatar-icon"></i>
-                </div>
+    <nav id="mainNav">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <span>PORTFOLIO</span>
             </a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#websites">Websites</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <!-- User Icon & Dropdown -->
+                <div class="user-menu" id="user-menu">
+                    <a href="login.html" id="user-profile-link" aria-expanded="false" title="Sign in">
+                        <div class="user-icon" id="user-avatar-container">
+                            <i class="fas fa-user" id="user-avatar-icon"></i>
+                        </div>
+                    </a>
+                    <div class="user-dropdown" id="user-dropdown" aria-hidden="true">
+                        <div class="user-name" id="user-display-name">Guest</div>
+                        <button type="button" class="logout-btn" id="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Menu Toggle Button -->
-    <div class="menu-toggle" id="menuToggle">
+    <div class="menu-toggle" id="menuToggle" role="button" aria-label="Toggle navigation menu" tabindex="0">
         <i class="fas fa-bars"></i>
     </div>
 
@@ -138,9 +294,129 @@
     <!-- About Section -->
     <section id="about" data-aos="fade-up">
         <div class="about-container">
-            <!-- Image for the about section -->
-            <div class="about-image">
-                <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
+            <!-- Interactive 3D Hanging Lanyard ID Card Stage -->
+            <div id="id-card-stage">
+                <!-- 3D Hanging Badge Wrapper (Card + Clip + Strap) -->
+                <div class="id-card-3d-wrapper" id="id-card-3d">
+                    <!-- Sleek Black Lanyard Tape Strap -->
+                    <div class="lanyard-strap" id="lanyard-strap"></div>
+                    <!-- Back part of clip (behind sleeve) -->
+                    <div class="lanyard-svg-clip back" id="lanyard-clip-back">
+                        <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="hookGradBack" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#2a2a2a"/>
+                                    <stop offset="50%" stop-color="#6a6a6a"/>
+                                    <stop offset="100%" stop-color="#1a1a1a"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Hook curve back half -->
+                            <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="#111" stroke-width="6" stroke-linecap="round" fill="none"/>
+                            <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="url(#hookGradBack)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <!-- Transparent Vinyl Plastic Badge Holder Case -->
+                    <div class="id-plastic-sleeve">
+                        <!-- Center slot notch at top for the hook to thread through -->
+                        <div class="sleeve-center-slot"></div>
+
+                        <!-- Two punch holes flanking the top of the card -->
+                        <div class="sleeve-punch-holes">
+                            <div class="punch-hole"></div>
+                            <div class="punch-hole"></div>
+                        </div>
+
+                        <!-- Inner Paper Profile Card -->
+                        <div class="id-card-paper">
+                            <h3 class="id-card-title">MY PROFILE</h3>
+
+                            <div class="id-card-photo-container">
+                                <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
+                            </div>
+
+                            <div class="id-card-details">
+                                <div class="id-detail-row">
+                                    <span class="id-label">NAME</span>
+                                    <span class="id-value handwritten">Dibyadyuti Das</span>
+                                </div>
+                                <div class="id-detail-row">
+                                    <span class="id-label">OCCUPATION</span>
+                                    <span class="id-value handwritten">Creative Dev</span>
+                                </div>
+                                <div class="id-detail-row">
+                                    <span class="id-label">CONTACT</span>
+                                    <span class="id-value handwritten">dibyadyutidas0@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specular Glass Reflective Sheen Layer -->
+                        <div class="id-card-sheen" id="id-card-sheen"></div>
+                    </div>
+
+                    <!-- Front part of the clip (goes in front of the plastic sleeve) -->
+                    <div class="lanyard-svg-clip front" id="lanyard-clip-front">
+                        <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- Frosted plastic tab gradient -->
+                                <linearGradient id="plasticTab" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="rgba(200,200,205,0.7)"/>
+                                    <stop offset="50%" stop-color="rgba(245,245,248,0.92)"/>
+                                    <stop offset="100%" stop-color="rgba(195,195,200,0.65)"/>
+                                </linearGradient>
+                                <!-- Dark chrome for metal -->
+                                <linearGradient id="hookChrome" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#222"/>
+                                    <stop offset="35%" stop-color="#888"/>
+                                    <stop offset="55%" stop-color="#ccc"/>
+                                    <stop offset="75%" stop-color="#555"/>
+                                    <stop offset="100%" stop-color="#111"/>
+                                </linearGradient>
+                                <linearGradient id="ringGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#999"/>
+                                    <stop offset="50%" stop-color="#444"/>
+                                    <stop offset="100%" stop-color="#777"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Frosted clear plastic tab (strap end) -->
+                            <rect x="24" y="0" width="22" height="36" rx="3"
+                                fill="url(#plasticTab)"
+                                stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
+                            <!-- Tab seam line -->
+                            <line x1="24" y1="28" x2="46" y2="28" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/>
+
+                            <!-- Black rivet snap button on tab -->
+                            <circle cx="35" cy="14" r="5.5" fill="#111"/>
+                            <circle cx="35" cy="14" r="4.8" fill="#1a1a1a" stroke="#555" stroke-width="0.6"/>
+                            <circle cx="35" cy="14" r="2.5" fill="#0a0a0a" stroke="#666" stroke-width="0.5"/>
+                            <circle cx="33.5" cy="12.5" r="0.8" fill="#fff" opacity="0.7"/>
+
+                            <!-- D-ring oval -->
+                            <ellipse cx="35" cy="32" rx="14" ry="7" stroke="#111" stroke-width="5" fill="none"/>
+                            <ellipse cx="35" cy="32" rx="14" ry="7" stroke="url(#hookChrome)" stroke-width="2.8" fill="none"/>
+                            <!-- Ring highlight -->
+                            <path d="M 22 30 Q 35 24 48 30" stroke="rgba(255,255,255,0.65)" stroke-width="1.2" fill="none"/>
+
+                            <!-- Swivel barrel connector -->
+                            <rect x="30" y="37" width="10" height="10" rx="2" fill="url(#hookChrome)" stroke="#111" stroke-width="1.2"/>
+                            <line x1="29" y1="42" x2="41" y2="42" stroke="#111" stroke-width="1.2"/>
+
+                            <!-- Carabiner body (front straight side) -->
+                            <path d="M 33 47 L 33 62" stroke="#111" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+                            <path d="M 33 47 L 33 62" stroke="url(#hookChrome)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+
+                            <!-- Hinge pin -->
+                            <circle cx="33.5" cy="52" r="1.4" fill="#bbb" stroke="#111" stroke-width="0.6"/>
+
+                            <!-- Gate / latch arm -->
+                            <path d="M 33 56 L 42 66" stroke="#111" stroke-width="4" stroke-linecap="round" fill="none"/>
+                            <path d="M 33 56 L 42 66" stroke="url(#hookChrome)" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                            <path d="M 33 56 L 42 66" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <div class="about-text">
@@ -162,18 +438,41 @@
     </section>
 
 
-    <!--  -->
-    <section id="like" data-aos="fade-up">
-        <p class="subtitle">If you wanna gossip...</p>
-        <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <img src="photo/art.png" class="left" alt="Image 1">
-                <img src="photo/hicking.png" class="center" alt="Image 2">
-                <img src="photo/music.png" class="right" alt="Image 3">
+    <section id="certificates">
+        <div class="certificates-layout-container">
+            <!-- Left Side: Brand Emblem Matrix Grid Wall -->
+            <div class="certificates-left">
+                <div class="emblem-matrix-grid" id="certificates-grid">
+                    <!-- Brand logo emblems dynamically rendered by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Right Side: Spinner Heading -->
+            <div class="certificates-right">
+                <div class="spinning-heading-wrapper">
+                    <div class="spinning-circle" id="cert-spinning-text"></div>
+                    <div class="spinning-star">
+                        <svg viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 0 C50 35 65 50 100 50 C65 50 50 65 50 100 C50 65 35 50 0 50 C35 50 50 35 50 0 Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- 3D Certificate Modal -->
+    <div id="cert-modal" class="cert-modal" aria-hidden="true">
+        <div class="cert-modal-overlay" id="cert-modal-overlay"></div>
+        <div class="cert-modal-container">
+            <button class="cert-modal-close" id="cert-modal-close" aria-label="Close modal">&times;</button>
+            <div class="cert-3d-stage">
+                <div class="cert-3d-plaque" id="cert-3d-card">
+                    <!-- 3D rendered plaque -->
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -192,12 +491,33 @@
             <!-- Right Side Cards (With Scrollable Feature) -->
             <div class="cards-wrapper">
                 <div class="phone-frame">
-                    <div class="phone-btn phone-btn-silent"></div>
-                    <div class="phone-btn phone-btn-vol-up"></div>
-                    <div class="phone-btn phone-btn-vol-down"></div>
-                    <div class="phone-btn phone-btn-power"></div>
-                    <div class="phone-notch"></div>
+                    <!-- Antenna Bands -->
+                    <div class="phone-antenna phone-antenna-1"></div>
+                    <div class="phone-antenna phone-antenna-2"></div>
+
+                    <!-- Side Hardware Buttons -->
+                    <div class="phone-btn phone-btn-silent" title="Action Button"></div>
+                    <div class="phone-btn phone-btn-vol-up" title="Volume Up"></div>
+                    <div class="phone-btn phone-btn-vol-down" title="Volume Down"></div>
+                    <div class="phone-btn phone-btn-power" title="Power Button"></div>
+
+                    <!-- Dynamic Island / Camera Notch -->
+                    <div class="phone-notch">
+                        <div class="phone-camera"></div>
+                        <div class="phone-speaker"></div>
+                    </div>
+
+                    <!-- Display Screen Panel -->
                     <div class="phone-screen">
+                        <div class="phone-status-bar">
+                            <span class="phone-time">9:41</span>
+                            <div class="phone-status-icons">
+                                <i class="fa-solid fa-signal"></i>
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-full"></i>
+                            </div>
+                        </div>
+                        <div class="phone-glass-glare"></div>
                         <div class="phone-heading">Explore These<br>Websites</div>
                         <div class="card-container" id="card-container">
                             <!-- Cards will be loaded here by JavaScript -->
@@ -209,57 +529,6 @@
             </div>
         </div>
     </section>
-
-
-    <section id="skills" data-aos="fade-up">
-        <div class="header">
-            <h2 class="nothing-font">Skills</h2>
-        </div>
-        <div class="skills-shell">
-            <div class="skills-intro">
-                <p class="skills-kicker">Tech Stack</p>
-                <h3>Languages and tools I build with</h3>
-                <p class="skills-copy">Front-end craft, clean UI systems, and Firebase-powered auth to ship fast and reliable experiences.</p>
-                <div class="skills-tags">
-                    <span>Fullstack</span>
-                    <span>UI Design</span>
-                </div>
-            </div>
-            <div class="skills-grid">
-                <article class="skill-card">
-                    <i class="fab fa-js" aria-hidden="true"></i>
-                    <h4>JavaScript</h4>
-                    <p>Interactive UI and smooth UX logic.</p>
-                </article>
-                <article class="skill-card">
-                    <i class="fas fa-fire" aria-hidden="true"></i>
-                    <h4>Firebase</h4>
-                    <p>Auth flows and client-first data.</p>
-                </article>
-                <article class="skill-card">
-                    <i class="fab fa-node-js" aria-hidden="true"></i>
-                    <h4>Node.js</h4>
-                    <p>Automation and tooling when needed.</p>
-                </article>
-                <article class="skill-card">
-                    <i class="fab fa-git-alt" aria-hidden="true"></i>
-                    <h4>Git</h4>
-                    <p>Clean history and tight collaboration.</p>
-                </article>
-                <article class="skill-card">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                    <h4>GitHub</h4>
-                    <p>Projects, reviews, and open source.</p>
-                </article>
-                <article class="skill-card">
-                    <i class="fab fa-figma" aria-hidden="true"></i>
-                    <h4>Figma</h4>
-                    <p>Prototyping and crisp layout planning.</p>
-                </article>
-            </div>
-        </div>
-    </section>
-
 
 
     <section class="projects" id="projects">
@@ -286,44 +555,6 @@
             <div class="project-list" id="project-list"></div>
             <div class="project-preview">
                 <div class="preview-container" id="preview-container"></div>
-                <div class="progress-text">
-                    <span class="current-project" id="current-project">01</span>
-                    <span class="total-projects" id="total-projects">06</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="time" data-aos="fade-up">
-        <div class="analog-container">
-            <div class="digital-display">
-                <div class="nothing-font">
-                    <h1 id="digital-time" class="digital-time">12:00:00 AM</h1>
-                </div>
-                <p id="digital-date" class="digital-date">Loading...</p>
-            </div>
-
-            <div class="clock-container">
-                <div class="clock-face">
-                    <!-- Clock numbers will be generated by JavaScript -->
-                    <div id="clock-numbers"></div>
-
-                    <!-- Clock hands -->
-                    <div id="hour-hand" class="hand hour-hand"></div>
-                    <div id="minute-hand" class="hand minute-hand"></div>
-                    <div id="second-hand" class="hand second-hand"></div>
-
-                    <!-- Center dot -->
-                    <div class="center-dot">
-                        <div class="center-dot-inner"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer">
-                <p class="brand">Here’s what time it is for me</p>
             </div>
         </div>
     </section>
@@ -332,81 +563,218 @@
 
     <!-- Contact Section -->
     <section id="contact" data-aos="fade-up">
-        <div id="contact-grid-container"></div>
+        <!-- Top Heading (Contact) -->
         <div class="header">
             <h2 class="nothing-font">Contact</h2>
         </div>
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send</button>
-        </form>
+        <div id="contact-grid-container"></div>
+        
+        <div class="contact-wrapper">
+            <!-- Left Column: Branding, Watch & Direct Contact -->
+            <div class="contact-left">
+                <div class="contact-left-content-row">
+                    <!-- Watch Widget -->
+                    <div class="contact-watch-wrapper">
+                        <div class="analog-container contact-analog-container">
+                            <div class="digital-display">
+                                <h1 id="digital-time" class="digital-time">12:00:00 AM</h1>
+                                <p id="digital-date" class="digital-date">Loading...</p>
+                            </div>
+
+                            <div class="clock-container">
+                                <div class="clock-face">
+                                    <!-- Clock numbers will be generated by JavaScript -->
+                                    <div id="clock-numbers"></div>
+
+                                    <!-- Clock hands -->
+                                    <div id="hour-hand" class="hand hour-hand"></div>
+                                    <div id="minute-hand" class="hand minute-hand"></div>
+                                    <div id="second-hand" class="hand second-hand"></div>
+
+                                    <!-- Center dot -->
+                                    <div class="center-dot">
+                                        <div class="center-dot-inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="footer">
+                                <p class="brand">Local Time</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Block -->
+                    <div class="contact-text-block">
+                        <div class="contact-badge-container">
+                            <span class="contact-badge-dot"></span>
+                            <span class="contact-badge-text">GET IN TOUCH</span>
+                            <span class="contact-badge-line"></span>
+                        </div>
+                        
+                        <h2 class="contact-hero-heading">
+                            <span class="heading-block">LET'S</span>
+                            <span class="heading-block">BUILD</span>
+                            <span class="heading-block stroke-text">SOMETHING</span>
+                        </h2>
+
+                        <p class="contact-intro">
+                            Rethinking your digital ecosystem, exploring AI-powered creative workflows, or looking to raise the bar — I'm always open to the right conversation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Form -->
+            <div class="contact-right">
+                <form class="contact-form" id="contactForm">
+                    <input type="hidden" id="selectedProjectType" name="projectType" value="Full-stack Web App">
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="contactName">01 / YOUR NAME</label>
+                        <input type="text" id="contactName" placeholder="Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contactEmail">02 / EMAIL</label>
+                        <input type="email" id="contactEmail" placeholder="email@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contactMessage">03 / ABOUT YOUR PROJECT</label>
+                        <textarea id="contactMessage" placeholder="What are you working on?" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-action-row">
+                        <button type="submit" class="contact-submit-btn">
+                            <span>SEND MESSAGE</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!--  -->
+    <section id="like" data-aos="fade-up">
+        <p class="subtitle">If you wanna gossip...</p>
+        <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <img src="photo/art.png" class="left" alt="Image 1">
+                <img src="photo/hicking.png" class="center" alt="Image 2">
+                <img src="photo/music.png" class="right" alt="Image 3">
+            </div>
+        </div>
     </section>
 
 
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <p class="eyebrow">Let's build together</p>
-                <p class="brand-copy">Developer crafting intentional digital experiences across web, design, and
-                    engineering.</p>
-                <a class="footer-cta" href="#contact">Start a project</a>
+        <!-- Top Section: Emblem + 4 Columns -->
+        <div class="footer-columns-container">
+            <!-- Column 1: Navigation -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Navigation</h4>
+                <ul class="footer-col-list">
+                    <li><a href="#about">Story</a></li>
+                    <li><a href="#websites">Websites</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#time">Time</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
 
-            <div class="footer-nav">
-                <p class="footer-label">Navigate</p>
-                <div class="footer-links">
-                    <a href="#about">About</a>
-                    <a href="#websites">Websites</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </div>
+            <!-- Column 2: Focus & Skillset -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Focus & Craft</h4>
+                <ul class="footer-col-list">
+                    <li><span>Web Applications</span></li>
+                    <li><span>Creative Coding</span></li>
+                    <li><span>UI/UX Interface Design</span></li>
+                    <li><span>Open Source</span></li>
+                    <li><span>Full-Stack Dev</span></li>
+                </ul>
             </div>
 
-            <div class="footer-meta">
-                <p class="footer-label">Connect</p>
-                <div class="footer-contact">
-                    <a href="mailto:dibyadyutidas0@gmail.com">dibyadyutidas0@gmail.com</a>
-                    <span>Based in India | Open to collaborations</span>
-                    <p class="brand-copy">© 2025 Portfolio. Made with by Dibyadyuti.</p>
-                </div>
+            <!-- Column 3: Greeting & Connect -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Thank You For Visiting</h4>
+                <ul class="footer-col-list">
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="login.html">Be a Friend</a></li>
+                    <li><a href="mailto:dibyadyutidas0@gmail.com">Direct Email</a></li>
+                    <li><a href="#contact">Send Message</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Info & Legal -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Info & Legal</h4>
+                <ul class="footer-col-list">
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#cookies">Cookies Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 5: Socials -->
+            <div class="footer-col footer-col-socials">
+                <h4 class="footer-col-title">Socials</h4>
+                <ul class="footer-col-list">
+                    <li><a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" target="_blank" rel="noopener">Instagram <i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://github.com/DibyadyutiDas" target="_blank" rel="noopener">GitHub <i class="fab fa-github"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/dibyadyutidas" target="_blank" rel="noopener">LinkedIn <i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" target="_blank" rel="noopener">YouTube <i class="fab fa-youtube"></i></a></li>
+                    <li><a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank" rel="noopener">Facebook <i class="fab fa-facebook-f"></i></a></li>
+                </ul>
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <span class="footer-logo">portfolio</span>
-            <div class="social-container">
-                <a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" class="social" aria-label="YouTube"><i
-                        class="fab fa-youtube"></i></a>
-                <a href="https://github.com/DibyadyutiDas" class="social" aria-label="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/dibyadyutidas" class="social" aria-label="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank" class="social"
-                    aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" class="social"
-                    aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social theme-toggle" onclick="toggleTheme(); return false;" aria-label="Toggle theme"><i class="fas fa-moon"></i></a>
+        <!-- Middle Section: Massive Typography -->
+        <div class="footer-hero-heading">
+            <h1 class="footer-massive-text">Cheerio for now</h1>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-left">
+                © 2024 ALL RIGHTS RESERVED
             </div>
-            <div class="footer-actions">
-                <a class="footer-link-inline" href="mailto:dibyadyutidas0@gmail.com">Email me</a>
-                <a class="back-to-top" href="#"
-                    onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+            <div class="footer-bottom-center">
+                <button type="button" id="trigger-save-mj-btn" class="trigger-save-mj-btn">
+                    <span>🕷️ SAVE GWEN</span>
+                    <span class="btn-arrow">→</span>
+                </button>
             </div>
+            <div class="footer-bottom-right">
+                SITE BY DIBYADYUTI DAS
+            </div>
+        </div>
+
+        <!-- Interactive Save MJ Easter Egg Container -->
+        <div id="footer-rescue-container" class="footer-rescue-container">
+            <canvas id="footer-rescue-canvas"></canvas>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="src/js/spidermanCursor.js"></script>
+    <script src="src/js/footerRescue.js"></script>
     <script src="src/js/script.js"></script>
+    <script type="module" src="src/js/auth-ui.js"></script>
     <script src="src/js/renderWebCards.js"></script>
     <script src="src/js/renderProjectCards.js"></script>
+    <script src="src/js/certificates.js"></script>
     <script src="src/js/clock.js"></script>
     <script src="src/js/nothing-font.js"></script>
     <script src="src/js/analytics.js"></script>
     <script src="src/js/contactGrid.js"></script>
+    <script src="src/js/idCard.js"></script>
 
 </body>
 

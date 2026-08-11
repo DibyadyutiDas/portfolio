@@ -1,0 +1,333 @@
+/* ==========================================================================
+   3D Lanyard ID Card — Realistic Badge Holder (Matches Reference Image)
+   ========================================================================== */
+
+#id-card-stage {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 510px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    perspective: 1400px;
+    perspective-origin: 50% 5%;
+    user-select: none;
+    cursor: grab;
+    touch-action: none;
+    overflow: visible;
+}
+
+#id-card-stage:active {
+    cursor: grabbing;
+}
+
+/* ── Lanyard Strap ── */
+.lanyard-strap {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 165px;
+    /* Frosted transparent plastic tape */
+    background: linear-gradient(
+        90deg,
+        rgba(190,190,195,0.7) 0%,
+        rgba(235,235,240,0.85) 30%,
+        rgba(255,255,255,0.95) 50%,
+        rgba(225,225,230,0.85) 75%,
+        rgba(185,185,190,0.7) 100%
+    );
+    border-left: 1px solid rgba(255,255,255,0.9);
+    border-right: 1px solid rgba(200,200,205,0.7);
+    border-radius: 1px;
+    box-shadow:
+        inset 2px 0 4px rgba(255,255,255,0.6),
+        inset -2px 0 3px rgba(0,0,0,0.06),
+        0 4px 12px rgba(0,0,0,0.06);
+    z-index: 15;
+}
+
+/* ── 3D Wrapper (whole assembly pivots from top of strap) ── */
+.id-card-3d-wrapper {
+    position: relative;
+    top: 75px;
+    width: 255px;
+    height: 390px;
+    transform-style: preserve-3d;
+    transform-origin: 50% -200px;
+    will-change: transform;
+}
+
+/* ── SVG Clip Positioning ── */
+.lanyard-svg-clip {
+    position: absolute;
+    top: -52px;
+    left: 50%;
+    pointer-events: none;
+}
+
+.lanyard-svg-clip.front {
+    transform: translateX(-50%) translateZ(12px);
+    z-index: 30;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.22));
+}
+
+.lanyard-svg-clip.back {
+    transform: translateX(-50%) translateZ(-2px);
+    z-index: 10;
+}
+
+/* ── Outer Plastic Badge Holder (the thick grey rim) ── */
+.id-plastic-sleeve {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    /* Thick frosted plastic case */
+    background: rgb(228, 228, 232);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    /* The characteristic thick-border look of a real badge holder */
+    box-shadow:
+        /* Outer shadow */
+        0 20px 50px rgba(0,0,0,0.18),
+        0 6px 18px rgba(0,0,0,0.10),
+        /* Inner light edge on left/top */
+        inset 1px 1px 0 rgba(255,255,255,0.95),
+        /* Inner dark edge on right/bottom */
+        inset -1px -1px 0 rgba(0,0,0,0.08);
+    /* Padding = how thick the plastic rim appears */
+    padding: 22px 8px 10px;
+    display: flex;
+    flex-direction: column;
+    transform-style: preserve-3d;
+}
+
+/* Top plastic tab with slot notch */
+.sleeve-top-tab {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 22px;
+    background: linear-gradient(180deg,
+        rgba(200,200,205,0.9) 0%,
+        rgba(220,220,225,0.8) 100%
+    );
+    border-radius: 4px 4px 0 0;
+    border: 1px solid rgba(255,255,255,0.85);
+    border-bottom: none;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Punch holes on top of badge */
+.sleeve-punch-holes {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 22px;
+    z-index: 25;
+    pointer-events: none;
+}
+
+.punch-hole {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(160, 160, 168, 0.5);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow:
+        inset 0 1px 3px rgba(0,0,0,0.3),
+        0 1px 1px rgba(255,255,255,0.7);
+}
+
+/* Center slot notch */
+.sleeve-center-slot {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 10px;
+    background: rgba(140,140,148,0.4);
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.25);
+    z-index: 25;
+    pointer-events: none;
+}
+
+/* ── Inner White Paper Card ── */
+.id-card-paper {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 18px 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(220, 220, 220, 0.6);
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(4px);
+    /* Subtle paper texture feel */
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.8),
+        0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* ── Title: MY PROFILE ── */
+.id-card-title {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #111111;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    margin-top: 6px;
+    text-align: center;
+    width: 100%;
+    line-height: 1;
+}
+
+/* ── Photo Frame (centered) ── */
+.id-card-photo-container {
+    width: 105px;
+    height: 115px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 10 auto 10 auto;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #e0e0e0;
+    display: block;
+}
+
+.id-card-photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── Details Section ── */
+.id-card-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.id-detail-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.id-detail-row::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid rgba(180,180,180,0.55);
+}
+
+.id-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: #888888;
+    min-width: 58px;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.id-value.handwritten {
+    font-family: 'Caveat', cursive, sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #1a1a1a;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+    flex: 1;
+}
+
+/* ── Bottom Mini Logo ── */
+.id-card-bottom-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    opacity: 0.55;
+}
+
+/* ── Specular Glass Sheen ── */
+.id-card-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        transparent 70%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    pointer-events: none;
+    opacity: 0.9;
+    transition: background 0.15s ease;
+    transform: translateZ(12px);
+}
+
+/* ── Dark Mode ── */
+body.dark-mode .id-card-paper {
+    background: #1c1c1e;
+    border-color: #2c2c2e;
+}
+
+body.dark-mode .id-card-title {
+    color: #ffffff;
+}
+
+body.dark-mode .id-label {
+    color: #8e8e93;
+}
+
+body.dark-mode .id-value.handwritten {
+    color: #f2f2f7;
+}
+
+body.dark-mode .id-detail-row::after {
+    border-bottom-color: #3a3a3c;
+}
+
+body.dark-mode .id-plastic-sleeve {
+    background: rgba(50, 50, 58, 0.88);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.6),
+        inset 1px 1px 0 rgba(255,255,255,0.12),
+        inset -1px -1px 0 rgba(0,0,0,0.3);
+}

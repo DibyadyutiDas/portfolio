@@ -8,6 +8,7 @@
   color: #111111;
   z-index: 2000;
   transition: opacity 0.4s ease, visibility 0.4s ease;
+  user-select: none;
 }
 
 #fallback.hidden {
@@ -18,9 +19,13 @@
 
 .splash-inner {
   text-align: center;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
   padding: 20px;
+  max-width: 90vw;
 }
 
 .splash-logo {
@@ -30,31 +35,50 @@
   text-transform: uppercase;
 }
 
-.splash-tagline {
-  font-size: 0.8rem;
+.splash-loader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+  letter-spacing: clamp(0.08rem, 0.3vw, 0.22rem);
+  line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.28rem;
   color: rgba(0, 0, 0, 0.55);
+  max-width: 90vw;
+  margin: 0 auto;
 }
 
-.splash-bar {
-  width: 180px;
-  height: 3px;
-  background: rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-  position: relative;
-  margin: 6px auto 0;
+.splash-loader-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.splash-bar::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -40%;
-  width: 40%;
-  height: 100%;
-  background: var(--primary-color);
-  animation: splashSlide 1.2s ease-in-out infinite;
+.splash-char {
+  display: inline-block;
+  text-align: center;
+  transition: color 0.12s ease, opacity 0.12s ease;
+}
+
+.splash-char.space {
+  width: 0.5em;
+}
+
+.splash-char.spinning {
+  color: var(--primary-color);
+  opacity: 0.9;
+  text-shadow: 0 0 8px rgba(255, 75, 43, 0.3);
+}
+
+.splash-char.resolved {
+  color: inherit;
+  opacity: 1;
+  text-shadow: none;
 }
 
 body:not(.loaded) #app {
@@ -72,22 +96,13 @@ body.dark #fallback {
   color: #ffffff;
 }
 
-body.dark .splash-tagline {
+body.dark .splash-loader {
   color: rgba(255, 255, 255, 0.6);
 }
 
-body.dark .splash-bar {
-  background: rgba(255, 255, 255, 0.14);
+body.dark .splash-char.spinning {
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(255, 75, 43, 0.5);
 }
 
-@keyframes splashSlide {
-  0% {
-    left: -40%;
-  }
-  50% {
-    left: 35%;
-  }
-  100% {
-    left: 100%;
-  }
-}
+

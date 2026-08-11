@@ -2,8 +2,8 @@
 #about {
     width: 100%;
     max-width: none;
-    margin: 80px 0;
-    padding: 48px 6vw;
+    margin: 120px 0;
+    padding: 80px 6vw;
     background: transparent;
     color: #303030;
     border: 1px solid #cfcfcf;
@@ -17,7 +17,7 @@
 /* Container splits photo + copy into two columns with a center line */
 .about-container {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 320px 1fr;
     align-items: center;
     gap: 40px;
     max-width: 1100px;
@@ -54,7 +54,7 @@
 }
 
 #about h2 {
-    font-size: 2.5rem;
+    font-size: var(--fs-fluid-lg);
     padding-bottom: 12px;
     margin-bottom: 26px;
     font-weight: 600;
@@ -83,8 +83,8 @@
 
 /* Paragraph */
 #about p {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: var(--fs-base);
+    line-height: var(--golden-ratio);
     color: #555;
     margin-top: 15px;
     font-weight: 400;
@@ -150,7 +150,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     #about {
-        padding: 32px 18px;
+        padding: 60px 18px;
         text-align: center;
     }
 
