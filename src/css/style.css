@@ -30,9 +30,9 @@
   --fs-fluid-sm: clamp(0.786rem, 0.7rem + 0.4vw, 0.85rem);
   --fs-fluid-base: clamp(1rem, 0.95rem + 0.25vw, 1.05rem);
   --fs-fluid-md: clamp(1.25rem, 1.1rem + 1.2vw, 1.618rem);
-  --fs-fluid-lg: clamp(1.8rem, 1.4rem + 2.5vw, 2.618rem);
-  --fs-fluid-xl: clamp(2.618rem, 2rem + 4vw, 4.236rem);
-  --fs-fluid-2xl: clamp(3.2rem, 2.5rem + 7vw, 6.854rem);
+  --fs-fluid-lg: clamp(1.3rem, 1.1rem + 2vw, 2.618rem);
+  --fs-fluid-xl: clamp(1.5rem, 1.2rem + 3vw, 4.236rem);
+  --fs-fluid-2xl: clamp(1.8rem, 1.2rem + 5vw, 6.854rem);
   
   /* Typography */
   --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
@@ -71,6 +71,9 @@ a {
 body,
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 /* Prevent fixed navbar from covering anchor targets (e.g. #about) */
@@ -80,6 +83,8 @@ section[id] {
 
 html {
   touch-action: manipulation;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {

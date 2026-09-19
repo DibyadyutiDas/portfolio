@@ -303,10 +303,14 @@ class NavigationManager {
                 if (href === '#') return;
                 const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    if (window.lenis) {
+                        window.lenis.scrollTo(target, { offset: -76, duration: 1.8 });
+                    } else {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
             });
         });

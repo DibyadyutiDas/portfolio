@@ -22,7 +22,8 @@
 
 @media (max-width:768px) {
     .card-container {
-        justify-content: center;
+        justify-content: flex-start;
+        overflow-x: auto;
     }
 
     .hero-content .title:not(.nothing-font) {
@@ -31,14 +32,6 @@
 
     .nav-right a {
         font-size: 14px;
-    }
-}
-
-
-@media (max-width:768px) {
-    .card-container {
-        justify-content: flex-start;
-        overflow-x: auto;
     }
 
     .web-card,

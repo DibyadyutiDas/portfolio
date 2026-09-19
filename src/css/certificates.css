@@ -4,7 +4,10 @@
   padding: 100px 24px 120px;
   position: relative;
   background: var(--bg-color);
-  overflow: visible;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Side-by-Side Layout Container (Height Centered) */
@@ -13,22 +16,29 @@
   flex-direction: row;
   align-items: center; /* Vertically centered in height */
   justify-content: center;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   gap: 80px;
+  box-sizing: border-box;
 }
 
 /* Left Side: Brand Emblem Matrix Grid Wall */
 .certificates-left {
   flex: 0 1 700px;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .emblem-matrix-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   border-top: 1px dotted rgba(255, 255, 255, 0.15);
   border-left: 1px dotted rgba(255, 255, 255, 0.15);
 }
@@ -48,6 +58,9 @@
   overflow: hidden;
   transition: background 0.3s ease;
   min-height: 190px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 .emblem-default-layer {
@@ -102,7 +115,8 @@
   pointer-events: none;
   transition: opacity 0.25s ease;
   overflow: hidden;
-  background: #000;
+  background: var(--bg-color);
+  padding: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,14 +124,24 @@
 }
 
 .cert-hover-img {
-  width: 100%;
-  height: 100%;
+  width: 88%;
+  max-width: 200px;
+  aspect-ratio: 3 / 2;
+  height: auto;
+  max-height: 135px;
   object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
   display: block;
+  transition: transform 0.25s ease;
 }
 
 .emblem-tile:hover .cert-hover-layer {
   opacity: 1;
+}
+
+.emblem-tile:hover .cert-hover-img {
+  transform: scale(1.03);
 }
 
 .emblem-tile:hover .emblem-default-layer {
@@ -130,19 +154,25 @@
   top: calc(50vh - 170px);
   flex-shrink: 0;
   width: 360px;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .spinning-heading-wrapper {
+  --spinner-size: 340px;
+  --spinner-radius: calc(var(--spinner-size) / 2);
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .spinning-circle {
@@ -162,7 +192,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform-origin: 50% 170px;
+  transform-origin: 50% var(--spinner-radius);
 }
 
 @keyframes spin-circle {
@@ -179,24 +209,134 @@
 
 /* Responsive Side-by-Side Layout */
 @media (max-width: 968px) {
+  #certificates {
+    padding: 70px 20px 90px;
+  }
   .certificates-layout-container {
     flex-direction: column-reverse;
     gap: 40px;
     align-items: center;
+    width: 100%;
+    max-width: 100%;
   }
   .certificates-right {
     position: relative;
     top: auto;
     width: 100%;
+    max-width: 100%;
+  }
+  .spinning-heading-wrapper {
+    --spinner-size: 280px;
+  }
+  .spinning-circle {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+  }
+  .spinning-star {
+    width: 58px;
+    height: 58px;
   }
   .emblem-matrix-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .emblem-tile {
+    padding: 36px 16px 28px 16px;
+    min-height: 165px;
+  }
+  .emblem-icon-wrapper {
+    width: 68px;
+    height: 60px;
+    margin-bottom: 16px;
+  }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 600px) {
+  #certificates {
+    padding: 50px 16px 70px;
+  }
+  .certificates-layout-container {
+    gap: 32px;
+  }
+  .spinning-heading-wrapper {
+    --spinner-size: 240px;
+  }
+  .spinning-circle {
+    font-size: 0.88rem;
+    letter-spacing: 0.07em;
+  }
+  .spinning-star {
+    width: 48px;
+    height: 48px;
+  }
+  .emblem-tile {
+    padding: 28px 12px 22px 12px;
+    min-height: 145px;
+  }
+  .emblem-icon-wrapper {
+    width: 54px;
+    height: 48px;
+    margin-bottom: 12px;
+  }
+  .emblem-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+  .cert-hover-layer {
+    padding: 10px;
+  }
+  .cert-hover-img {
+    max-width: 150px;
+    max-height: 100px;
+  }
+}
+
+@media (max-width: 420px) {
+  #certificates {
+    padding: 40px 10px 55px;
+  }
+  .certificates-layout-container {
+    gap: 24px;
+  }
+  .spinning-heading-wrapper {
+    --spinner-size: 200px;
+  }
+  .spinning-circle {
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+  }
+  .spinning-star {
+    width: 38px;
+    height: 38px;
+  }
+  .emblem-tile {
+    padding: 20px 8px 14px 8px;
+    min-height: 120px;
+  }
+  .emblem-icon-wrapper {
+    width: 44px;
+    height: 38px;
+    margin-bottom: 8px;
+  }
+  .emblem-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 330px) {
   .emblem-matrix-grid {
     grid-template-columns: 1fr;
+  }
+  .spinning-heading-wrapper {
+    --spinner-size: 170px;
+  }
+  .spinning-circle {
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+  }
+  .spinning-star {
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -239,9 +379,11 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  box-sizing: border-box;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
+  overflow-x: hidden;
 }
 
 .cert-modal.active {
@@ -265,6 +407,7 @@
   z-index: 2;
   width: 100%;
   max-width: 900px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,6 +442,8 @@
 .cert-3d-stage {
   perspective: 1500px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
 }
@@ -306,6 +451,7 @@
 .cert-3d-plaque {
   width: 100%;
   max-width: 820px;
+  box-sizing: border-box;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
@@ -321,21 +467,48 @@
 
 .plaque-media-wrapper {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .plaque-media-wrapper img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
 }
 
+/* Responsive Modal for Tablets & Mobile Devices */
 @media (max-width: 768px) {
-  .certificates-grid {
-    padding-top: 10vh;
+  .cert-modal {
+    padding: 16px;
   }
-  .cert-cred-card {
-    top: 15vh;
-    margin-bottom: 80vh;
+
+  .cert-modal-container {
+    max-height: 90vh;
+    padding-top: 20px;
+  }
+
+  .cert-modal-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    background: rgba(30, 30, 30, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10010;
+  }
+
+  .cert-3d-stage {
+    perspective: 1000px;
+  }
+
+  .cert-3d-plaque {
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   }
 }
 

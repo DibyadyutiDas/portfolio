@@ -27,7 +27,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: center;
+  align-items: start;
   text-align: left;
 }
 
@@ -218,11 +218,11 @@ body.dark .contact-hero-heading .stroke-text {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   position: relative;
   border-bottom: 1px solid var(--border-light);
-  padding-bottom: 10px;
+  padding-bottom: 6px;
   transition: border-color 0.3s ease;
   align-items: flex-start;
   text-align: left;
@@ -264,7 +264,7 @@ body.dark .contact-hero-heading .stroke-text {
 
 .contact-form textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .contact-form input:focus,
@@ -284,7 +284,7 @@ body.dark .contact-hero-heading .stroke-text {
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-top: 8px;
+  margin-top: -10px;
   justify-content: flex-start;
   width: 100%;
 }

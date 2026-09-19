@@ -17,10 +17,16 @@ function createBarcodeSvg() {
 }
 
 function getDisplayUrl(card) {
+  if (card.displayUrl) {
+    return card.displayUrl;
+  }
   if (card.url && card.url !== 'https://') {
     return card.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   }
-  return `${card.title.toLowerCase()}.dibyadyuti.me`;
+  if (card.title) {
+    return `${card.title.toLowerCase().replace(/\s+/g, '')}.dibyadyuti.me`;
+  }
+  return '';
 }
 
 async function loadWebCards() {
@@ -41,8 +47,12 @@ async function loadWebCards() {
     webCardsData.forEach((card) => {
       const cardDiv = document.createElement('a');
       cardDiv.className = 'web-card';
-      const hasValidUrl = card.url && card.url !== 'https://';
-      cardDiv.href = hasValidUrl ? card.url : '#';
+      if (card.empty) {
+        cardDiv.classList.add('web-card--empty');
+      }
+
+      const hasValidUrl = !card.empty && card.url && card.url !== 'https://';
+      cardDiv.href = hasValidUrl ? card.url : 'javascript:void(0);';
       if (hasValidUrl) {
         cardDiv.target = '_blank';
         cardDiv.rel = 'noopener noreferrer';
@@ -54,31 +64,70 @@ async function loadWebCards() {
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=2&data=${encodeURIComponent(targetUrl)}`;
       const displayUrl = getDisplayUrl(card);
 
-      cardDiv.innerHTML = `
-        <div class="card-top-bar">
-          <span class="card-number">NO. ${card.number}</span>
-          <div class="card-qr-box" title="Scan QR Code to visit ${card.title}">
-            <img class="card-qr-img" src="${qrApiUrl}" alt="QR" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-            <svg class="card-qr-fallback" viewBox="0 0 24 24" style="display:none;" fill="currentColor">
-              <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v2h-2v-2zm4 4h4v2h-4v-2zm-4 0h2v2h-2v-2zm2-2h2v2h-2v-2zm-6-2h2v4h-2v-4zm6-6h2v2h-2V8zm-2 2h2v2h-2v-2zm0-4h2v2h-2V6zm-2 2h2v2h-2V8z"/>
-            </svg>
+      if (card.empty) {
+        cardDiv.innerHTML = `
+          <div class="card-top-bar">
+            <span class="card-number">NO. ${card.number}</span>
+            <div class="card-qr-box card-qr-box--empty" title="Coming Soon">
+              <svg class="card-qr-placeholder-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <path d="M14 14h3v3h-3z"></path>
+                <path d="M20 14v3"></path>
+                <path d="M14 20h6"></path>
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <div class="card-main">
-          <img class="card-image" src="${card.image}" alt="${card.title}" />
-          <div class="card-content">
-            <h3>${card.title}</h3>
+          <div class="card-main card-main--empty">
+            <div class="card-empty-body">
+              <div class="card-empty-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+              <div class="card-content">
+                <h3>${card.title || 'coming soon'}</h3>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="card-barcode-box">
-          <div class="barcode-lines-wrapper">
-            ${createBarcodeSvg()}
+          <div class="card-barcode-box">
+            <div class="barcode-lines-wrapper" style="opacity: 0.25;">
+              ${createBarcodeSvg()}
+            </div>
+            <div class="barcode-url-text">${displayUrl || 'comingsoon.dibyadyuti.me'}</div>
           </div>
-          <div class="barcode-url-text">${displayUrl}</div>
-        </div>
-      `;
+        `;
+      } else {
+        cardDiv.innerHTML = `
+          <div class="card-top-bar">
+            <span class="card-number">NO. ${card.number}</span>
+            <div class="card-qr-box" title="Scan QR Code to visit ${card.title}">
+              <img class="card-qr-img" src="${qrApiUrl}" alt="QR" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <svg class="card-qr-fallback" viewBox="0 0 24 24" style="display:none;" fill="currentColor">
+                <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v2h-2v-2zm4 4h4v2h-4v-2zm-4 0h2v2h-2v-2zm2-2h2v2h-2v-2zm-6-2h2v4h-2v-4zm6-6h2v2h-2V8zm-2 2h2v2h-2v-2zm0-4h2v2h-2V6zm-2 2h2v2h-2V8z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-main">
+            <img class="card-image" src="${card.image}" alt="${card.title}" />
+            <div class="card-content">
+              <h3>${card.title}</h3>
+            </div>
+          </div>
+
+          <div class="card-barcode-box">
+            <div class="barcode-lines-wrapper">
+              ${createBarcodeSvg()}
+            </div>
+            <div class="barcode-url-text">${displayUrl}</div>
+          </div>
+        `;
+      }
       container.appendChild(cardDiv);
     });
 
@@ -123,7 +172,8 @@ async function loadWebCards() {
           }
         });
       });
-    }  } catch (error) {
+    }
+  } catch (error) {
     console.error("Error loading web cards:", error);
   }
 }

@@ -7,7 +7,7 @@ class PrecisionClock {
         this.secondHand = document.getElementById('second-hand');
         this.clockNumbersContainer = document.getElementById('clock-numbers');
 
-        if (!this.digitalTimeElement || !this.digitalDateElement || !this.clockNumbersContainer) return;
+        if (!this.clockNumbersContainer || !this.hourHand || !this.minuteHand || !this.secondHand) return;
 
         this.dimensions = this.getClockDimensions();
         this.init();
@@ -89,8 +89,8 @@ class PrecisionClock {
         const now = new Date();
         const angles = this.getTimeAngles(now);
 
-        this.digitalTimeElement.textContent = this.formatTime(now);
-        this.digitalDateElement.textContent = this.formatDate(now);
+        if (this.digitalTimeElement) this.digitalTimeElement.textContent = this.formatTime(now);
+        if (this.digitalDateElement) this.digitalDateElement.textContent = this.formatDate(now);
 
         this.hourHand.style.height = `${this.dimensions.hourHandLength}px`;
         this.hourHand.style.transform = `translate(-50%, -100%) rotate(${angles.hourAngle}deg)`;
