@@ -173,6 +173,14 @@ async function loadWebCards() {
         });
       });
     }
+
+    // Enable horizontal mouse wheel scrolling
+    container.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+        e.preventDefault();
+        container.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
   } catch (error) {
     console.error("Error loading web cards:", error);
   }

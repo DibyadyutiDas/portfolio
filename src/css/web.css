@@ -563,8 +563,8 @@
 
   /* --- Switch to portrait iPhone-style frame --- */
   .phone-frame {
-    width: min(325px, 84vw);
-    height: min(680px, 86vh);
+    width: min(330px, 86vw);
+    height: min(760px, 90vh);
     border: 10px solid #181a20;
     border-radius: 48px;
     background: linear-gradient(160deg, #363a43 0%, #1f2127 35%, #121316 100%);
@@ -710,9 +710,9 @@
   /* --- Horizontal scrolling cards inside portrait phone --- */
   .card-container {
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     gap: 14px;
-    padding: 0px 14px 20px 14px; /* Removed top padding */
+    padding: 10px 14px 20px 14px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -727,8 +727,9 @@
     width: min(240px, 68vw);
     min-width: min(240px, 68vw);
     max-width: min(240px, 68vw);
-    height: auto;
-    max-height: 90%;
+    height: 100%;
+    align-self: stretch;
+    box-sizing: border-box;
     aspect-ratio: auto;
     padding: 16px;
     border-radius: 20px;
@@ -737,12 +738,36 @@
     background: linear-gradient(160deg, #ffffff 0%, #f2f4fb 100%);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .web-card .card-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    min-height: 0;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .card-empty-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
   }
 
   .web-card .card-image {
-    max-height: 220px;
+    max-height: 160px;
+    width: 100%;
     flex: 1;
+    flex-shrink: 1;
+    min-height: 0;
     object-fit: contain;
   }
 
@@ -810,8 +835,8 @@
   }
 
   .phone-frame {
-    width: min(300px, 80vw);
-    height: min(680px, 85vh);
+    width: min(310px, 84vw);
+    height: min(730px, 89vh);
     border-width: 9px;
     border-radius: 42px;
   }
@@ -831,26 +856,27 @@
   .phone-btn-power { top: 136px; height: 48px; right: -13px; }
 
   .card-container {
-    padding: 0px 14px 16px 14px;
+    padding: 8px 14px 16px 14px;
     gap: 12px;
     flex: 1;
     height: auto;
     margin-top: 0px;
     margin-bottom: 30px;
+    align-items: stretch;
   }
 
   .web-card {
     width: min(220px, 66vw);
     min-width: min(220px, 66vw);
     max-width: min(220px, 66vw);
-    height: auto;
-    max-height: 90%;
+    height: 100%;
+    align-self: stretch;
     padding: 14px 12px;
     border-radius: 16px;
   }
 
   .web-card .card-image {
-    max-height: 180px;
+    max-height: 145px;
   }
 
   .web-card h3 { font-size: 1.1rem; }
@@ -864,8 +890,8 @@
 
 @media (max-width: 360px) {
   .phone-frame {
-    width: min(270px, 78vw);
-    height: min(600px, 85vh);
+    width: min(280px, 80vw);
+    height: min(660px, 89vh);
     border-width: 8px;
     border-radius: 38px;
   }
@@ -885,26 +911,27 @@
   .phone-btn-power { top: 124px; height: 42px; right: -12px; }
 
   .card-container {
-    padding: 0px 12px 12px 12px;
+    padding: 6px 12px 14px 12px;
     gap: 10px;
     flex: 1;
     height: auto;
     margin-top: 0px;
     margin-bottom: 24px;
+    align-items: stretch;
   }
 
   .web-card {
     width: min(200px, 64vw);
     min-width: min(200px, 64vw);
     max-width: min(200px, 64vw);
-    height: auto;
-    max-height: 90%;
+    height: 100%;
+    align-self: stretch;
     padding: 12px 10px;
     border-radius: 14px;
   }
 
   .web-card .card-image {
-    max-height: 140px;
+    max-height: 120px;
     padding: 4px;
   }
 

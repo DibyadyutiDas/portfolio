@@ -4,16 +4,7 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBUD8LAcfq1C7Z4SMLJ5FcTdJRauOkgAMg",
-  authDomain: "portfolio-01234.firebaseapp.com",
-  projectId: "portfolio-01234",
-  storageBucket: "portfolio-01234.firebasestorage.app",
-  messagingSenderId: "222796924389",
-  appId: "1:222796924389:web:ff64f964b662be7ac81b0c",
-  measurementId: "G-1RM5G4SKSN"
-};
+import { firebaseConfig } from "./firebase-config.js";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

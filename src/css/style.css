@@ -68,12 +68,37 @@ a {
   padding: 0;
 }
 
+/* Lenis Smooth Scrolling Styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 body,
 html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
   max-width: 100vw;
   width: 100%;
+}
+
+/* Fallback smooth scroll only when Lenis is not active */
+html:not(.lenis) {
+  scroll-behavior: smooth;
 }
 
 /* Prevent fixed navbar from covering anchor targets (e.g. #about) */
@@ -83,7 +108,6 @@ section[id] {
 
 html {
   touch-action: manipulation;
-  overflow-x: hidden;
   max-width: 100vw;
 }
 
@@ -94,7 +118,6 @@ body {
   line-height: var(--golden-ratio);
   background-color: #f4f4f4;
   color: #222;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

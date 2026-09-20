@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me.">
+    <meta name="description"
+        content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me.">
     <meta name="keywords" content="Dibyadyuti Das, portfolio, web developer, JavaScript, Node.js, projects">
     <meta name="author" content="Dibyadyuti Das">
     <title>Dibyadyuti Das | Portfolio</title>
@@ -12,14 +13,16 @@
     <link rel="icon" type="image/png" href="photo/ironman.png">
 
     <meta property="og:title" content="Dibyadyuti Das | Portfolio" />
-    <meta property="og:description" content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me." />
+    <meta property="og:description"
+        content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me." />
     <meta property="og:image" content="https://dibyadyuti.me/photo/dibyadyuti.png" />
     <meta property="og:url" content="https://dibyadyuti.me/" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Dibyadyuti Das | Portfolio" />
-    <meta name="twitter:description" content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me." />
+    <meta name="twitter:description"
+        content="Dibyadyuti Das — computer programmer building web apps and creative projects. Explore my work, skills, and ways to contact me." />
     <meta name="twitter:image" content="https://dibyadyuti.me/photo/dibyadyuti.png" />
 
     <script type="application/ld+json">
@@ -81,12 +84,13 @@
         <div class="splash-inner">
             <span class="splash-logo">PORTFOLIO</span>
             <div class="splash-loader" id="splash-loader">
-                <div class="splash-loader-line" data-text="CRAFTING INTENTIONAL DIGITAL EXPERIENCES">CRAFTING INTENTIONAL DIGITAL EXPERIENCES</div>
+                <div class="splash-loader-line" data-text="CRAFTING INTENTIONAL DIGITAL EXPERIENCES">CRAFTING
+                    INTENTIONAL DIGITAL EXPERIENCES</div>
             </div>
         </div>
     </div>
     <script>
-        (function() {
+        (function () {
             var savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark');
@@ -98,7 +102,7 @@
             var lines = Array.from(loaderEl.querySelectorAll('.splash-loader-line'));
             var glyphs = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-            var lineData = lines.map(function(line) {
+            var lineData = lines.map(function (line) {
                 var text = line.getAttribute('data-text') || line.textContent.trim();
                 line.innerHTML = '';
                 var charElements = [];
@@ -130,7 +134,7 @@
             });
 
             var allChars = lineData.flat ? lineData.flat() : Array.prototype.concat.apply([], lineData);
-            var scramblableChars = allChars.filter(function(c) { return !c.isSpace; });
+            var scramblableChars = allChars.filter(function (c) { return !c.isSpace; });
             var totalLetters = scramblableChars.length;
 
             var currentProgress = 0;
@@ -171,7 +175,7 @@
                 triggerComplete();
             } else {
                 window.addEventListener('load', triggerComplete);
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     if (targetProgress < 0.5) targetProgress = 0.5;
                 });
             }
@@ -184,7 +188,7 @@
                 if (app) app.style.display = '';
                 if (fallback) {
                     fallback.classList.add('hidden');
-                    setTimeout(function() { fallback.style.display = 'none'; }, 500);
+                    setTimeout(function () { fallback.style.display = 'none'; }, 500);
                 }
                 document.body.classList.add('loaded');
             }
@@ -232,527 +236,549 @@
         })();
     </script>
     <div id="app">
-        
-    <!-- Spider-Man Web-Slinging Canvas Cursor -->
-    <canvas id="spiderman-cursor-canvas"></canvas>
+
+        <!-- Spider-Man Web-Slinging Canvas Cursor -->
+        <canvas id="spiderman-cursor-canvas"></canvas>
 
 
-    <!-- Main Navigation -->
-    <nav id="mainNav">
-        <div class="nav-inner">
-            <a href="#" class="logo">
-                <span>PORTFOLIO</span>
-            </a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#websites">Websites</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-                <!-- User Icon & Dropdown -->
-                <div class="user-menu" id="user-menu">
-                    <a href="login.html" id="user-profile-link" aria-expanded="false" title="Sign in">
-                        <div class="user-icon" id="user-avatar-container">
-                            <i class="fas fa-user" id="user-avatar-icon"></i>
+        <!-- Main Navigation -->
+        <nav id="mainNav">
+            <div class="nav-inner">
+                <a href="#" class="logo">
+                    <span>PORTFOLIO</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#websites">Websites</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                    <!-- User Icon & Dropdown -->
+                    <div class="user-menu" id="user-menu">
+                        <a href="login.html" id="user-profile-link" aria-expanded="false" title="Sign in">
+                            <div class="user-icon" id="user-avatar-container">
+                                <i class="fas fa-user" id="user-avatar-icon"></i>
+                            </div>
+                        </a>
+                        <div class="user-dropdown" id="user-dropdown" aria-hidden="true">
+                            <div class="user-name" id="user-display-name">Guest</div>
+                            <button type="button" class="logout-btn" id="logout-btn">Logout</button>
                         </div>
-                    </a>
-                    <div class="user-dropdown" id="user-dropdown" aria-hidden="true">
-                        <div class="user-name" id="user-display-name">Guest</div>
-                        <button type="button" class="logout-btn" id="logout-btn">Logout</button>
                     </div>
                 </div>
             </div>
+        </nav>
+
+        <!-- Menu Toggle Button -->
+        <div class="menu-toggle" id="menuToggle" role="button" aria-label="Toggle navigation menu" tabindex="0">
+            <i class="fas fa-bars"></i>
         </div>
-    </nav>
 
-    <!-- Menu Toggle Button -->
-    <div class="menu-toggle" id="menuToggle" role="button" aria-label="Toggle navigation menu" tabindex="0">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <!-- Mobile Menu Panel -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#about">About</a>
-        <a href="#websites">Websites</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="login.html">Be a Friend</a>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-name">DIBYADYUTI</h1>
-            <p class="subtitle">scroll down to see my work!</p>
-            <!-- Add the anchor link -->
-            <a href="#about" class="arrow-container">
-                <div class="arrow"></div>
-            </a>
+        <!-- Mobile Menu Panel -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">About</a>
+            <a href="#websites">Websites</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="login.html">Be a Friend</a>
         </div>
-    </section>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-name">DIBYADYUTI</h1>
+                <p class="subtitle">scroll down to see my work!</p>
+                <!-- Add the anchor link -->
+                <a href="#about" class="arrow-container">
+                    <div class="arrow"></div>
+                </a>
+            </div>
+        </section>
 
 
-    <!-- About Section -->
-    <section id="about" data-aos="fade-up">
-        <div class="about-container">
-            <!-- Interactive 3D Hanging Lanyard ID Card Stage -->
-            <div id="id-card-stage">
-                <!-- 3D Hanging Badge Wrapper (Card + Clip + Strap) -->
-                <div class="id-card-3d-wrapper" id="id-card-3d">
-                    <!-- Sleek Black Lanyard Tape Strap -->
-                    <div class="lanyard-strap" id="lanyard-strap"></div>
-                    <!-- Back part of clip (behind sleeve) -->
-                    <div class="lanyard-svg-clip back" id="lanyard-clip-back">
-                        <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="hookGradBack" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stop-color="#2a2a2a"/>
-                                    <stop offset="50%" stop-color="#6a6a6a"/>
-                                    <stop offset="100%" stop-color="#1a1a1a"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Hook curve back half -->
-                            <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="#111" stroke-width="6" stroke-linecap="round" fill="none"/>
-                            <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="url(#hookGradBack)" stroke-width="3" stroke-linecap="round" fill="none"/>
-                        </svg>
-                    </div>
-
-                    <!-- Transparent Vinyl Plastic Badge Holder Case -->
-                    <div class="id-plastic-sleeve">
-                        <!-- Center slot notch at top for the hook to thread through -->
-                        <div class="sleeve-center-slot"></div>
-
-                        <!-- Two punch holes flanking the top of the card -->
-                        <div class="sleeve-punch-holes">
-                            <div class="punch-hole"></div>
-                            <div class="punch-hole"></div>
+        <!-- About Section -->
+        <section id="about" data-aos="fade-up">
+            <div class="about-container">
+                <!-- Interactive 3D Hanging Lanyard ID Card Stage -->
+                <div id="id-card-stage">
+                    <!-- 3D Hanging Badge Wrapper (Card + Clip + Strap) -->
+                    <div class="id-card-3d-wrapper" id="id-card-3d">
+                        <!-- Sleek Black Lanyard Tape Strap -->
+                        <div class="lanyard-strap" id="lanyard-strap"></div>
+                        <!-- Back part of clip (behind sleeve) -->
+                        <div class="lanyard-svg-clip back" id="lanyard-clip-back">
+                            <svg width="70" height="110" viewBox="0 0 70 110" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="hookGradBack" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#2a2a2a" />
+                                        <stop offset="50%" stop-color="#6a6a6a" />
+                                        <stop offset="100%" stop-color="#1a1a1a" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Hook curve back half -->
+                                <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="#111" stroke-width="6"
+                                    stroke-linecap="round" fill="none" />
+                                <path d="M 35 68 C 35 85, 52 90, 52 78 L 52 72" stroke="url(#hookGradBack)"
+                                    stroke-width="3" stroke-linecap="round" fill="none" />
+                            </svg>
                         </div>
 
-                        <!-- Inner Paper Profile Card -->
-                        <div class="id-card-paper">
-                            <h3 class="id-card-title">MY PROFILE</h3>
+                        <!-- Transparent Vinyl Plastic Badge Holder Case -->
+                        <div class="id-plastic-sleeve">
+                            <!-- Center slot notch at top for the hook to thread through -->
+                            <div class="sleeve-center-slot"></div>
 
-                            <div class="id-card-photo-container">
-                                <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
+                            <!-- Two punch holes flanking the top of the card -->
+                            <div class="sleeve-punch-holes">
+                                <div class="punch-hole"></div>
+                                <div class="punch-hole"></div>
                             </div>
 
-                            <div class="id-card-details">
-                                <div class="id-detail-row">
-                                    <span class="id-label">NAME</span>
-                                    <span class="id-value handwritten">Dibyadyuti Das</span>
+                            <!-- Inner Paper Profile Card -->
+                            <div class="id-card-paper">
+                                <h3 class="id-card-title">MY PROFILE</h3>
+
+                                <div class="id-card-photo-container">
+                                    <img src="photo/dibyadyuti.png" alt="Dibyadyuti Das" />
                                 </div>
-                                <div class="id-detail-row">
-                                    <span class="id-label">OCCUPATION</span>
-                                    <span class="id-value handwritten">Creative Dev</span>
-                                </div>
-                                <div class="id-detail-row">
-                                    <span class="id-label">CONTACT</span>
-                                    <span class="id-value handwritten">dibyadyutidas0@gmail.com</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Specular Glass Reflective Sheen Layer -->
-                        <div class="id-card-sheen" id="id-card-sheen"></div>
-                    </div>
-
-                    <!-- Front part of the clip (goes in front of the plastic sleeve) -->
-                    <div class="lanyard-svg-clip front" id="lanyard-clip-front">
-                        <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <!-- Frosted plastic tab gradient -->
-                                <linearGradient id="plasticTab" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stop-color="rgba(200,200,205,0.7)"/>
-                                    <stop offset="50%" stop-color="rgba(245,245,248,0.92)"/>
-                                    <stop offset="100%" stop-color="rgba(195,195,200,0.65)"/>
-                                </linearGradient>
-                                <!-- Dark chrome for metal -->
-                                <linearGradient id="hookChrome" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stop-color="#222"/>
-                                    <stop offset="35%" stop-color="#888"/>
-                                    <stop offset="55%" stop-color="#ccc"/>
-                                    <stop offset="75%" stop-color="#555"/>
-                                    <stop offset="100%" stop-color="#111"/>
-                                </linearGradient>
-                                <linearGradient id="ringGrad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#999"/>
-                                    <stop offset="50%" stop-color="#444"/>
-                                    <stop offset="100%" stop-color="#777"/>
-                                </linearGradient>
-                            </defs>
-
-                            <!-- Frosted clear plastic tab (strap end) -->
-                            <rect x="24" y="0" width="22" height="36" rx="3"
-                                fill="url(#plasticTab)"
-                                stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
-                            <!-- Tab seam line -->
-                            <line x1="24" y1="28" x2="46" y2="28" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/>
-
-                            <!-- Black rivet snap button on tab -->
-                            <circle cx="35" cy="14" r="5.5" fill="#111"/>
-                            <circle cx="35" cy="14" r="4.8" fill="#1a1a1a" stroke="#555" stroke-width="0.6"/>
-                            <circle cx="35" cy="14" r="2.5" fill="#0a0a0a" stroke="#666" stroke-width="0.5"/>
-                            <circle cx="33.5" cy="12.5" r="0.8" fill="#fff" opacity="0.7"/>
-
-                            <!-- D-ring oval -->
-                            <ellipse cx="35" cy="32" rx="14" ry="7" stroke="#111" stroke-width="5" fill="none"/>
-                            <ellipse cx="35" cy="32" rx="14" ry="7" stroke="url(#hookChrome)" stroke-width="2.8" fill="none"/>
-                            <!-- Ring highlight -->
-                            <path d="M 22 30 Q 35 24 48 30" stroke="rgba(255,255,255,0.65)" stroke-width="1.2" fill="none"/>
-
-                            <!-- Swivel barrel connector -->
-                            <rect x="30" y="37" width="10" height="10" rx="2" fill="url(#hookChrome)" stroke="#111" stroke-width="1.2"/>
-                            <line x1="29" y1="42" x2="41" y2="42" stroke="#111" stroke-width="1.2"/>
-
-                            <!-- Carabiner body (front straight side) -->
-                            <path d="M 33 47 L 33 62" stroke="#111" stroke-width="5.5" stroke-linecap="round" fill="none"/>
-                            <path d="M 33 47 L 33 62" stroke="url(#hookChrome)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-
-                            <!-- Hinge pin -->
-                            <circle cx="33.5" cy="52" r="1.4" fill="#bbb" stroke="#111" stroke-width="0.6"/>
-
-                            <!-- Gate / latch arm -->
-                            <path d="M 33 56 L 42 66" stroke="#111" stroke-width="4" stroke-linecap="round" fill="none"/>
-                            <path d="M 33 56 L 42 66" stroke="url(#hookChrome)" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-                            <path d="M 33 56 L 42 66" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linecap="round" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="about-text">
-                <h2 class="nothing-font">About Me</h2>
-                <p>
-                    Hi, I’m Dibyadyuti Das. I’m a Computer Programmer passionate about problem-solving and building cool
-                    projects.
-                    Currently, I’m diving into open-source contributions and sharpening my skills with tools like
-                    Node.js and Linux to expand my horizons.
-                    I’m exploring photo editing and creative design to nurture my artistic side.
-                    Off the keyboard, you’ll find me playing cricket, football, or watching UFC matches for some
-                    adrenaline-filled action.
-                </p>
-                <p>
-                    Let’s team up to build something extraordinary!
-                </p>
-            </div>
-        </div>
-    </section>
-
-
-    <section id="certificates">
-        <div class="certificates-layout-container">
-            <!-- Left Side: Brand Emblem Matrix Grid Wall -->
-            <div class="certificates-left">
-                <div class="emblem-matrix-grid" id="certificates-grid">
-                    <!-- Brand logo emblems dynamically rendered by JavaScript -->
-                </div>
-            </div>
-
-            <!-- Right Side: Spinner Heading -->
-            <div class="certificates-right">
-                <div class="spinning-heading-wrapper">
-                    <div class="spinning-circle" id="cert-spinning-text"></div>
-                    <div class="spinning-star">
-                        <svg viewBox="0 0 100 100" fill="currentColor">
-                            <path d="M50 0 C50 35 65 50 100 50 C65 50 50 65 50 100 C50 65 35 50 0 50 C35 50 50 35 50 0 Z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3D Certificate Modal -->
-    <div id="cert-modal" class="cert-modal" aria-hidden="true">
-        <div class="cert-modal-overlay" id="cert-modal-overlay"></div>
-        <div class="cert-modal-container">
-            <button class="cert-modal-close" id="cert-modal-close" aria-label="Close modal">&times;</button>
-            <div class="cert-3d-stage">
-                <div class="cert-3d-plaque" id="cert-3d-card">
-                    <!-- 3D rendered plaque -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <section id="websites" data-aos="fade-up">
-        <!-- Top Heading (Websites) -->
-        <div class="header">
-            <h2 class="nothing-font">Websites</h2>
-        </div>
-
-        <div class="content">
-            <!-- Left Side Text (Who This is For) -->
-            <div class="left-text">
-                <h3><span class="line-one">Explore These</span><br>Websites</h3>
-            </div>
-
-            <!-- Right Side Cards (With Scrollable Feature) -->
-            <div class="cards-wrapper">
-                <div class="phone-frame">
-                    <!-- Antenna Bands -->
-                    <div class="phone-antenna phone-antenna-1"></div>
-                    <div class="phone-antenna phone-antenna-2"></div>
-
-                    <!-- Side Hardware Buttons -->
-                    <div class="phone-btn phone-btn-silent" title="Action Button"></div>
-                    <div class="phone-btn phone-btn-vol-up" title="Volume Up"></div>
-                    <div class="phone-btn phone-btn-vol-down" title="Volume Down"></div>
-                    <div class="phone-btn phone-btn-power" title="Power Button"></div>
-
-                    <!-- Dynamic Island / Camera Notch -->
-                    <div class="phone-notch">
-                        <div class="phone-camera"></div>
-                        <div class="phone-speaker"></div>
-                    </div>
-
-                    <!-- Display Screen Panel -->
-                    <div class="phone-screen">
-                        <div class="phone-status-bar">
-                            <span class="phone-time">9:41</span>
-                            <div class="phone-status-icons">
-                                <i class="fa-solid fa-signal"></i>
-                                <i class="fa-solid fa-wifi"></i>
-                                <i class="fa-solid fa-battery-full"></i>
-                            </div>
-                        </div>
-                        <div class="phone-glass-glare"></div>
-                        <div class="phone-heading">Explore These<br>Websites</div>
-                        <div class="card-container" id="card-container">
-                            <!-- Cards will be loaded here by JavaScript -->
-                        </div>
-                        <div class="card-dots" id="card-dots"></div>
-                    </div>
-                    <div class="phone-home-bar"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="projects" id="projects">
-        <!-- Top Heading (Projects) -->
-        <div class="header">
-            <h2 class="nothing-font">Projects</h2>
-        </div>
-        <!-- <div class="hero-project"> -->
-        <div class="hero-content">
-            <div class="hero-meta">
-                <span class="meta-item">Selected Work</span>
-                <span class="meta-divider">—</span>
-                <span class="meta-item">2023–2024</span>
-            </div>
-            <h1 class="hero-title">Building products that matter</h1>
-            <p class="hero-description">
-                A collection of projects that push boundaries, solve real problems, and create meaningful experiences
-                through thoughtful design and engineering.
-            </p>
-        </div>
-        <!-- </div> -->
-
-        <div class="projects-container">
-            <div class="project-list" id="project-list"></div>
-            <div class="project-preview">
-                <div class="preview-container" id="preview-container"></div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Contact Section -->
-    <section id="contact" data-aos="fade-up">
-        <!-- Top Heading (Contact) -->
-        <div class="header">
-            <h2 class="nothing-font">Contact</h2>
-        </div>
-        <div id="contact-grid-container"></div>
-        
-        <div class="contact-wrapper">
-            <!-- Left Column: Branding, Watch & Direct Contact -->
-            <div class="contact-left">
-                <div class="contact-left-content-row">
-                    <!-- Watch Widget -->
-                    <div class="contact-watch-wrapper">
-                        <div class="analog-container contact-analog-container">
-                            <div class="clock-container">
-                                <div class="clock-face">
-                                    <!-- Clock numbers will be generated by JavaScript -->
-                                    <div id="clock-numbers"></div>
-
-                                    <!-- Clock hands -->
-                                    <div id="hour-hand" class="hand hour-hand"></div>
-                                    <div id="minute-hand" class="hand minute-hand"></div>
-                                    <div id="second-hand" class="hand second-hand"></div>
-
-                                    <!-- Center dot -->
-                                    <div class="center-dot">
-                                        <div class="center-dot-inner"></div>
+                                <div class="id-card-details">
+                                    <div class="id-detail-row">
+                                        <span class="id-label">NAME</span>
+                                        <span class="id-value handwritten">Dibyadyuti Das</span>
+                                    </div>
+                                    <div class="id-detail-row">
+                                        <span class="id-label">OCCUPATION</span>
+                                        <span class="id-value handwritten">Creative Dev</span>
+                                    </div>
+                                    <div class="id-detail-row">
+                                        <span class="id-label">CONTACT</span>
+                                        <span class="id-value handwritten">dibyadyutidas0@gmail.com</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="footer">
-                                <p class="brand">Local Time</p>
-                            </div>
+                            <!-- Specular Glass Reflective Sheen Layer -->
+                            <div class="id-card-sheen" id="id-card-sheen"></div>
+                        </div>
+
+                        <!-- Front part of the clip (goes in front of the plastic sleeve) -->
+                        <div class="lanyard-svg-clip front" id="lanyard-clip-front">
+                            <svg width="70" height="110" viewBox="0 0 70 110" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <!-- Frosted plastic tab gradient -->
+                                    <linearGradient id="plasticTab" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="rgba(200,200,205,0.7)" />
+                                        <stop offset="50%" stop-color="rgba(245,245,248,0.92)" />
+                                        <stop offset="100%" stop-color="rgba(195,195,200,0.65)" />
+                                    </linearGradient>
+                                    <!-- Dark chrome for metal -->
+                                    <linearGradient id="hookChrome" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#222" />
+                                        <stop offset="35%" stop-color="#888" />
+                                        <stop offset="55%" stop-color="#ccc" />
+                                        <stop offset="75%" stop-color="#555" />
+                                        <stop offset="100%" stop-color="#111" />
+                                    </linearGradient>
+                                    <linearGradient id="ringGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#999" />
+                                        <stop offset="50%" stop-color="#444" />
+                                        <stop offset="100%" stop-color="#777" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Frosted clear plastic tab (strap end) -->
+                                <rect x="24" y="0" width="22" height="36" rx="3" fill="url(#plasticTab)"
+                                    stroke="rgba(255,255,255,0.85)" stroke-width="1" />
+                                <!-- Tab seam line -->
+                                <line x1="24" y1="28" x2="46" y2="28" stroke="rgba(255,255,255,0.7)"
+                                    stroke-width="0.8" />
+
+                                <!-- Black rivet snap button on tab -->
+                                <circle cx="35" cy="14" r="5.5" fill="#111" />
+                                <circle cx="35" cy="14" r="4.8" fill="#1a1a1a" stroke="#555" stroke-width="0.6" />
+                                <circle cx="35" cy="14" r="2.5" fill="#0a0a0a" stroke="#666" stroke-width="0.5" />
+                                <circle cx="33.5" cy="12.5" r="0.8" fill="#fff" opacity="0.7" />
+
+                                <!-- D-ring oval -->
+                                <ellipse cx="35" cy="32" rx="14" ry="7" stroke="#111" stroke-width="5" fill="none" />
+                                <ellipse cx="35" cy="32" rx="14" ry="7" stroke="url(#hookChrome)" stroke-width="2.8"
+                                    fill="none" />
+                                <!-- Ring highlight -->
+                                <path d="M 22 30 Q 35 24 48 30" stroke="rgba(255,255,255,0.65)" stroke-width="1.2"
+                                    fill="none" />
+
+                                <!-- Swivel barrel connector -->
+                                <rect x="30" y="37" width="10" height="10" rx="2" fill="url(#hookChrome)" stroke="#111"
+                                    stroke-width="1.2" />
+                                <line x1="29" y1="42" x2="41" y2="42" stroke="#111" stroke-width="1.2" />
+
+                                <!-- Carabiner body (front straight side) -->
+                                <path d="M 33 47 L 33 62" stroke="#111" stroke-width="5.5" stroke-linecap="round"
+                                    fill="none" />
+                                <path d="M 33 47 L 33 62" stroke="url(#hookChrome)" stroke-width="2.8"
+                                    stroke-linecap="round" fill="none" />
+
+                                <!-- Hinge pin -->
+                                <circle cx="33.5" cy="52" r="1.4" fill="#bbb" stroke="#111" stroke-width="0.6" />
+
+                                <!-- Gate / latch arm -->
+                                <path d="M 33 56 L 42 66" stroke="#111" stroke-width="4" stroke-linecap="round"
+                                    fill="none" />
+                                <path d="M 33 56 L 42 66" stroke="url(#hookChrome)" stroke-width="2.2"
+                                    stroke-linecap="round" fill="none" />
+                                <path d="M 33 56 L 42 66" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"
+                                    stroke-linecap="round" fill="none" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text">
+                    <h2 class="nothing-font">About Me</h2>
+                    <p>
+                        Hi, I’m Dibyadyuti Das. I’m a Computer Programmer passionate about problem-solving and building
+                        cool
+                        projects.
+                        Currently, I’m diving into open-source contributions and sharpening my skills with tools like
+                        Node.js and Linux to expand my horizons.
+                        I’m exploring photo editing and creative design to nurture my artistic side.
+                        Off the keyboard, you’ll find me playing cricket, football, or watching UFC matches for some
+                        adrenaline-filled action.
+                    </p>
+                    <p>
+                        Let’s team up to build something extraordinary!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="certificates">
+            <div class="certificates-layout-container">
+                <!-- Left Side: Brand Emblem Matrix Grid Wall -->
+                <div class="certificates-left">
+                    <div class="emblem-matrix-grid" id="certificates-grid">
+                        <!-- Brand logo emblems dynamically rendered by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Right Side: Spinner Heading -->
+                <div class="certificates-right">
+                    <div class="spinning-heading-wrapper">
+                        <div class="spinning-circle" id="cert-spinning-text"></div>
+                        <div class="spinning-star">
+                            <svg viewBox="0 0 100 100" fill="currentColor">
+                                <path
+                                    d="M50 0 C50 35 65 50 100 50 C65 50 50 65 50 100 C50 65 35 50 0 50 C35 50 50 35 50 0 Z" />
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Right Column: Form -->
-            <div class="contact-right">
-                <form class="contact-form" id="contactForm">
-                    <input type="hidden" id="selectedProjectType" name="projectType" value="Full-stack Web App">
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="contactName">01 / YOUR NAME</label>
-                        <input type="text" id="contactName" placeholder="Name" required>
+        <!-- 3D Certificate Modal -->
+        <div id="cert-modal" class="cert-modal" aria-hidden="true">
+            <div class="cert-modal-overlay" id="cert-modal-overlay"></div>
+            <div class="cert-modal-container">
+                <button class="cert-modal-close" id="cert-modal-close" aria-label="Close modal">&times;</button>
+                <div class="cert-3d-stage">
+                    <div class="cert-3d-plaque" id="cert-3d-card">
+                        <!-- 3D rendered plaque -->
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="contactEmail">02 / EMAIL</label>
-                        <input type="email" id="contactEmail" placeholder="email@company.com" required>
+
+
+        <section id="websites" data-aos="fade-up">
+            <!-- Top Heading (Websites) -->
+            <div class="header">
+                <h2 class="nothing-font">Websites</h2>
+            </div>
+
+            <div class="content">
+                <!-- Left Side Text (Who This is For) -->
+                <div class="left-text">
+                    <h3><span class="line-one">Explore These</span><br>Websites & Tools</h3>
+                </div>
+
+                <!-- Right Side Cards (With Scrollable Feature) -->
+                <div class="cards-wrapper">
+                    <div class="phone-frame">
+                        <!-- Antenna Bands -->
+                        <div class="phone-antenna phone-antenna-1"></div>
+                        <div class="phone-antenna phone-antenna-2"></div>
+
+                        <!-- Side Hardware Buttons -->
+                        <div class="phone-btn phone-btn-silent" title="Action Button"></div>
+                        <div class="phone-btn phone-btn-vol-up" title="Volume Up"></div>
+                        <div class="phone-btn phone-btn-vol-down" title="Volume Down"></div>
+                        <div class="phone-btn phone-btn-power" title="Power Button"></div>
+
+                        <!-- Dynamic Island / Camera Notch -->
+                        <div class="phone-notch">
+                            <div class="phone-camera"></div>
+                            <div class="phone-speaker"></div>
+                        </div>
+
+                        <!-- Display Screen Panel -->
+                        <div class="phone-screen">
+                            <div class="phone-status-bar">
+                                <span class="phone-time">9:41</span>
+                                <div class="phone-status-icons">
+                                    <i class="fa-solid fa-signal"></i>
+                                    <i class="fa-solid fa-wifi"></i>
+                                    <i class="fa-solid fa-battery-full"></i>
+                                </div>
+                            </div>
+                            <div class="phone-glass-glare"></div>
+                            <div class="phone-heading">Explore These<br>Websites</div>
+                            <div class="card-container" id="card-container" data-lenis-prevent>
+                                <!-- Cards will be loaded here by JavaScript -->
+                            </div>
+                            <div class="card-dots" id="card-dots"></div>
+                        </div>
+                        <div class="phone-home-bar"></div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="form-group">
-                        <label class="form-label" for="contactMessage">03 / ABOUT YOUR PROJECT</label>
-                        <textarea id="contactMessage" placeholder="What are you working on?" rows="4" required></textarea>
+
+        <section class="projects" id="projects">
+            <!-- Top Heading (Projects) -->
+            <div class="header">
+                <h2 class="nothing-font">Projects</h2>
+            </div>
+            <!-- <div class="hero-project"> -->
+            <div class="hero-content">
+                <div class="hero-meta">
+                    <span class="meta-item">Selected Work</span>
+                    <span class="meta-divider">—</span>
+                    <span class="meta-item">2023–2024</span>
+                </div>
+                <h1 class="hero-title">Building products that matter</h1>
+                <p class="hero-description">
+                    A collection of projects that push boundaries, solve real problems, and create meaningful
+                    experiences
+                    through thoughtful design and engineering.
+                </p>
+            </div>
+            <!-- </div> -->
+
+            <div class="projects-container">
+                <div class="project-list" id="project-list"></div>
+                <div class="project-preview">
+                    <div class="preview-container" id="preview-container"></div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Contact Section -->
+        <section id="contact" data-aos="fade-up">
+            <!-- Top Heading (Contact) -->
+            <div class="header">
+                <h2 class="nothing-font">Contact</h2>
+            </div>
+            <div id="contact-grid-container"></div>
+
+            <div class="contact-wrapper">
+                <!-- Left Column: Branding, Watch & Direct Contact -->
+                <div class="contact-left">
+                    <div class="contact-left-content-row">
+                        <!-- Watch Widget -->
+                        <div class="contact-watch-wrapper">
+                            <div class="analog-container contact-analog-container">
+                                <div class="clock-container">
+                                    <div class="clock-face">
+                                        <!-- Clock numbers will be generated by JavaScript -->
+                                        <div id="clock-numbers"></div>
+
+                                        <!-- Clock hands -->
+                                        <div id="hour-hand" class="hand hour-hand"></div>
+                                        <div id="minute-hand" class="hand minute-hand"></div>
+                                        <div id="second-hand" class="hand second-hand"></div>
+
+                                        <!-- Center dot -->
+                                        <div class="center-dot">
+                                            <div class="center-dot-inner"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="footer">
+                                    <p class="brand">Local Time</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="form-action-row">
-                        <button type="submit" class="contact-submit-btn">
-                            <span>SEND MESSAGE</span>
-                            <span class="btn-arrow">→</span>
-                        </button>
-                    </div>
-                </form>
+                <!-- Right Column: Form -->
+                <div class="contact-right">
+                    <form class="contact-form" id="contactForm">
+                        <input type="hidden" id="selectedProjectType" name="projectType" value="Full-stack Web App">
+
+                        <div class="form-group">
+                            <label class="form-label" for="contactName">01 / YOUR NAME</label>
+                            <input type="text" id="contactName" placeholder="Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="contactEmail">02 / EMAIL</label>
+                            <input type="email" id="contactEmail" placeholder="email@company.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="contactMessage">03 / ABOUT YOUR PROJECT</label>
+                            <textarea id="contactMessage" placeholder="What are you working on?" rows="4"
+                                required></textarea>
+                        </div>
+
+                        <div class="form-action-row">
+                            <button type="submit" class="contact-submit-btn">
+                                <span>SEND MESSAGE</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!--  -->
-    <section id="like" data-aos="fade-up">
-        <p class="subtitle">If you wanna gossip...</p>
-        <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <img src="photo/art.png" class="left" alt="Image 1">
-                <img src="photo/hicking.png" class="center" alt="Image 2">
-                <img src="photo/music.png" class="right" alt="Image 3">
+        <!--  -->
+        <section id="like" data-aos="fade-up">
+            <p class="subtitle">If you wanna gossip...</p>
+            <h1 class="nothing-font">WHAT I LIKE TO DO?</h1>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel">
+                    <img src="photo/art.png" class="left" alt="Image 1">
+                    <img src="photo/hicking.png" class="center" alt="Image 2">
+                    <img src="photo/music.png" class="right" alt="Image 3">
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <!-- Top Section: Emblem + 4 Columns -->
-        <div class="footer-columns-container">
-            <!-- Column 1: Navigation -->
-            <div class="footer-col">
-                <h4 class="footer-col-title">Navigation</h4>
-                <ul class="footer-col-list">
-                    <li><a href="#about">Story</a></li>
-                    <li><a href="#websites">Websites</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#certificates">Certificates</a></li>
-                    <li><a href="#time">Time</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+        <!-- Footer -->
+        <footer class="site-footer">
+            <!-- Top Section: Emblem + 4 Columns -->
+            <div class="footer-columns-container">
+                <!-- Column 1: Navigation -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navigation</h4>
+                    <ul class="footer-col-list">
+                        <li><a href="#about">Story</a></li>
+                        <li><a href="#websites">Websites</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
+                        <li><a href="#time">Time</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Focus & Skillset -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Focus & Craft</h4>
+                    <ul class="footer-col-list">
+                        <li><span>Web Applications</span></li>
+                        <li><span>Creative Coding</span></li>
+                        <li><span>UI/UX Interface Design</span></li>
+                        <li><span>Open Source</span></li>
+                        <li><span>Full-Stack Dev</span></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Greeting & Connect -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Thank You For Visiting</h4>
+                    <ul class="footer-col-list">
+                        <li><a href="#about">About Me</a></li>
+                        <li><a href="login.html">Be a Friend</a></li>
+                        <li><a href="mailto:dibyadyutidas0@gmail.com">Direct Email</a></li>
+                        <li><a href="#contact">Send Message</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Info & Legal -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Info & Legal</h4>
+                    <ul class="footer-col-list">
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#cookies">Cookies Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 5: Socials -->
+                <div class="footer-col footer-col-socials">
+                    <h4 class="footer-col-title">Socials</h4>
+                    <ul class="footer-col-list">
+                        <li><a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4"
+                                target="_blank" rel="noopener">Instagram <i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://github.com/DibyadyutiDas" target="_blank" rel="noopener">GitHub <i
+                                    class="fab fa-github"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/dibyadyutidas" target="_blank" rel="noopener">LinkedIn
+                                <i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" target="_blank"
+                                rel="noopener">YouTube <i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank"
+                                rel="noopener">Facebook <i class="fab fa-facebook-f"></i></a></li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Column 2: Focus & Skillset -->
-            <div class="footer-col">
-                <h4 class="footer-col-title">Focus & Craft</h4>
-                <ul class="footer-col-list">
-                    <li><span>Web Applications</span></li>
-                    <li><span>Creative Coding</span></li>
-                    <li><span>UI/UX Interface Design</span></li>
-                    <li><span>Open Source</span></li>
-                    <li><span>Full-Stack Dev</span></li>
-                </ul>
+            <!-- Middle Section: Massive Typography -->
+            <div class="footer-hero-heading">
+                <h1 class="footer-massive-text">Cheerio for now</h1>
             </div>
 
-            <!-- Column 3: Greeting & Connect -->
-            <div class="footer-col">
-                <h4 class="footer-col-title">Thank You For Visiting</h4>
-                <ul class="footer-col-list">
-                    <li><a href="#about">About Me</a></li>
-                    <li><a href="login.html">Be a Friend</a></li>
-                    <li><a href="mailto:dibyadyutidas0@gmail.com">Direct Email</a></li>
-                    <li><a href="#contact">Send Message</a></li>
-                </ul>
+            <!-- Bottom Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    © 2024 ALL RIGHTS RESERVED
+                </div>
+                <div class="footer-bottom-center">
+                    <button type="button" id="trigger-save-mj-btn" class="trigger-save-mj-btn">
+                        <span>🕷️ SAVE GWEN</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+                <div class="footer-bottom-right">
+                    SITE BY DIBYADYUTI DAS
+                </div>
             </div>
 
-            <!-- Column 4: Info & Legal -->
-            <div class="footer-col">
-                <h4 class="footer-col-title">Info & Legal</h4>
-                <ul class="footer-col-list">
-                    <li><a href="#faq">FAQs</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                    <li><a href="#cookies">Cookies Policy</a></li>
-                </ul>
+            <!-- Interactive Save MJ Easter Egg Container -->
+            <div id="footer-rescue-container" class="footer-rescue-container">
+                <canvas id="footer-rescue-canvas"></canvas>
             </div>
+        </footer>
 
-            <!-- Column 5: Socials -->
-            <div class="footer-col footer-col-socials">
-                <h4 class="footer-col-title">Socials</h4>
-                <ul class="footer-col-list">
-                    <li><a href="https://www.instagram.com/d_i_b_y_a_d_y_u_t_i_?igsh=a2M4N3Z0ODJhMWo4" target="_blank" rel="noopener">Instagram <i class="fab fa-instagram"></i></a></li>
-                    <li><a href="https://github.com/DibyadyutiDas" target="_blank" rel="noopener">GitHub <i class="fab fa-github"></i></a></li>
-                    <li><a href="https://www.linkedin.com/in/dibyadyutidas" target="_blank" rel="noopener">LinkedIn <i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="https://www.youtube.com/@d_i_b_y_a_d_y_u_t_i" target="_blank" rel="noopener">YouTube <i class="fab fa-youtube"></i></a></li>
-                    <li><a href="https://www.facebook.com/dibya.dyuti.14?mibextid=ZbWKw" target="_blank" rel="noopener">Facebook <i class="fab fa-facebook-f"></i></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Middle Section: Massive Typography -->
-        <div class="footer-hero-heading">
-            <h1 class="footer-massive-text">Cheerio for now</h1>
-        </div>
-
-        <!-- Bottom Bar -->
-        <div class="footer-bottom-bar">
-            <div class="footer-bottom-left">
-                © 2024 ALL RIGHTS RESERVED
-            </div>
-            <div class="footer-bottom-center">
-                <button type="button" id="trigger-save-mj-btn" class="trigger-save-mj-btn">
-                    <span>🕷️ SAVE GWEN</span>
-                    <span class="btn-arrow">→</span>
-                </button>
-            </div>
-            <div class="footer-bottom-right">
-                SITE BY DIBYADYUTI DAS
-            </div>
-        </div>
-
-        <!-- Interactive Save MJ Easter Egg Container -->
-        <div id="footer-rescue-container" class="footer-rescue-container">
-            <canvas id="footer-rescue-canvas"></canvas>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="src/js/lenis.min.js"></script>
-    <script src="src/js/smoothScroll.js"></script>
-    <script src="src/js/spidermanCursor.js"></script>
-    <script src="src/js/footerRescue.js"></script>
-    <script src="src/js/script.js"></script>
-    <script type="module" src="src/js/auth-ui.js"></script>
-    <script src="src/js/renderWebCards.js"></script>
-    <script src="src/js/renderProjectCards.js"></script>
-    <script src="src/js/certificates.js"></script>
-    <script src="src/js/clock.js"></script>
-    <script src="src/js/nothing-font.js"></script>
-    <script src="src/js/analytics.js"></script>
-    <script src="src/js/contactGrid.js"></script>
-    <script src="src/js/idCard.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script src="src/js/lenis.min.js"></script>
+        <script src="src/js/smoothScroll.js"></script>
+        <script src="src/js/spidermanCursor.js"></script>
+        <script src="src/js/footerRescue.js"></script>
+        <script src="src/js/script.js"></script>
+        <script src="src/js/app-config.js"></script>
+        <script type="module" src="src/js/auth-ui.js"></script>
+        <script src="src/js/renderWebCards.js"></script>
+        <script src="src/js/renderProjectCards.js"></script>
+        <script src="src/js/certificates.js"></script>
+        <script src="src/js/clock.js"></script>
+        <script src="src/js/nothing-font.js"></script>
+        <script src="src/js/analytics.js"></script>
+        <script src="src/js/contactGrid.js"></script>
+        <script src="src/js/idCard.js"></script>
 
 </body>
 
