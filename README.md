@@ -71,6 +71,8 @@ The auth server starts on `http://localhost:4000` by default with routes:
 
 - Visit `/login.html` from the site to sign in with Google or GitHub.
 - The page uses `localStorage.apiBase` (or `window.APP_CONFIG.apiBase`) to point to the API base; default is `http://localhost:4000`.
+- Copy `src/js/app-config.example.js` to `src/js/app-config.js` and set `firebaseApiKey` to a replacement Firebase web API key. The local file is ignored by Git and must never be committed.
+- Restrict the replacement key in Google Cloud by website referrer and the Firebase APIs required by this application.
 
 ## 🌟 Support
 

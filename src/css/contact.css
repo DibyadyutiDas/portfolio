@@ -25,7 +25,7 @@
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: start;
   text-align: left;
@@ -35,16 +35,18 @@
 .contact-left {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .contact-left-content-row {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .contact-watch-wrapper {
@@ -216,11 +218,11 @@ body.dark .contact-hero-heading .stroke-text {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   position: relative;
   border-bottom: 1px solid var(--border-light);
-  padding-bottom: 10px;
+  padding-bottom: 6px;
   transition: border-color 0.3s ease;
   align-items: flex-start;
   text-align: left;
@@ -262,7 +264,7 @@ body.dark .contact-hero-heading .stroke-text {
 
 .contact-form textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .contact-form input:focus,
@@ -282,7 +284,7 @@ body.dark .contact-hero-heading .stroke-text {
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-top: 8px;
+  margin-top: -10px;
   justify-content: flex-start;
   width: 100%;
 }

@@ -49,8 +49,12 @@ function createPreviewImage(project, index) {
   const img = document.createElement('img');
   img.src = project.image.src;
   img.alt = project.image.alt;
-  img.loading = "lazy";
-  img.onload = () => img.classList.add('loaded');
+  img.loading = index === 0 ? "eager" : "lazy";
+  if (img.complete) {
+    img.classList.add('loaded');
+  } else {
+    img.onload = () => img.classList.add('loaded');
+  }
 
   div.appendChild(img);
   return div;
@@ -85,8 +89,8 @@ function addScrollSync(total) {
   const items = document.querySelectorAll('.project-item');
   const observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.4
+    rootMargin: '-15% 0px -25% 0px',
+    threshold: 0.2
   };
 
   const observer = new IntersectionObserver((entries) => {

@@ -179,3 +179,27 @@
         height: 40px;
     }
 }
+
+@media (max-width: 480px) {
+    .clock-container {
+        width: 16rem;
+        height: 16rem;
+    }
+    .clock-number {
+        font-size: 1.1rem;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 360px) {
+    .clock-container {
+        width: 13.5rem;
+        height: 13.5rem;
+    }
+    .clock-number {
+        font-size: 1rem;
+        width: 24px;
+        height: 24px;
+    }
+}

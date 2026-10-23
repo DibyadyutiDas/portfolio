@@ -178,9 +178,36 @@ class CertificatesManager {
       }, 600);
     };
 
+    const onTouchStart = (e) => {
+      if (e.touches && e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }
+    };
+
+    const onTouchMove = (e) => {
+      if (!isDragging || !e.touches || e.touches.length !== 1) return;
+      const deltaX = e.touches[0].clientX - startX;
+      const deltaY = e.touches[0].clientY - startY;
+
+      currentRotY = Math.max(-25, Math.min(25, deltaX * 0.35));
+      currentRotX = Math.max(-25, Math.min(25, -deltaY * 0.35));
+
+      this.plaque.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+    };
+
+    const onTouchEnd = () => {
+      onMouseUp();
+    };
+
     this.plaque.onmousedown = onMouseDown;
     window.onmousemove = onMouseMove;
     window.onmouseup = onMouseUp;
+
+    this.plaque.ontouchstart = onTouchStart;
+    window.ontouchmove = onTouchMove;
+    window.ontouchend = onTouchEnd;
   }
 
   closeModal() {

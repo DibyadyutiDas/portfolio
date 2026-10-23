@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+import { firebaseConfig } from "./firebase-config.js";
 
 const resetForm = document.getElementById('reset-form');
 const resetEmail = document.getElementById('reset-email');
@@ -25,16 +26,6 @@ function setLoading(button, isLoading, loadingText) {
   button.disabled = isLoading;
   button.textContent = isLoading ? loadingText : button.dataset.originalText;
 }
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBUD8LAcfq1C7Z4SMLJ5FcTdJRauOkgAMg",
-  authDomain: "portfolio-01234.firebaseapp.com",
-  projectId: "portfolio-01234",
-  storageBucket: "portfolio-01234.firebasestorage.app",
-  messagingSenderId: "222796924389",
-  appId: "1:222796924389:web:ff64f964b662be7ac81b0c",
-  measurementId: "G-1RM5G4SKSN"
-};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

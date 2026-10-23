@@ -464,3 +464,35 @@ body.dark .project-item.active .project-description {
   color: #e2e2e2;
 }
 
+
+
+body.dark .web-card--empty {
+  border: 1.5px dashed #334155;
+  background: linear-gradient(150deg, rgba(24, 24, 28, 0.6) 0%, rgba(17, 17, 21, 0.6) 100%);
+}
+
+body.dark .web-card--empty:hover {
+  border-color: #475569;
+}
+
+body.dark .card-qr-box--empty {
+  background: rgba(30, 41, 59, 0.4);
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: none;
+}
+
+body.dark .card-qr-placeholder-svg {
+  color: #94a3b8;
+  opacity: 0.4;
+}
+
+body.dark .card-empty-icon-wrap {
+  border-color: rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+  background: rgba(30, 41, 59, 0.4);
+}
+
+/* Ensure card images render cleanly in dark mode */
+body.dark .card-image {
+  mix-blend-mode: normal;
+}

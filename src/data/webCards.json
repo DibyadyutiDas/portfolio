@@ -28,5 +28,20 @@
     "image": "photo/Game analytics-bro.png",
     "title": "Game",
     "url": "https://dibyadyutidas.github.io/"
+  },
+  {
+    "number": "006",
+    "image": "photo/nothing-font-note.png",
+    "title": "Nothing Note",
+    "url": "https://playground.nothing.tech/detail/app/BhnsUPvecFFLZRbO",
+    "displayUrl": "playground.nothing.tech"
+  },
+  {
+    "number": "007",
+    "image": "",
+    "title": "Coming Soon",
+    "url": "",
+    "displayUrl": "comingsoon.dibyadyuti.me",
+    "empty": true
   }
 ]

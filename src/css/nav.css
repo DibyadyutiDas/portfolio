@@ -50,16 +50,17 @@ nav.scrolled {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 clamp(1.2rem, 3vw, 2.5rem);
+  padding: 0 clamp(1rem, 2.5vw, 2.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .logo {
   font-family: 'Space Grotesk', 'Poppins', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
   font-weight: 800;
   color: var(--primary-color);
   text-transform: uppercase;
@@ -98,7 +99,7 @@ nav.scrolled {
 
 .nav-links a.active {
   color: var(--primary-color);
-  font-weight: 600;
+  font-weight: 500;
   background: transparent;
   box-shadow: none;
 }
@@ -257,6 +258,31 @@ nav.scrolled {
 
   .menu-toggle {
     display: flex;
+  }
+
+  .nav-inner {
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-inner {
+    padding: 0 12px;
+  }
+
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .menu-toggle {
+    top: 8px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
   }
 }
 
